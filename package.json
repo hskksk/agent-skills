@@ -1,0 +1,11 @@
+{
+  "name": "agent-skills",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-discovery-index.mjs"
+  },
+  "dependencies": {
+    "yaml": "2.9.0"
+  }
+}
