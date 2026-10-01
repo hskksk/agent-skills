@@ -4,7 +4,7 @@ description: 日本語の技術文を書き、英語からの直訳調を直す�
 license: MIT
 metadata:
   author: hskksk
-  version: "1.2.0"
+  version: "1.2.1"
 ---
 
 # 日本語で書く
