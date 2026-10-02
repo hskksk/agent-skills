@@ -9,7 +9,8 @@ on:
       - 'scripts/build-discovery-index.mjs'
       - 'package.json'
       - 'package-lock.json'
-      - 'release.config.json'
+      - '.releaserc.json'
+      - 'scripts/bump-skill-versions.mjs'
       - '.github/workflows/agent-skills-discovery.yml'
       - '.github/workflows/release.yml'
 

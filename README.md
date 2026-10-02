@@ -45,7 +45,15 @@ skills/
 
 `main` への pull request では、フロントマター、ディレクトリ名、参照ファイル、`skills.sh.json` を検証する（Agent Skills Discovery workflow）。
 
-`main` への push では [semantic-release](https://github.com/semantic-release/semantic-release) が [Conventional Commits](https://www.conventionalcommits.org/) からバージョンと GitHub Release を作る。リリース時に discovery index（`dist/`）をビルドし、Release のアセットとして添付する。タグは `v1.2.3` 形式。リリース対象のコミットがなければ何もしない。
+`main` への push では [semantic-release](https://github.com/semantic-release/semantic-release) が [Conventional Commits](https://www.conventionalcommits.org/) から **リポジトリの semver**（`v1.2.3` タグ）と GitHub Release を作る。npm パッケージは公開しない。
+
+リリース時の流れ:
+
+1. 前回タグ以降に変更のあった `skills/<name>/` の `SKILL.md` だけ、`metadata.version` をその semver に更新する
+2. ワークツリーから discovery index（`dist/`）をビルドし、Release アセットに添付する
+3. `CHANGELOG.md` と更新した `SKILL.md` を `[skip ci]` でコミットする
+
+各スキルの版は `SKILL.md` の `metadata.version`（skills.sh 向け）で管理する。リポジトリに `package.json` の version は持たない。
 
 コミットメッセージの例: `feat: add japanese-writing skill`、`fix: correct SKILL.md frontmatter`、`chore: update dependencies`。
 

@@ -2,13 +2,20 @@
 
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { join } from 'node:path';
 import { parse } from 'yaml';
 
 const schema = 'https://schemas.agentskills.io/discovery/0.2.0/schema.json';
 const baseUrl = process.argv[2];
 const outputDirectory = 'dist';
+const useWorktree = process.env.AGENT_SKILLS_SOURCE === 'worktree';
 const archiveEnvironment = {
   ...process.env,
   GIT_AUTHOR_DATE: '2000-01-01T00:00:00Z',
@@ -28,9 +35,63 @@ if (!baseUrl) {
 const git = (args, options = {}) =>
   execFileSync('git', args, { encoding: 'utf8', ...options });
 
+const readSkillText = (directory, relativePath) => {
+  if (useWorktree) {
+    return readFileSync(join('skills', directory, relativePath), 'utf8');
+  }
+  return git(['show', `HEAD:skills/${directory}/${relativePath}`]);
+};
+
+const readSkillBytes = (directory, relativePath) => {
+  if (useWorktree) {
+    return readFileSync(join('skills', directory, relativePath));
+  }
+  return execFileSync('git', ['show', `HEAD:skills/${directory}/${relativePath}`]);
+};
+
+const listSkillDirectories = () => {
+  if (useWorktree) {
+    return readdirSync('skills', { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .sort();
+  }
+
+  return git(['ls-tree', '-d', '--name-only', 'HEAD:skills'])
+    .trim()
+    .split('\n')
+    .filter(Boolean);
+};
+
+const listSkillFiles = (directory) => {
+  if (useWorktree) {
+    const root = join('skills', directory);
+    const files = [];
+    const walk = (current, prefix) => {
+      for (const entry of readdirSync(current, { withFileTypes: true })) {
+        const relative = prefix ? `${prefix}/${entry.name}` : entry.name;
+        const absolute = join(current, entry.name);
+        if (entry.isDirectory()) {
+          walk(absolute, relative);
+        } else {
+          files.push(relative);
+        }
+      }
+    };
+    walk(root, '');
+    return files.sort();
+  }
+
+  return git(['ls-tree', '-r', `HEAD:skills/${directory}`])
+    .trim()
+    .split('\n')
+    .filter(Boolean)
+    .map((entry) => entry.slice(entry.indexOf('\t') + 1));
+};
+
 const readMetadata = (directory) => {
   const path = `skills/${directory}/SKILL.md`;
-  const source = git(['show', `HEAD:${path}`]);
+  const source = readSkillText(directory, 'SKILL.md');
   const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1];
   if (!frontmatter) throw new Error(`Missing frontmatter in ${path}`);
 
@@ -94,27 +155,25 @@ const readMetadata = (directory) => {
         throw new Error(`metadata.${key} must be a string in ${path}`);
       }
     }
+    if (
+      extra.version !== undefined &&
+      !/^\d+\.\d+\.\d+/.test(extra.version)
+    ) {
+      throw new Error(`metadata.version must be semver in ${path}`);
+    }
   }
 
   return { name, description, source };
 };
 
-const listFiles = (directory) =>
-  git(['ls-tree', '-r', `HEAD:skills/${directory}`])
-    .trim()
-    .split('\n')
-    .filter(Boolean);
-
-const assertReferencesExist = (directory, source, entries) => {
-  const files = new Set(
-    entries.map((entry) => entry.slice(entry.indexOf('\t') + 1)),
-  );
+const assertReferencesExist = (directory, source, files) => {
+  const fileSet = new Set(files);
   const referenced = source.matchAll(
     /`((?:references|scripts|assets)\/[^`\s]+)`/g,
   );
   for (const match of referenced) {
     const relativePath = match[1];
-    if (!files.has(relativePath)) {
+    if (!fileSet.has(relativePath)) {
       throw new Error(
         `skills/${directory}/SKILL.md references missing file ${relativePath}`,
       );
@@ -122,7 +181,7 @@ const assertReferencesExist = (directory, source, entries) => {
   }
 };
 
-const createArchive = (directory) => {
+const createArchiveFromGit = (directory) => {
   const tree = git(['rev-parse', `HEAD:skills/${directory}`]).trim();
   const commit = git(['commit-tree', tree], {
     encoding: 'utf8',
@@ -133,25 +192,33 @@ const createArchive = (directory) => {
   return execFileSync('gzip', ['-n', '-9', '-c'], { input: tar });
 };
 
+const createArchiveFromWorktree = (directory) => {
+  const tar = execFileSync('tar', ['-c', '-f', '-', '.'], {
+    cwd: join('skills', directory),
+  });
+  return execFileSync('gzip', ['-n', '-9', '-c'], { input: tar });
+};
+
 const createArtifact = (directory, source) => {
-  const entries = listFiles(directory);
-  if (entries.some((entry) => !/^100(?:644|755) blob /.test(entry))) {
-    throw new Error(`Unsupported archive entry in skills/${directory}`);
+  const files = listSkillFiles(directory);
+  if (files.length === 0) {
+    throw new Error(`No files in skills/${directory}`);
   }
 
-  assertReferencesExist(directory, source, entries);
-  const files = entries.map((entry) => entry.slice(entry.indexOf('\t') + 1));
+  assertReferencesExist(directory, source, files);
 
   if (files.length === 1 && files[0] === 'SKILL.md') {
     return {
-      content: execFileSync('git', ['show', `HEAD:skills/${directory}/SKILL.md`]),
+      content: readSkillBytes(directory, 'SKILL.md'),
       extension: 'md',
       type: 'skill-md',
     };
   }
 
   return {
-    content: createArchive(directory),
+    content: useWorktree
+      ? createArchiveFromWorktree(directory)
+      : createArchiveFromGit(directory),
     extension: 'tar.gz',
     type: 'archive',
   };
@@ -189,11 +256,7 @@ const assertPageConfig = (publishedNames) => {
 rmSync(outputDirectory, { force: true, recursive: true });
 mkdirSync(outputDirectory);
 
-const directories = git(['ls-tree', '-d', '--name-only', 'HEAD:skills'])
-  .trim()
-  .split('\n')
-  .filter(Boolean);
-
+const directories = listSkillDirectories();
 if (directories.length === 0) {
   throw new Error('No skills found under skills/');
 }

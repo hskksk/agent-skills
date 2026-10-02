@@ -1,0 +1,32 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "node scripts/bump-skill-versions.mjs \"${nextRelease.version}\" \"${lastRelease.gitTag}\" && AGENT_SKILLS_SOURCE=worktree node scripts/build-discovery-index.mjs \"https://github.com/${owner}/${repository}/releases/download/v${nextRelease.version}\""
+      }
+    ],
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["CHANGELOG.md", "skills/**/SKILL.md"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": "dist/*"
+      }
+    ]
+  ]
+}
