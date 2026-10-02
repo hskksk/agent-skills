@@ -11,6 +11,7 @@ on:
       - 'package-lock.json'
       - '.releaserc.json'
       - 'scripts/bump-skill-versions.mjs'
+      - 'scripts/prepare-release.mjs'
       - '.github/workflows/agent-skills-discovery.yml'
       - '.github/workflows/release.yml'
       - '.github/workflows/conventional-commits.yml'
