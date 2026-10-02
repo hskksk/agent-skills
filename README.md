@@ -55,7 +55,7 @@ skills/
 
 各スキルの版は `SKILL.md` の `metadata.version`（skills.sh 向け）で管理する。リポジトリに `package.json` の version は持たない。
 
-コミットメッセージの例: `feat: add japanese-writing skill`、`fix: correct SKILL.md frontmatter`、`chore: update dependencies`。
+コミットと PR タイトルは [Conventional Commits](https://www.conventionalcommits.org/)（英語・命令形）。squash マージでは PR タイトルがそのままリリース履歴になる。詳細と型ごとの semver は [AGENTS.md](AGENTS.md)。PR タイトルは CI（Conventional Commits workflow）で検証する。
 
 成果物は [Agent Skills discovery 0.2.0](https://schemas.agentskills.io/discovery/0.2.0/schema.json) の `index.json` と、スキルごとのファイルである。単一の `SKILL.md` だけなら `skill-md`、参照ファイルがあるスキルは `tar.gz` になる。URL はリリースのダウンロード先を指す。
 
