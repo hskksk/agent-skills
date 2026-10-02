@@ -1,0 +1,31 @@
+name: Agent Skills Discovery
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'skills.sh.json'
+      - 'scripts/build-discovery-index.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.releaserc.json'
+      - 'scripts/bump-skill-versions.mjs'
+      - '.github/workflows/agent-skills-discovery.yml'
+      - '.github/workflows/release.yml'
+      - '.github/workflows/conventional-commits.yml'
+      - 'AGENTS.md'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node scripts/build-discovery-index.mjs https://example.com/skills
