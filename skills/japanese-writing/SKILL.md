@@ -4,8 +4,9 @@ description: 日本語の技術文・レポート・ドキュメントを書く�
 license: MIT
 metadata:
   author: hskksk
-  version: "1.3.2"
+  version: 1.0.0
 ---
+
 
 # 日本語で書く
 
