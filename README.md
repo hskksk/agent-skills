@@ -2,7 +2,7 @@
 
 AI エージェント向けスキルのカタログ。 [Agent Skills](https://agentskills.io/specification) の `SKILL.md` を `skills/` に置き、[skills.sh](https://skills.sh) からインストールできるようにしてある。
 
-[![skills.sh](https://skills.sh/b/hskksk/agent-skills)](https://skills.sh/hskksk/agent-skills)
+<a href="https://skills.sh/hskksk/agent-skills"><img alt="skills.sh" src="https://skills.sh/b/hskksk/agent-skills?style=for-the-badge" height="28"></a>
 
 ## インストール
 
