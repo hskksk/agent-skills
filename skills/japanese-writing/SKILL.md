@@ -1,10 +1,10 @@
 ---
 name: japanese-writing
-description: 日本語の技術文・レポート・ドキュメントを書く、英訳する、推敲する。直訳調・官公庁調・AI構文（〜と考えられます、見ていきましょう）を直し、CS/ITの定着語は和語化しない。比喩の置換、haveの扱い、名詞化、修飾と主述、空 rhetoric、表記・表・太字まで references/japanese.md の第1〜4章に従う。Use when writing or revising Japanese technical prose.
+description: 日本語の技術文・レポート・ドキュメントを書く、英訳する、推敲する。直訳調・官公庁調・AI構文（〜と考えられます、見ていきましょう）を直す。Use when writing or revising Japanese technical prose.
 license: MIT
 metadata:
   author: hskksk
-  version: "1.3.1"
+  version: "1.3.2"
 ---
 
 # 日本語で書く
