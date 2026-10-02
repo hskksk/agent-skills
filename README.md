@@ -18,11 +18,9 @@ npx skills add hskksk/agent-skills --skill japanese-writing
 
 ## 入っているスキル
 
-| スキル | 用途 |
+| スキル | 説明（`SKILL.md` の `description`） |
 | --- | --- |
-| `japanese-writing` | 日本語の技術文を書き、英語からの直訳調を直す。正本は `skills/japanese-writing/references/japanese.md` |
-
-`japanese.md` は [hskksk/podcaster](https://github.com/hskksk/podcaster) の `podcast-research2` にある同名ファイルである。
+| `japanese-writing` | 日本語の技術文・レポート・ドキュメントを書く、英訳する、推敲する。直訳調・官公庁調・AI構文（〜と考えられます、見ていきましょう）を直す。Use when writing or revising Japanese technical prose. |
 
 ## スキルの置き方
 
