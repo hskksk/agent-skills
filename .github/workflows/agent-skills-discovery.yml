@@ -9,16 +9,9 @@ on:
       - 'scripts/build-discovery-index.mjs'
       - 'package.json'
       - 'package-lock.json'
+      - 'release.config.json'
       - '.github/workflows/agent-skills-discovery.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'skills/**'
-      - 'skills.sh.json'
-      - 'scripts/build-discovery-index.mjs'
-      - 'package.json'
-      - 'package-lock.json'
-      - '.github/workflows/agent-skills-discovery.yml'
+      - '.github/workflows/release.yml'
 
 jobs:
   validate:
@@ -33,31 +26,3 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: node scripts/build-discovery-index.mjs https://example.com/skills
-
-  publish:
-    if: github.event_name == 'push'
-    needs: validate
-    concurrency:
-      group: agent-skills-discovery-publish
-      cancel-in-progress: true
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    env:
-      GH_TOKEN: ${{ github.token }}
-      RELEASE_TAG: agent-skills-${{ github.sha }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci --ignore-scripts
-      - run: node scripts/build-discovery-index.mjs "https://github.com/${{ github.repository }}/releases/download/${RELEASE_TAG}"
-      - run: |
-          gh release view "$RELEASE_TAG" >/dev/null 2>&1 ||
-            gh release create "$RELEASE_TAG" --draft --target "$GITHUB_SHA" \
-              --title "Agent Skills ${{ github.sha }}" \
-              --notes "Automated Agent Skills discovery release for ${{ github.sha }}."
-          gh release upload "$RELEASE_TAG" dist/* --clobber
-          gh release edit "$RELEASE_TAG" --draft=false --latest

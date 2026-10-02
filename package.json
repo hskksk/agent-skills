@@ -1,11 +1,19 @@
 {
   "name": "agent-skills",
+  "version": "0.0.0-development",
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build-discovery-index.mjs"
+    "build": "node scripts/build-discovery-index.mjs",
+    "release": "semantic-release"
   },
   "dependencies": {
     "yaml": "2.9.0"
+  },
+  "devDependencies": {
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/github": "^11.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "semantic-release": "^24.2.3"
   }
 }
