@@ -7,6 +7,7 @@ on:
       - 'skills/**'
       - 'skills.sh.json'
       - 'scripts/build-discovery-index.mjs'
+      - '.mise.toml'
       - 'package.json'
       - 'package-lock.json'
       - '.releaserc.json'
@@ -24,9 +25,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
+      - uses: hskksk/gh-actions/setup-mise@v1
+
       - run: npm ci --ignore-scripts
       - run: node scripts/build-discovery-index.mjs https://example.com/skills
