@@ -35,6 +35,12 @@ metadata:
 | --- | --- |
 | `references/survey-report-guide.md` | ルーティング、Phase 1/2 の比較、各型の章立て、連携フロー |
 | `references/report-structure-guide.md` | Phase 2 の L1/L2/L3（概要・本文・付録）と論理図の要件 |
+| `references/podcast-research/SKILL.md` | `hskksk/podcaster` の固定目次型リサーチスキル（比較用原文） |
+| `references/podcast-research2/SKILL.md` | 同リポジトリの読者・重心適応型スキル（比較用原文） |
+| `references/podcast-research2/references/gravity.md` | 前・中・後重心モデルと読者前提の定義 |
+| `references/podcast-research2/references/checklists.md` | 提出前の共通・重心別チェックリスト |
+| `references/podcast-research2/references/english.md` | 英文レポートの文体ガイド |
+| `references/podcast-research2/measure.py` | レポート品質の計測スクリプト |
 
 ## このスキルが扱わないこと
 
