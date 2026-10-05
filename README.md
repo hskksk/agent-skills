@@ -43,6 +43,8 @@ skills/
 
 `main` への pull request では、フロントマター、ディレクトリ名、参照ファイル、`skills.sh.json` を検証する（Agent Skills Discovery workflow）。
 
+Issue や PR のコメント・本文で `/oc` や `/opencode` を書くと OpenCode workflow（`hskksk/gh-actions` の reusable workflow）が動く。調査用の `/oci`・`/oca` なども同様。リポジトリの **Secrets** に `OPENCODE_API_KEY`（Zen / `opencode/*`）と、必要なら `OPENCODE_GO_API_KEY`（`opencode-go/*`）を登録する。追加でトリガーできる GitHub ログインは **Variables** の `OPENCODE_TRIGGER_ALLOWLIST`（カンマ区切り）で指定する。
+
 `main` への push では [semantic-release](https://github.com/semantic-release/semantic-release) が [Conventional Commits](https://www.conventionalcommits.org/) から **リポジトリの semver**（`v1.2.3` タグ）と GitHub Release を作る。npm パッケージは公開しない。
 
 リリース時の流れ:
