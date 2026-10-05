@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""podcast-research2 のモデル非依存な指標を計測する。
+"""survey-report のレポートで、数えられる共通指標を計測する補助スクリプト。
 
-    python3 .agents/skills/podcast-research2/measure.py \\
+    python3 references/measure.py \\
       --model front|middle|rear \\
-      content/docs/<slug>/index.mdoc
+      <レポートファイル>
 
 構成の適否は references/checklists.md で判断する。このスクリプトは、重心を
-固定目次へ逆戻りさせずに数えられる共通指標だけを検査する。
+固定目次へ逆戻りさせずに数えられる共通指標だけを検査する。出力はそのまま
+報告し、数字を手で書き換えたり、未達を無視したりしない。
 """
 
 import argparse
@@ -275,13 +276,12 @@ def main():
             "番号引用の対応先",
         )
     )
-    checks.append(
-        result(
-            "互いに異なる URL",
-            len(urls),
-            len(urls) >= 8,
-            "8以上。同じ文献の別版で本数を稼がない",
-        )
+    result(
+        "互いに異なる URL",
+        len(urls),
+        len(urls) >= 8,
+        "目安 8以上。目的に対して薄ければ調査を足す。同じ文献の別版で本数を稼がない",
+        required=False,
     )
     undefined = cites_used - cites_listed
     checks.append(
