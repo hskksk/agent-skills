@@ -1,3 +1,5 @@
+## [1.0.7](https://github.com/hskksk/agent-skills/compare/v1.0.6...v1.0.7) (2026-10-07)
+
 ## [1.0.6](https://github.com/hskksk/agent-skills/compare/v1.0.5...v1.0.6) (2026-10-07)
 
 ## [1.0.5](https://github.com/hskksk/agent-skills/compare/v1.0.4...v1.0.5) (2026-10-07)
