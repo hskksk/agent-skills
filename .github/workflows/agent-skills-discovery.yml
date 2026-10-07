@@ -15,7 +15,7 @@ on:
       - 'scripts/prepare-release.mjs'
       - '.github/workflows/agent-skills-discovery.yml'
       - '.github/workflows/release.yml'
-      - '.github/workflows/conventional-commits.yml'
+      - '.github/workflows/lint-pr.yml'
       - 'AGENTS.md'
 
 jobs:
