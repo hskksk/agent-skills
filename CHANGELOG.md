@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/hskksk/agent-skills/compare/v1.0.7...v1.0.8) (2026-10-07)
+
+
+### Bug Fixes
+
+* **commitlint:** ignore generated PR merge commits ([5f38a37](https://github.com/hskksk/agent-skills/commit/5f38a37a0f157b8513b8e3ea8b7517b306df7682))
+
 ## [1.0.7](https://github.com/hskksk/agent-skills/compare/v1.0.6...v1.0.7) (2026-10-07)
 
 ## [1.0.6](https://github.com/hskksk/agent-skills/compare/v1.0.5...v1.0.6) (2026-10-07)
