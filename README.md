@@ -21,6 +21,7 @@ npx skills add hskksk/agent-skills --skill japanese-writing
 | スキル | 説明（`SKILL.md` の `description`） |
 | --- | --- |
 | `japanese-writing` | 日本語の技術文・レポート・ドキュメントを書く、英訳する、推敲する。直訳調・官公庁調・AI構文（〜と考えられます、見ていきましょう）を直す。Use when writing or revising Japanese technical prose. |
+| `survey-report` | 調査依頼を Phase 1（探索型）または Phase 2（検証・構造化型）に振り分け、前・中・後重心と読者レベルを選んでレポートを構成・出力する。Use when routing research requests and writing landscape or decision-oriented survey reports. |
 
 ## スキルの置き方
 
