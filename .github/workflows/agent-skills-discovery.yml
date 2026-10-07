@@ -25,7 +25,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: hskksk/gh-actions/setup-mise@v1
+      - uses: hskksk/gh-actions/actions/setup-mise@v1
 
       - run: npm ci --ignore-scripts
       - run: node scripts/build-discovery-index.mjs https://example.com/skills
