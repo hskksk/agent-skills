@@ -24,7 +24,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: hskksk/gh-actions/setup-mise@v1
+      - uses: hskksk/gh-actions/actions/setup-mise@v1
 
       - name: Install dependencies
         run: npm ci
