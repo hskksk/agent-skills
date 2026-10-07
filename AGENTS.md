@@ -15,9 +15,11 @@ Do not commit `dist/`; release workflow attaches it to GitHub Releases.
 
 ## Commits and PR titles
 
-Releases use semantic-release with [@semantic-release/commit-analyzer](https://github.com/semantic-release/commit-analyzer). **Squash merge is the norm** — the merged commit message is usually the PR title, so set the PR title to the final release message.
+Releases use semantic-release with [@semantic-release/commit-analyzer](https://github.com/semantic-release/commit-analyzer). Config matches [hskksk/gh-actions](https://github.com/hskksk/gh-actions) (see [`.releaserc.json`](.releaserc.json)).
 
-Pull requests are checked by the [Conventional Commits](.github/workflows/conventional-commits.yml) workflow; invalid titles fail CI.
+**Merging to `main`:** use **merge commit** or **rebase and merge**, not squash. semantic-release reads each commit on `main`; squash titles hide `feat` / `fix` commits that lived only in the PR body.
+
+Pull requests are checked by the [Conventional Commits](.github/workflows/conventional-commits.yml) workflow: valid **PR title** and **every commit** in the PR must follow Conventional Commits.
 
 ### Format
 
@@ -53,10 +55,10 @@ Configured in [`.releaserc.json`](.releaserc.json). Repo tag `v*.*.*` drives Git
 | Prefix / signal | Release |
 | --- | --- |
 | `feat:` | **minor** |
-| `fix:`, `perf:`, `refactor:`, `docs:`, `chore:`, `ci:`, `test:` | **patch** |
+| Any other conventional commit (`fix:`, `perf:`, `refactor:`, `docs:`, `chore:`, `ci:`, `test:`, …) | **patch** (catch-all rule) |
 | `BREAKING CHANGE:` in footer, or `!` after type/scope (e.g. `feat!:`) | **major** |
 
-Use `feat:` for new skills or user-visible skill behavior changes. Use `fix:` for corrections to skill content or packaging. Use `docs:`, `ci:`, `chore:`, `test:` for tooling and metadata — they still trigger a patch release here.
+Use `feat:` for new skills or user-visible skill behavior changes. Use `fix:` for corrections to skill content or packaging. Non-feature work still triggers at least a patch release here.
 
 ### Breaking changes
 
