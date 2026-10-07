@@ -19,7 +19,7 @@ Releases use semantic-release with [@semantic-release/commit-analyzer](https://g
 
 **Merging to `main`:** use **merge commit** or **rebase and merge**, not squash. semantic-release reads each commit on `main`; squash titles hide `feat` / `fix` commits that lived only in the PR body.
 
-Pull requests are checked by the [Conventional Commits](.github/workflows/conventional-commits.yml) workflow: valid **PR title** and **every commit** in the PR must follow Conventional Commits.
+Pull requests are checked by the [Conventional Commits](.github/workflows/conventional-commits.yml) workflow: the **PR title** and every authored commit must follow Conventional Commits. GitHub-generated `Merge pull request #... from ...` commits are ignored by the repository's `commitlint.config.mjs`.
 
 ### Format
 
