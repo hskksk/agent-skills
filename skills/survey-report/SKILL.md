@@ -4,8 +4,9 @@ description: 調査依頼を Phase 1（探索型）または Phase 2（検証・
 license: MIT
 metadata:
   author: hskksk
-  version: 1.0.0
+  version: 1.1.0
 ---
+
 
 # 調査レポート（Phase × 重心 × 読者レベル）
 

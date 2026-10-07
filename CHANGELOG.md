@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/hskksk/agent-skills/compare/v1.0.8...v1.1.0) (2026-10-07)
+
+
+### Features
+
+* add survey-report skill ([9e5b5c6](https://github.com/hskksk/agent-skills/commit/9e5b5c63cab885509bd644fabd614e17f624b292))
+
 ## [1.0.8](https://github.com/hskksk/agent-skills/compare/v1.0.7...v1.0.8) (2026-10-07)
 
 
