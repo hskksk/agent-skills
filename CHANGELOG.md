@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/hskksk/agent-skills/compare/v1.1.0...v1.2.0) (2026-10-08)
+
+
+### Bug Fixes
+
+* **discovery:** include narrative-report in skills.sh.json ([bc8948e](https://github.com/hskksk/agent-skills/commit/bc8948e68e993edb865a1c4edf71b82520d4e12f))
+* **narrative-report:** broaden report applicability ([7f53857](https://github.com/hskksk/agent-skills/commit/7f53857dbda8bd5e053d3481a0be41922eee9785))
+
+
+### Features
+
+* **narrative-report:** add business narrative report skill ([16ef26c](https://github.com/hskksk/agent-skills/commit/16ef26c90955538b2ff3ac9aa2438f6654935088))
+
 # [1.1.0](https://github.com/hskksk/agent-skills/compare/v1.0.8...v1.1.0) (2026-10-07)
 
 

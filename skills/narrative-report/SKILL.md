@@ -4,8 +4,9 @@ description: ビジネスナラティブの考え方を使い、分野を問わ�
 license: MIT
 metadata:
   author: hskksk
-  version: 1.0.0
+  version: 1.2.0
 ---
+
 
 # ナラティブ型レポート
 
