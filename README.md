@@ -20,8 +20,10 @@ npx skills add hskksk/agent-skills --skill japanese-writing
 
 | スキル | 説明（`SKILL.md` の `description`） |
 | --- | --- |
+| `how-to-survey` | テーマを分解して検索計画を立て、WebSearch と WebFetch で広く一次情報を集め、出典対応表を残す。調査の薄さの判定まで。Use when planning and executing web-based landscape or decision-support research before writing a report. |
 | `japanese-writing` | 日本語の技術文・レポート・ドキュメントを書く、英訳する、推敲する。直訳調・官公庁調・AI構文（〜と考えられます、見ていきましょう）を直す。Use when writing or revising Japanese technical prose. |
 | `survey-report` | 調査依頼を Phase 1（探索型）または Phase 2（検証・構造化型）に振り分け、前・中・後重心と読者レベルを選んでレポートを構成・出力する。Use when routing research requests and writing landscape or decision-oriented survey reports. |
+| `narrative-report` | ビジネスナラティブの考え方を使い、分野を問わず、事実や変化を背景・意味・目指す未来・関係者の役割が伝わるレポートに構成する。Use when a report in any field needs to explain why a change matters, what it means, and what future or choices it points toward—not merely prose or fictional storytelling. |
 
 ## スキルの置き方
 
