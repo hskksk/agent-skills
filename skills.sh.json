@@ -5,7 +5,7 @@
     {
       "title": "Writing",
       "description": "文章を書く、訳す、直すためのスキル。",
-      "skills": ["japanese-writing", "survey-report", "narrative-report"]
+      "skills": ["how-to-survey", "japanese-writing", "survey-report", "narrative-report"]
     }
   ]
 }
