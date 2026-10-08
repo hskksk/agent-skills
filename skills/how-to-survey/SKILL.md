@@ -4,8 +4,9 @@ description: 調査の問いと範囲を定め、検索計画を立て、Web 上
 license: MIT
 metadata:
   author: hskksk
-  version: 1.0.0
+  version: 1.3.0
 ---
+
 
 # Web サーベイの進め方
 

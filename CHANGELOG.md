@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/hskksk/agent-skills/compare/v1.2.1...v1.3.0) (2026-10-08)
+
+
+### Features
+
+* add how-to-survey skill for web research execution ([cd16851](https://github.com/hskksk/agent-skills/commit/cd168519b309fd0e6c6dee9dcf053d5011b5412a))
+
 ## [1.2.1](https://github.com/hskksk/agent-skills/compare/v1.2.0...v1.2.1) (2026-10-08)
 
 # [1.2.0](https://github.com/hskksk/agent-skills/compare/v1.1.0...v1.2.0) (2026-10-08)
