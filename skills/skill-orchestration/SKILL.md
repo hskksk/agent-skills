@@ -4,8 +4,9 @@ description: 複数のスキルを一つの仕事に組み合わせるとき、�
 license: MIT
 metadata:
   author: hskksk
-  version: 1.0.0
+  version: 1.4.0
 ---
+
 
 # スキルを組み合わせる
 
