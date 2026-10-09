@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/hskksk/agent-skills/compare/v1.4.0...v1.5.0) (2026-10-09)
+
+
+### Features
+
+* add the callee side of skill orchestration ([50d5c71](https://github.com/hskksk/agent-skills/commit/50d5c716d4d09a93353c87e183563a3e0e7daf2a))
+
 # [1.4.0](https://github.com/hskksk/agent-skills/compare/v1.3.0...v1.4.0) (2026-10-09)
 
 
