@@ -24,7 +24,7 @@ npx skills add hskksk/agent-skills --skill japanese-writing
 | `japanese-writing` | 日本語の技術文・レポート・ドキュメントを書く、英訳する、推敲する。直訳調・官公庁調・AI構文（〜と考えられます、見ていきましょう）を直す。Use when writing or revising Japanese technical prose. |
 | `survey-report` | 調査依頼を Phase 1（探索型）または Phase 2（検証・構造化型）に振り分け、前・中・後重心と読者レベルを選んでレポートを構成・出力する。Use when routing research requests and writing landscape or decision-oriented survey reports. |
 | `narrative-report` | ビジネスナラティブの考え方を使い、分野を問わず、事実や変化を背景・意味・目指す未来・関係者の役割が伝わるレポートに構成する。Use when a report in any field needs to explain why a change matters, what it means, and what future or choices it points toward—not merely prose or fictional storytelling. |
-| `skill-orchestration` | 複数のスキルを一つの仕事に組み合わせるとき、呼び出し側の書き方を決める。他スキルのファイルやスクリプトのパスは指さず、スキル名と相手の手順だけをインターフェースにする。Use when writing, editing, or reviewing a skill that calls, routes, or composes other skills. |
+| `skill-orchestration` | 複数のスキルを一つの仕事に組み合わせるとき、呼び出し側と、他から呼ばれる側の書き方を決める。境界はスキル名と相手の手順だけにし、他スキルのファイルは指さない。Use when writing or reviewing a skill that calls other skills, or a skill that other skills should be able to call. |
 
 ## スキルの置き方
 
