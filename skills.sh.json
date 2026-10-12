@@ -6,6 +6,11 @@
       "title": "Writing",
       "description": "文章を書く、訳す、直すためのスキル。",
       "skills": ["how-to-survey", "japanese-writing", "survey-report", "narrative-report", "skill-orchestration"]
+    },
+    {
+      "title": "Query and diagram",
+      "description": "分析 SQL と図の記法。",
+      "skills": ["duckdb-sql", "d2-diagram"]
     }
   ]
 }
