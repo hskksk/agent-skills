@@ -20,8 +20,11 @@ DuckDB の分析 SQL では、下の形を標準にする。構文の例は `01_
 
 - 複雑な問い合わせの前に、`DESCRIBE` か `SUMMARIZE` で形を見る。
 - 入れ子の副問い合わせより、`WITH` の CTE を使う。
-- 暗黙の変換に任せず、`CAST(x AS type)` か `x::type` で明示する。
-- 形を変えるときは、CASE を並べたピボットより DuckDB の PIVOT を使う。
+- 暗黙の変換に任せず、`CAST(x AS type)` か `x::type` で明示する。`'1.1' = 1` は真になるが、`'42' + 1` は束縛できない。
+- 整数の商は `//`。`/` は `DOUBLE` を返す。
+- ラムダは `lambda x : x + 1`。`x -> x + 1` は現行ドキュメントで非推奨である。
+- 重なった列名は `name` と `name_1` になる。
+- 形を変えるときは、CASE を並べたピボットより DuckDB の PIVOT を使う。`USING` の中の `FILTER` は無視されるので、条件は PIVOT の前に掛ける。
 - 繰り返す式は、スカラーかテーブルの `CREATE MACRO` に出す。
 - テーブルを作る前の探索は、`read_csv()`、`read_parquet()`、`read_json()` とグロブでファイルを直接読む。
 - 重い問い合わせは `EXPLAIN ANALYZE` で見る。

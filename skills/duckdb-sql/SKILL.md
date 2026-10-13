@@ -24,7 +24,7 @@ DuckDB 向けの分析 SQL を書く、直す、レビューするときに使�
 | ファイル | 内容 | いつ読むか |
 | --- | --- | --- |
 | `references/conventions.md` | 優先する方言と、書く前にやること | クエリを書く前 |
-| `references/01_introduction.md` | 概要、Friendly SQL の構文例、PostgreSQL との差 | 方言の形を確認するとき |
+| `references/01_introduction.md` | 概要、Friendly SQL、PostgreSQL との差、quirks | 方言の形を確認するとき |
 | `references/02_query_syntax.md` | EXCLUDE、REPLACE、COLUMNS、QUALIFY、特殊な JOIN | その構文を使うとき |
 | `references/03_data_types.md` | LIST、STRUCT、MAP、ARRAY、UNION、VARIANT | ネスト型を選ぶとき |
 | `references/04_functions.md` | リスト、構造体、ラムダ、集約の拡張 | その関数を使うとき |

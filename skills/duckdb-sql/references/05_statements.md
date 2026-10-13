@@ -29,9 +29,11 @@ SELECT * FROM read_parquet('data.parquet');
 SELECT * FROM read_parquet('data/*.parquet', hive_partitioning = true);
 
 SELECT * FROM read_json('data.json');
-SELECT * FROM read_json_auto('data.ndjson');
+SELECT * FROM read_json('data.ndjson');
+-- read_json_auto is an alias of read_json
 
--- Query remote files via HTTP(S) (requires httpfs extension)
+-- HTTP(S) and S3 API paths autoload the httpfs extension.
+-- S3 credentials belong in CREATE SECRET, not in the SQL text.
 SELECT * FROM read_parquet('https://example.com/data.parquet');
 SELECT * FROM read_csv('s3://bucket/data.csv');
 
@@ -43,17 +45,18 @@ CREATE TABLE t AS SELECT * FROM 'data.parquet';
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| `header` | First row is header | `true` (auto-detected) |
-| `delim` | Column delimiter | `,` (auto-detected) |
+| `auto_detect` | Sniff dialect and types | `true` |
+| `header` | First row is the header. The sniffer may still detect one while `auto_detect` is on. Setting this explicitly skips sniffing for this option | `false` |
+| `delim` | Column delimiter. Alias `sep`. An explicit value skips sniffing for this option | `,` |
 | `quote` | Quote character | `"` |
 | `escape` | Escape character | `"` |
-| `nullstr` | String representing NULL | (empty) |
-| `columns` | Explicit column names and types | (auto-detected) |
-| `auto_detect` | Auto-detect CSV dialect | `true` |
-| `sample_size` | Rows to sample for detection | `20480` |
-| `filename` | Add source filename column | `false` |
-| `all_varchar` | Read all columns as VARCHAR | `false` |
-| `skip` | Lines to skip at top | `0` |
+| `nullstr` | String or list of strings that mean NULL. Alias `null` | (empty) |
+| `columns` | Explicit names and types, as a struct. Disables schema detection | (empty) |
+| `sample_size` | Rows sampled for detection | `20480` |
+| `filename` | Compatibility flag. Since DuckDB 1.3 the path is already a virtual `filename` column | `false` |
+| `all_varchar` | Read every column as `VARCHAR` | `false` |
+| `skip` | Lines to skip at the start of each file | `0` |
+| `hive_partitioning` | Treat the path as Hive partitions | auto-detected |
 
 ## COPY Statement
 
@@ -119,6 +122,12 @@ WITH pivoted AS (
 SELECT * FROM pivoted WHERE "2024" > 1000;
 ```
 
+`PIVOT_WIDER` is an alias of `PIVOT`.
+
+Without `GROUP BY`, every column that is not in `ON` or `USING` is kept. `GROUP BY` names columns. It does not accept positions or expressions.
+
+A `FILTER` clause on an aggregate in `USING` is silently ignored. Filter the input before the pivot, or aggregate with `FILTER` outside `PIVOT`.
+
 ### UNPIVOT (Wide to Long)
 
 Reference: <https://duckdb.org/docs/current/sql/statements/unpivot>
@@ -152,11 +161,20 @@ CREATE MACRO clamp(x, lo := 0, hi := 100) AS greatest(lo, least(hi, x));
 SELECT clamp(150);      -- 100
 SELECT clamp(150, hi := 200);  -- 150
 
--- Table macro
-CREATE MACRO top_n(tbl, col, n := 5) AS TABLE
-    SELECT * FROM query_table(tbl) ORDER BY query_column(col) DESC LIMIT n;
+-- Table macro. query_table and query accept a constant string only.
+-- There is no query_column function.
+CREATE MACRO top_n(tbl, n := 5) AS TABLE
+    SELECT * FROM query_table(tbl) LIMIT n;
 
-SELECT * FROM top_n('sales', 'revenue', n := 10);
+SELECT * FROM top_n('sales', n := 10);
+
+-- query() builds a statement from a constant string
+CREATE MACRO stack(table_name, index_cols, name_col, value_col) AS TABLE
+    FROM query(
+        'UNPIVOT ' || table_name
+        || ' ON COLUMNS(* EXCLUDE (' || array_to_string(index_cols, ', ')
+        || ')) INTO NAME ' || name_col || ' VALUE ' || value_col
+    );
 
 -- CREATE OR REPLACE
 CREATE OR REPLACE MACRO my_func(x) AS x * 2;
@@ -245,14 +263,18 @@ CREATE TABLE users (id user_id, favorite_color color, home address);
 
 Reference: <https://duckdb.org/docs/current/sql/statements/create_secret>
 
-Manage credentials for external services (S3, GCS, Azure, etc.):
+Manage credentials for external services (S3, GCS, Azure, and others).
+The CLI stores `CREATE SECRET` in the history file as plain text.
+
+`httpfs` is autoloaded the first time an HTTP(S) or S3 API path is used.
+For plain HTTP(S) it reads files. For the S3 API it also writes and globs.
 
 ```sql
--- S3 credentials
+-- S3 credentials. Replace the placeholders outside the skill text.
 CREATE SECRET my_s3 (
     TYPE s3,
-    KEY_ID 'AKIAIOSFODNN7EXAMPLE',
-    SECRET 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+    KEY_ID 'access_key_id',
+    SECRET 'secret_access_key',
     REGION 'us-east-1'
 );
 
@@ -287,8 +309,11 @@ EXPLAIN ANALYZE SELECT * FROM t WHERE x > 10;
 -- CHECKPOINT (force WAL flush)
 CHECKPOINT;
 
--- VACUUM (reclaim space, compact)
+-- VACUUM does not reclaim space. A bare VACUUM is a no-op.
+-- VACUUM table(column) rebuilds that column's distinct statistics.
+-- VACUUM FULL is not supported.
 VACUUM;
+VACUUM my_table(my_column);
 
 -- LOAD / INSTALL extensions
 INSTALL httpfs;

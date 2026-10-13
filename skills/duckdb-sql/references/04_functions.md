@@ -7,16 +7,23 @@ For full function reference, see <https://duckdb.org/docs/current/sql/functions/
 
 Reference: <https://duckdb.org/docs/current/sql/functions/lambda>
 
+The current syntax is `lambda param : expr`. The arrow form `x -> expr` still runs and is deprecated.
+
+The index argument is 1-based. A `COLUMNS` lambda receives the column name, and an optional second argument receives the 1-based column index.
+
 ```sql
 -- Single-argument lambda
-SELECT list_transform([1, 2, 3], x -> x * 2);        -- [2, 4, 6]
-SELECT list_filter([1, 2, 3, 4], x -> x > 2);        -- [3, 4]
+SELECT list_transform([1, 2, 3], lambda x : x * 2);         -- [2, 4, 6]
+SELECT list_filter([1, 2, 3, 4], lambda x : x > 2);         -- [3, 4]
 
--- Two-argument lambda (element + index)
-SELECT list_transform([10, 20, 30], (x, i) -> x + i); -- [10, 21, 32]
+-- Element and 1-based index: 10+1, 20+2, 30+3
+SELECT list_transform([10, 20, 30], lambda x, i : x + i);   -- [11, 22, 33]
 
--- In COLUMNS expression
-SELECT COLUMNS(c -> c LIKE '%_id') FROM t;
+-- Reduce. An optional third argument is the initial value.
+SELECT list_reduce([1, 2, 3], lambda a, b : a + b);         -- 6
+
+-- COLUMNS lambda filters by column name
+SELECT COLUMNS(lambda c : c LIKE '%_id') FROM t;
 ```
 
 ## List Functions
@@ -25,20 +32,20 @@ Reference: <https://duckdb.org/docs/current/sql/functions/list>
 
 | Function | Description | Example |
 |----------|-------------|---------|
-| `list_transform(list, lambda)` | Apply lambda to each element | `list_transform([1,2], x -> x*2)` → `[2,4]` |
-| `list_filter(list, lambda)` | Keep elements matching predicate | `list_filter([1,2,3], x -> x>1)` → `[2,3]` |
-| `list_reduce(list, lambda)` | Reduce list to single value | `list_reduce([1,2,3], (a,b) -> a+b)` → `6` |
-| `list_sort(list)` | Sort elements | `list_sort([3,1,2])` → `[1,2,3]` |
-| `list_reverse_sort(list)` | Sort descending | `list_reverse_sort([3,1,2])` → `[3,2,1]` |
-| `list_distinct(list)` | Remove duplicates | `list_distinct([1,1,2])` → `[1,2]` |
+| `list_transform(list, lambda)` | Apply lambda to each element | `list_transform([1,2], lambda x : x * 2)` → `[2, 4]` |
+| `list_filter(list, lambda)` | Keep elements matching predicate | `list_filter([1,2,3], lambda x : x > 1)` → `[2, 3]` |
+| `list_reduce(list, lambda)` | Reduce list to single value | `list_reduce([1,2,3], lambda a, b : a + b)` → `6` |
+| `list_sort(list)` | Sort elements | `list_sort([3,1,2])` → `[1, 2, 3]` |
+| `list_reverse_sort(list)` | Sort descending | `list_reverse_sort([3,1,2])` → `[3, 2, 1]` |
+| `list_distinct(list)` | Drop duplicates and `NULL`. Order is not kept | `list_distinct([1, 1, NULL, -3, 1, 5])` → `[5, -3, 1]` |
 | `list_unique(list)` | Count unique elements | `list_unique([1,1,2])` → `2` |
 | `list_contains(list, val)` | Check membership | `list_contains([1,2,3], 2)` → `true` |
 | `list_aggregate(list, fn)` | Apply aggregate function | `list_aggregate([1,2,3], 'sum')` → `6` |
 | `list_concat(l1, l2)` | Concatenate two lists | `list_concat([1],[2,3])` → `[1,2,3]` |
 | `flatten(list)` | Flatten one nesting level | `flatten([[1,2],[3]])` → `[1,2,3]` |
 | `unnest(list)` | Expand list to rows | `SELECT unnest([1,2,3])` → 3 rows |
-| `generate_series(start, stop, step)` | Create a list of numbers | `generate_series(1, 5, 2)` → `[1,3,5]` |
-| `range(start, stop, step)` | Like generate_series, exclusive end | `range(0, 3)` → `[0,1,2]` |
+| `generate_series(start, stop, step)` | Inclusive sequence. A scalar call returns a list; `FROM generate_series(...)` returns rows | `generate_series(1, 5, 2)` → `[1, 3, 5]` |
+| `range(start, stop, step)` | Same, with an exclusive end | `range(0, 3)` → `[0, 1, 2]` |
 | `list_zip(l1, l2, ...)` | Zip multiple lists into list of structs | `list_zip([1,2],['a','b'])` |
 
 ### List Comprehension
@@ -56,7 +63,7 @@ Reference: <https://duckdb.org/docs/current/sql/functions/struct>
 |----------|-------------|---------|
 | `struct_pack(k := v, ...)` | Create struct | `struct_pack(a := 1, b := 'x')` |
 | `struct_extract(s, key)` | Extract field (or use `s.key`) | `struct_extract(s, 'a')` |
-| `struct_insert(s, k, v)` | Add/replace field | `struct_insert(s, 'c', 3)` |
+| `struct_insert(s, name := v, ...)` | Add fields by named argument | `struct_insert(s, c := 3)` |
 | `row(v1, v2, ...)` | Create unnamed struct | `row(1, 'x')` |
 
 ## Map Functions
@@ -70,7 +77,8 @@ Reference: <https://duckdb.org/docs/current/sql/functions/map>
 | `map_keys(m)` | Return list of keys |
 | `map_values(m)` | Return list of values |
 | `map_entries(m)` | Return list of (key, value) structs |
-| `element_at(m, key)` | Get value by key (or `m[key]`) |
+| `element_at(m, key)` / `map_extract(m, key)` | Value as a list. Missing key returns `[]` |
+| `m[key]` / `map_extract_value(m, key)` | Value as a scalar. Missing key returns `NULL` |
 | `cardinality(m)` | Number of entries |
 
 ## Aggregate Function Extensions
@@ -96,7 +104,7 @@ SELECT grp, arg_max(name, val, 3) FROM t GROUP BY grp;
 | Function | Description |
 |----------|-------------|
 | `list(expr)` / `array_agg(expr)` | Collect values into a list |
-| `string_agg(expr, sep)` | Concatenate strings with separator |
+| `string_agg(expr)` / `string_agg(expr, sep)` | Join strings. The one-argument form uses a comma. An empty group returns `NULL` |
 | `histogram(expr)` | Return MAP of value → count |
 | `mode(expr)` | Most frequent value |
 | `quantile_cont(expr, q)` | Continuous quantile (interpolated) |
@@ -106,7 +114,7 @@ SELECT grp, arg_max(name, val, 3) FROM t GROUP BY grp;
 | `median(expr)` | Shorthand for `quantile_cont(expr, 0.5)` |
 | `mad(expr)` | Median absolute deviation |
 | `entropy(expr)` | Shannon entropy |
-| `kurtosis(expr)` | Excess kurtosis |
+| `kurtosis(expr)` | Excess kurtosis (Fisher) with the sample-size correction. `kurtosis_pop` omits that correction |
 | `skewness(expr)` | Skewness |
 | `regr_*` family | Linear regression functions |
 | `bitstring_agg(expr)` | Aggregate into bitstring |
@@ -153,7 +161,8 @@ SELECT * FROM range(DATE '2024-01-01', DATE '2024-01-04', INTERVAL 1 DAY);
 SELECT strftime(TIMESTAMP '2024-03-15', '%Y/%m/%d');       -- '2024/03/15'
 SELECT strptime('2024/03/15', '%Y/%m/%d')::DATE;           -- 2024-03-15
 
--- age: interval between timestamps
+-- age(start, end) is the interval between the two timestamps.
+-- age(x) with one argument is current_date - x, not current_timestamp - x.
 SELECT age(TIMESTAMP '2024-03-15', TIMESTAMP '2020-01-01');
 
 -- current date/time
@@ -179,7 +188,9 @@ SELECT TIMESTAMP '2024-01-01' - INTERVAL '2 hours 30 minutes';
 | `greatest(a, b, ...)` | Largest value | `greatest(1, 3, 2)` → `3` |
 | `least(a, b, ...)` | Smallest value | `least(1, 3, 2)` → `1` |
 | `gen_random_uuid()` | Generate random UUID | |
-| `encode(blob)` / `decode(str)` | Blob ↔ string conversion | |
+| `encode(string)` | `VARCHAR` to `BLOB` | `encode('hello')` |
+| `decode(blob [, on_error])` | `BLOB` to `VARCHAR`. `on_error` is `'strict'`, `'replace'`, or `'ignore'` | `decode('\xC3\xBC'::BLOB)` → `ü` |
+| `hex(blob)` / `unhex(string)` | Hexadecimal text and `BLOB` | `hex('\xAA\xBB'::BLOB)` → `AABB` |
 
 ## Window Functions
 

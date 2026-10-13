@@ -1,6 +1,6 @@
 ---
 name: d2-diagram
-description: D2 の図を書く。レイアウトエンジン、凡例、コンテナ越しの参照、タイトル、ラベルに置けない文字。Use when writing or fixing a D2 diagram.
+description: D2 の図を書く。elk、d2-legend、完全修飾の参照、タイトル、${} 置換。Use when writing or fixing a D2 diagram.
 license: MIT
 metadata:
   author: hskksk
@@ -23,7 +23,7 @@ D2 のソースを書く、直す、レビューするときに使う。記法�
 
 | ファイル | 内容 | いつ読むか |
 | --- | --- | --- |
-| `references/conventions.md` | レイアウト、タイトル、凡例、コンテナ参照、形、ラベルの文字 | 図を書く前 |
+| `references/conventions.md` | レイアウト、タイトル、凡例、コンテナ参照、形、置換と引用 | 図を書く前 |
 
 ## このスキルが扱わないこと
 
