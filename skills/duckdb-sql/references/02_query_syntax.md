@@ -35,32 +35,43 @@ SELECT min(COLUMNS('.*_amount')), max(COLUMNS('.*_amount')) FROM invoices;
 -- Match with EXCLUDE / REPLACE
 SELECT COLUMNS(* EXCLUDE (id)) FROM t;
 
--- With lambda function
-SELECT COLUMNS(c -> c LIKE '%_date') FROM t;
+-- With a lambda. The first argument is the column name.
+-- The arrow form `c -> ...` is deprecated.
+SELECT COLUMNS(lambda c : c LIKE '%_date') FROM t;
 ```
 
 ## SAMPLE Clause
 
 Reference: <https://duckdb.org/docs/current/sql/query_syntax/sample>
 
-Return a random sample from a table or subquery:
+Return a random sample from a table or subquery.
+`USING SAMPLE` is written after `WHERE` and `GROUP BY`, and it is applied before both.
+
+A percentage uses `system` sampling by default: each vector is kept with that probability.
+On a table smaller than about 10k rows that can keep every row or none of them.
+`bernoulli` applies the probability per row. Only `reservoir` can ask for an exact row count,
+and an exact percentage up to rounding. Reservoir is for small samples.
 
 ```sql
--- Row-count sample
-SELECT * FROM large_table USING SAMPLE 1000;
+-- Exact row count (reservoir)
+SELECT * FROM large_table USING SAMPLE 1000 ROWS;
 
--- Percentage sample
-SELECT * FROM large_table USING SAMPLE 10%;
-
--- Specify method: bernoulli (row-level), system (block-level), reservoir
+-- Approximate percentage. Prefer bernoulli on small tables
 SELECT * FROM large_table USING SAMPLE 10% (bernoulli);
-SELECT * FROM large_table USING SAMPLE 1000 ROWS (reservoir);
 
--- Reproducible with seed
-SELECT * FROM large_table USING SAMPLE 10% (bernoulli, 42);
+-- Exact percentage, up to rounding
+SELECT * FROM large_table USING SAMPLE 10 PERCENT (reservoir);
 
--- Alternative shorthand (after FROM, before WHERE)
-SELECT * FROM large_table TABLESAMPLE 10%;
+-- Reproducible seed
+SELECT * FROM large_table USING SAMPLE 20% (system, 377);
+SELECT * FROM large_table USING SAMPLE reservoir(50 ROWS);
+```
+
+`TABLESAMPLE` uses the same method syntax and samples that one table, before the rest of `FROM` is joined.
+`USING SAMPLE` samples after the whole `FROM` clause.
+
+```sql
+SELECT * FROM large_table TABLESAMPLE bernoulli(10%);
 ```
 
 ## QUALIFY Clause
@@ -81,14 +92,18 @@ FROM sales
 QUALIFY rank() OVER (PARTITION BY category ORDER BY revenue DESC) <= 3;
 ```
 
-`QUALIFY` is evaluated after `HAVING` and window functions, similar to how `HAVING` filters
-after `GROUP BY`.
+`QUALIFY` is written after `WINDOW` (the `WINDOW` clause itself is optional) and before `ORDER BY`.
+It filters window-function results the way `HAVING` filters aggregates.
+A window alias from the same `SELECT` can be used in `QUALIFY`.
+At least one window function must appear in the `SELECT` list or in the `QUALIFY` clause.
 
 ## FILTER Clause
 
 Reference: <https://duckdb.org/docs/current/sql/query_syntax/filter>
 
-Conditionally include rows in aggregate computation:
+Conditionally include rows in one aggregate. The documented form omits `WHERE`.
+`FILTER (WHERE condition)` is also accepted. `FILTER` drops the rows that fail the condition,
+including the `NULL`s that a `CASE` expression would keep inside `list` or `array_agg`.
 
 ```sql
 SELECT
@@ -98,6 +113,8 @@ SELECT
     avg(amount) FILTER (region = 'US') AS avg_us_amount
 FROM orders;
 ```
+
+`PIVOT ... USING` ignores a `FILTER` on the aggregate. See `05_statements.md`.
 
 ## GROUPING SETS, CUBE, ROLLUP
 
@@ -137,12 +154,18 @@ Reference: <https://duckdb.org/docs/current/sql/query_syntax/unnest>
 
 Expand lists, arrays, or structs into rows:
 
+`unnest` in the `SELECT` list expands a `LIST` to rows or a `STRUCT` to columns.
+An empty list or a `NULL` list produces zero rows. Several lists in one `SELECT` are aligned
+by position, and the shorter list is padded with `NULL`. `unnest` is not allowed in
+`WHERE`, `GROUP BY`, or `ORDER BY`.
+
 ```sql
 -- Unnest a list column
 SELECT unnest(tags) AS tag FROM articles;
 
--- Unnest with ordinality (row index)
-SELECT unnest(items) WITH ORDINALITY AS (item, idx) FROM orders;
+-- 1-based position of each list entry. WITH ORDINALITY is not the DuckDB syntax.
+SELECT unnest(l) AS item, generate_subscripts(l, 1) AS idx
+FROM (VALUES ([10, 20]), ([30])) tbl(l);
 
 -- Unnest multiple lists in parallel
 SELECT unnest(keys) AS k, unnest(vals) AS v FROM kv_pairs;
@@ -153,8 +176,12 @@ SELECT unnest(metadata) FROM events;
 -- Unnest a literal list
 SELECT unnest([1, 2, 3]) AS x;
 
--- Recursive unnest (flatten nested lists)
+-- Recursive unnest of nested lists. Lists stored inside structs are left intact
+-- when the outer value is a struct.
 SELECT unnest([[1, 2], [3, 4]], recursive := true);
+
+-- Stop at a depth. max_depth 2 keeps the inner lists
+SELECT unnest(nested, max_depth := 2) AS x FROM t;
 ```
 
 ## Special JOIN Types
@@ -163,22 +190,24 @@ SELECT unnest([[1, 2], [3, 4]], recursive := true);
 
 Reference: <https://duckdb.org/docs/current/sql/query_syntax/from#as-of-joins>
 
-Match each row to the nearest preceding row in another table by a temporal or ordered column:
+Match each left row to at most one right row on an ordered column.
+The `ON` clause needs one inequality (`>=`, `>`, `<=`, or `<`) on that column.
+Every other condition is an equality. The left/right order of the tables matters.
+`ASOF LEFT JOIN` keeps unmatched left rows.
 
 ```sql
--- Match each trade to the most recent quote at or before trade time
+-- Most recent quote at or before the trade
 SELECT t.*, q.bid, q.ask
 FROM trades t
 ASOF JOIN quotes q
   ON t.symbol = q.symbol
   AND t.trade_time >= q.quote_time;
 
--- ASOF LEFT JOIN to keep unmatched rows
-SELECT t.*, q.bid
+-- USING requires the same column names on both sides.
+-- The last name is the inequality and is compared with >=.
+SELECT *
 FROM trades t
-ASOF LEFT JOIN quotes q
-  ON t.symbol = q.symbol
-  AND t.ts >= q.ts;
+ASOF JOIN quotes q USING (symbol, "when");
 ```
 
 ### LATERAL JOIN
@@ -202,13 +231,14 @@ LATERAL (
 
 Reference: <https://duckdb.org/docs/current/sql/query_syntax/from#positional-joins>
 
-Join two tables by row position (like `zip` in Python):
+Join two tables by row position. A positional join is a full outer join:
+the result has as many rows as the longer input, and missing cells are `NULL`.
 
 ```sql
 SELECT *
 FROM range(3) t1(x)
 POSITIONAL JOIN range(3) t2(y);
--- Result: (0,0), (1,1), (2,2)
+-- (0, 0), (1, 1), (2, 2)
 ```
 
 ## VALUES Clause

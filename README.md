@@ -26,7 +26,7 @@ npx skills add hskksk/agent-skills --skill japanese-writing
 | `narrative-report` | ビジネスナラティブの考え方を使い、分野を問わず、事実や変化を背景・意味・目指す未来・関係者の役割が伝わるレポートに構成する。Use when a report in any field needs to explain why a change matters, what it means, and what future or choices it points toward—not merely prose or fictional storytelling. |
 | `skill-orchestration` | 複数のスキルを一つの仕事に組み合わせるとき、呼び出し側と、他から呼ばれる側の書き方を決める。境界はスキル名と相手の手順だけにし、他スキルのファイルは指さない。Use when writing or reviewing a skill that calls other skills, or a skill that other skills should be able to call. |
 | `duckdb-sql` | DuckDB の分析 SQL を書く。Friendly SQL、ネスト型、ファイルの直接クエリ、PIVOT、マクロを選ぶ。Use when writing or reviewing analytical DuckDB SQL. |
-| `d2-diagram` | D2 の図を書く。レイアウトエンジン、凡例、コンテナ越しの参照、タイトル、ラベルに置けない文字。Use when writing or fixing a D2 diagram. |
+| `d2-diagram` | D2 の図を書く。elk、d2-legend、完全修飾の参照、タイトル、${} 置換。Use when writing or fixing a D2 diagram. |
 
 ## スキルの置き方
 
