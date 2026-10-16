@@ -18,7 +18,7 @@ steward は **イベント駆動**で動く。ポーリングだけに頼るの�
 
 - 履歴は無い。親が渡した PR・意図メモ・ブランチ名が全部
 - 長い CI ログは steward 内に閉じ、親には handoff の要約だけ返す
-- **background** にすると親は先に進めるが、二重修正のリスクがある。親が「委譲中は触らない」と書けるなら background も可
+- **background** は `worktree` / `sub-branch` 隔離があるときだけ推奨。共有 checkout では foreground か直列（`workspace-isolation.md`）
 
 モデルは軽量を推奨。探索が要るエスカレは Tier C として親へ返し、steward で深掘りしない。
 

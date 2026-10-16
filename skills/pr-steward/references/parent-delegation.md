@@ -9,7 +9,9 @@ steward 起動プロンプトに必ず含める:
 1. **PR の特定子** — URL、番号、または `owner/repo#number`
 2. **意図メモ** — 変更の目的、受け入れ条件、**触らないファイル／領域**
 3. **親の残タスク** — steward がエスカレしたときに親がやるべきことの一行（例: 「API の破壊変更はこちらで判断」）
-4. **権限の範囲** — 通常は「同一 PR ブランチへの commit & push 可」。マージ・rebase・force-push は不可
+4. **権限の範囲** — 通常は「PR ヘッドブランチへの commit & push 可」。マージ・force-push は不可。rebase はチームと隔離モード次第（`workspace-isolation.md`）。
+5. **隔離モード** — `serial` / `worktree` / `sub-branch` のいずれか（`workspace-isolation.md`）。**同じブランチ名で worktree 分離**が PR 対応の定番。
+6. **規約ポインタ** — `repo-conventions.md` の `conventions:` 一行（`AGENTS.md` パス、検証コマンド）。規約全文は貼らない。
 
 任意:
 
@@ -24,7 +26,7 @@ steward 起動プロンプトに必ず含める:
 
 - モデルは親より軽いものを指定してよい（コスト分離）。
 - steward 用の専用定義があるなら `.cursor/agents/pr-steward.md` にこのスキルの steward 手順を要約し、`/pr-steward` または名前で起動する。
-- **foreground** で起動し、handoff JSON が返るまで親は同じ PR の修正をしない。
+- **foreground** で起動し、handoff JSON が返るまで、選んだ隔離モードの範囲で親は PR ヘッドの修正をしない（`serial` 時）。`worktree` / `sub-branch` なら親は別 tree／別ブランチで作業可。
 
 プロンプトに含める一文の例:
 
@@ -49,6 +51,7 @@ You are the PR steward. Follow the pr-steward skill: subscribe to this PR, fix o
 
 ## やってはいけないこと
 
-- 親と steward が同時に同じ PR ブランチを編集する
+- 親と steward が **同じ working tree** で同時に編集する（ブランチ名が同じでも、worktree 分離なら可）
+- 規約全文を steward プロンプトにコピペする（パスと `npm run …` で足りる）
 - steward にアーキテクチャ判断を「とりあえず直して」と丸める
 - `/autopilot` と steward を同一 PR で並行させる（役割が重複する）

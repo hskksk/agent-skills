@@ -40,14 +40,17 @@ metadata:
 
 1. PR を作成し、**意図メモ**（何を変えたか、触らない範囲、関連ファイル）を短く書く。
 2. steward を起動する。渡すものと起動の書き方は `references/parent-delegation.md`。
-3. steward から handoff が返るまで、同じ PR の瑣末対応を親自身で始めない（二重修正を避ける）。
-4. `escalations` を読み、設計・スコープ・曖昧な人間コメントを処理する。自律修正だけで緑になった場合はマージ判断をユーザーに委ねる。
+3. **ワークスペースの取り合いを避ける。** PR ヘッドブランチの編集は steward の仕事。親は `references/workspace-isolation.md` の A/B/C のどれかを選ぶ（同じブランチ名でも、別 worktree や直列ならよい）。
+4. リポジトリ規約は `references/repo-conventions.md` — 全文をプロンプトに貼らず、パスと検証コマンドだけ渡す。
+5. steward から handoff が返るまで、選んだ隔離モードに反する編集を親がしない。
+6. `escalations` を読み、設計・スコープ・曖昧な人間コメントを処理する。自律修正だけで緑になった場合はマージ判断をユーザーに委ねる。
 
 ### steward
 
-1. 受け取った PR と意図メモを確認し、checkout が PR ブランチと一致することを確かめる。
-2. **待機を張る。** Cloud Agent なら PR（と必要なら CI）への subscribe または `/subscribe` スキル。ツールが無い環境では `references/steward-runtime.md` のフォールバック。
-3. イベントごとに `references/triage-rubric.md` で分類する。
+1. 受け取った PR と意図メモを確認し、隔離モードに従って checkout する（共有 tree なら PR ヘッド、worktree／サブブランチは `workspace-isolation.md`）。
+2. 規約は `repo-conventions.md` — 渡された検証コマンドと hook／CI を正とする。
+3. **待機を張る。** Cloud Agent なら PR（と必要なら CI）への subscribe または `/subscribe` スキル。ツールが無い環境では `references/steward-runtime.md` のフォールバック。
+4. イベントごとに `references/triage-rubric.md` で分類する。
    - **自律**: ルーブリックの Tier A — 最小 diff で修正、関連チェックを実行、コミット・push。
    - **エスカレ**: Tier B/C — コードは変えず（または調査のみ）、`references/handoff-format.md` の JSON を親向けに埋める。
 4. 終了条件: PR が merged/closed、ユーザーが停止を指示、または親が引き継ぎ。停止前に最終 handoff を返す。
@@ -60,6 +63,8 @@ metadata:
 | `references/steward-runtime.md` | subscribe、サブエージェント、フォールバック待機 | steward 起動直後 |
 | `references/triage-rubric.md` | 自律修正 vs エスカレの判定 | 各 CI／レビューイベント |
 | `references/handoff-format.md` | 親へ返す構造化レポート | エスカレ時とセッション終了時 |
+| `references/workspace-isolation.md` | worktree・直列・サブブランチ | 委譲前に隔離モードを決めるとき |
+| `references/repo-conventions.md` | 規約を機械とポインタで守る | 委譲時の `conventions` 一行 |
 
 ## 他スキルとの関係
 
