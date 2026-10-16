@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/hskksk/agent-skills/compare/v1.5.0...v1.6.0) (2026-10-16)
+
+
+### Features
+
+* add pr-steward skill for delegated PR babysitting ([98c5f51](https://github.com/hskksk/agent-skills/commit/98c5f51040e8026a22f992965b678ae926a0ad1f))
+
 # [1.5.0](https://github.com/hskksk/agent-skills/compare/v1.4.0...v1.5.0) (2026-10-09)
 
 

@@ -4,8 +4,9 @@ description: PR 作成後の監視と軽微な修正を安価なサブエージ�
 license: MIT
 metadata:
   author: hskksk
-  version: 1.0.0
+  version: 1.6.0
 ---
+
 
 
 # PR steward（親へのエスカレ付き PR 番人）
