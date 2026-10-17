@@ -4,8 +4,9 @@ description: Use a business-narrative frame to shape a report in any field so th
 license: MIT
 metadata:
   author: hskksk
-  version: 1.2.0
+  version: 1.7.0
 ---
+
 
 
 # Narrative report

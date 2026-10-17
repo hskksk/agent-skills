@@ -4,8 +4,9 @@ description: Decide how a caller and a callable skill are written when several s
 license: MIT
 metadata:
   author: hskksk
-  version: 1.5.0
+  version: 1.7.0
 ---
+
 
 
 # Combining skills

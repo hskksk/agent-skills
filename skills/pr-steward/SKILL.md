@@ -4,8 +4,9 @@ description: After a PR is opened, delegate watching and small fixes to a cheape
 license: MIT
 metadata:
   author: hskksk
-  version: 1.6.0
+  version: 1.7.0
 ---
+
 
 
 

@@ -4,8 +4,9 @@ description: Route a research request to Phase 1 (exploratory) or Phase 2 (verif
 license: MIT
 metadata:
   author: hskksk
-  version: 1.1.0
+  version: 1.7.0
 ---
+
 
 
 # Survey report (phase × weighting × reader level)

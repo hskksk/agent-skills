@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/hskksk/agent-skills/compare/v1.6.0...v1.7.0) (2026-10-17)
+
+
+### Features
+
+* write non-Japanese skills in English ([9530199](https://github.com/hskksk/agent-skills/commit/95301995242e0b214eb864d00c159cfbb2ca7a41))
+
 # [1.6.0](https://github.com/hskksk/agent-skills/compare/v1.5.0...v1.6.0) (2026-10-16)
 
 
