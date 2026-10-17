@@ -11,6 +11,11 @@
       "title": "Writing",
       "description": "Skills for writing, translating, and revising.",
       "skills": ["how-to-survey", "japanese-writing", "survey-report", "narrative-report", "skill-orchestration"]
+    },
+    {
+      "title": "Query and diagram",
+      "description": "Skills for analytical SQL and diagram syntax.",
+      "skills": ["duckdb-sql", "d2-diagram"]
     }
   ]
 }
