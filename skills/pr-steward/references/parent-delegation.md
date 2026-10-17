@@ -1,57 +1,57 @@
-# 親エージェント（委譲側）
+# Parent agent (the delegating side)
 
-親は設計・実装の文脈を保持する。PR 番人は **コストの低い実行体**に任せる。
+The parent keeps the design and implementation context. Hand PR watching to a **cheaper runner**.
 
-## 渡す成果物
+## Artifacts to pass
 
-steward 起動プロンプトに必ず含める:
+Always include these in the steward's launch prompt:
 
-1. **PR の特定子** — URL、番号、または `owner/repo#number`
-2. **意図メモ** — 変更の目的、受け入れ条件、**触らないファイル／領域**
-3. **親の残タスク** — steward がエスカレしたときに親がやるべきことの一行（例: 「API の破壊変更はこちらで判断」）
-4. **権限の範囲** — 通常は「PR ヘッドブランチへの commit & push 可」。マージ・force-push は不可。rebase はチームと隔離モード次第（`workspace-isolation.md`）。
-5. **隔離モード** — `serial` / `worktree` / `sub-branch` のいずれか（`workspace-isolation.md`）。**同じブランチ名で worktree 分離**が PR 対応の定番。
-6. **規約ポインタ** — `repo-conventions.md` の `conventions:` 一行（`AGENTS.md` パス、検証コマンド）。規約全文は貼らない。
+1. **PR identifier** — URL, number, or `owner/repo#number`
+2. **Intent note** — the purpose of the change, acceptance criteria, and **files or areas not to touch**
+3. **What remains for the parent** — one line on what the parent should do when the steward escalates (for example, "breaking API changes are decided here")
+4. **Scope of permission** — usually "commit and push to the PR head branch is allowed." Merge and force-push are not. Rebase depends on the team and the isolation mode (`workspace-isolation.md`).
+5. **Isolation mode** — one of `serial`, `worktree`, or `sub-branch` (`workspace-isolation.md`). **Separating worktrees on the same branch name** is the usual pattern for PR follow-up.
+6. **Convention pointer** — the one `conventions:` line from `repo-conventions.md` (path to `AGENTS.md`, verify commands). Do not paste the full conventions.
 
-任意:
+Optional:
 
-- 既知の flaky チェック名
-- レビュアーが人間かボットかの区別方針（人間コメントは原則エスカレ）
+- Names of checks known to be flaky
+- A policy for telling human reviewers from bots (human comments escalate by default)
 
-## 起動方法（Cursor）
+## How to launch (Cursor)
 
-### サブエージェント（推奨: 同一セッション内）
+### Subagent (preferred: inside the same session)
 
-親は **Task / サブエージェント** で steward を起動し、上記をプロンプトに載せる。
+The parent starts the steward with **Task / a subagent** and puts the items above in the prompt.
 
-- モデルは親より軽いものを指定してよい（コスト分離）。
-- steward 用の専用定義があるなら `.cursor/agents/pr-steward.md` にこのスキルの steward 手順を要約し、`/pr-steward` または名前で起動する。
-- **foreground** で起動し、handoff JSON が返るまで、選んだ隔離モードの範囲で親は PR ヘッドの修正をしない（`serial` 時）。`worktree` / `sub-branch` なら親は別 tree／別ブランチで作業可。
+- You may specify a lighter model than the parent (cost isolation).
+- If there is a dedicated steward definition, summarize this skill's steward procedure in `.cursor/agents/pr-steward.md` and launch it with `/pr-steward` or by name.
+- Launch it in the **foreground**. Until the handoff JSON returns, the parent does not fix the PR head within the isolation mode you chose (`serial`). With `worktree` or `sub-branch`, the parent may work in another tree or on another branch.
 
-プロンプトに含める一文の例:
+Example of one sentence to include in the prompt:
 
 ```text
 You are the PR steward. Follow the pr-steward skill: subscribe to this PR, fix only Tier A issues per triage-rubric, escalate Tier B/C to the parent using handoff-format. Do not merge or force-push.
 ```
 
-### Cloud Agent で親が PR を出した直後
+### Just after the parent opened the PR with a Cloud Agent
 
-親 run が PR を作成した場合、**別の full autopilot に丸投げしない**。代わりに:
+If the parent run created the PR, **do not hand the whole thing to another full autopilot**. Instead:
 
-- 同じ run 内でサブエージェント steward を起動する、または
-- ユーザーが許すなら、軽量モデルの **別 Cloud run** を steward 専用に切る（親の会話 ID とは別。handoff は PR コメントや共有メモで親が読む）
+- Start a subagent steward inside the same run, or
+- If the user allows it, cut a **separate Cloud run** on a light model that is dedicated to the steward (separate from the parent's conversation ID; the parent reads the handoff from a PR comment or a shared note)
 
-親が subscribe まで自分でやる必要はない。subscribe は **steward の責務**。
+The parent does not have to subscribe itself. Subscribe is **the steward's responsibility**.
 
-## エスカレを受けたら
+## When an escalation arrives
 
-1. handoff の `escalations` を優先度順に読む。
-2. `decision_context` だけで足りるものは親が修正。足りないときはユーザーに質問する。
-3. steward を **再開**するか **停止**するかを決める。再開時は「前回の escalation ID を処理済みにした」旨を渡す。
+1. Read `escalations` in the handoff in priority order.
+2. The parent fixes items that `decision_context` is enough for. When it is not enough, ask the user.
+3. Decide whether to **resume** the steward or **stop** it. On resume, pass that the previous escalation IDs were marked handled.
 
-## やってはいけないこと
+## What not to do
 
-- 親と steward が **同じ working tree** で同時に編集する（ブランチ名が同じでも、worktree 分離なら可）
-- 規約全文を steward プロンプトにコピペする（パスと `npm run …` で足りる）
-- steward にアーキテクチャ判断を「とりあえず直して」と丸める
-- `/autopilot` と steward を同一 PR で並行させる（役割が重複する）
+- The parent and the steward editing the **same working tree** at the same time (allowed when worktrees are separate, even if the branch name is the same)
+- Pasting the full conventions into the steward prompt (a path and `npm run …` are enough)
+- Telling the steward to "just fix" an architecture decision
+- Running `/autopilot` and the steward in parallel on the same PR (the roles overlap)

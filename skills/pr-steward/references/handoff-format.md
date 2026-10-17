@@ -1,8 +1,8 @@
-# 親向け handoff（構造化レポート）
+# Handoff for the parent (structured report)
 
-steward は親への返答を **1 つの JSON オブジェクト**（前後に短い要約文を付けてもよい）として返す。親はこれをパースし、`escalations` だけを実装タスクに変換する。
+The steward returns its reply to the parent as **one JSON object** (a short summary sentence before or after is fine). The parent parses it and turns only `escalations` into implementation tasks.
 
-## スキーマ
+## Schema
 
 ```json
 {
@@ -45,45 +45,45 @@ steward は親への返答を **1 つの JSON オブジェクト**（前後に�
 }
 ```
 
-## フィールド
+## Fields
 
-| フィールド | 必須 | 説明 |
+| Field | Required | Description |
 | --- | --- | --- |
-| `schema` | yes | 常に `pr-steward-handoff/v1` |
+| `schema` | yes | Always `pr-steward-handoff/v1` |
 | `pr` | yes | PR URL |
-| `branch` | yes | ヘッドブランチ名 |
+| `branch` | yes | Head branch name |
 | `state` | yes | `open` / `merged` / `closed` |
-| `checks_summary` | yes | チェック名の配列。詳細ログは載せない |
-| `autonomous_fixes` | yes | Tier A で push したもの。無ければ `[]` |
-| `escalations` | yes | Tier B/C。無ければ `[]` |
-| `steward_status` | yes | `waiting`（subscribe 継続）/ `idle`（緑・未エスカレ）/ `stopped` / `error` |
-| `notes_for_parent` | no | 親への一行注意 |
+| `checks_summary` | yes | Arrays of check names. Do not include detailed logs |
+| `autonomous_fixes` | yes | What was pushed at Tier A. `[]` if none |
+| `escalations` | yes | Tier B or C. `[]` if none |
+| `steward_status` | yes | `waiting` (subscribe continues) / `idle` (green, nothing escalated) / `stopped` / `error` |
+| `notes_for_parent` | no | One line of caution for the parent |
 
 ### `escalations[]`
 
-| フィールド | 必須 | 説明 |
+| Field | Required | Description |
 | --- | --- | --- |
-| `id` | yes | 安定 ID（再開時に参照） |
-| `tier` | yes | `B` または `C` |
+| `id` | yes | Stable ID (referenced when the steward resumes) |
+| `tier` | yes | `B` or `C` |
 | `source` | yes | `ci` / `review-comment` / `review-body` / `bot` / `policy` / `infra` |
-| `summary` | yes | 一行 |
-| `decision_context` | B/C で推奨 | 親が判断するための質問・選択肢・影響 |
-| `link` | あるとき | コメントや run への URL |
-| `blocked` | yes | 親の判断までマージすべきでないなら `true` |
+| `summary` | yes | One line |
+| `decision_context` | Recommended for B and C | The question, options, and impact the parent needs in order to decide |
+| `link` | When one exists | URL of the comment or the run |
+| `blocked` | yes | `true` when the PR should not be merged until the parent decides |
 
-`recommendation` は steward が **確信がある Tier B** だけ埋める。C では `null` にする。
+Fill `recommendation` only for **Tier B where the steward is confident**. For C, set it to `null`.
 
-## 更新のタイミング
+## When to update
 
-- Tier B/C が 1 件でも出たら **そのイベントの終わりに** handoff を返す（foreground steward）
-- subscribe 継続中でも、親が読めるよう **エスカレ追加時は都度返す**
-- セッション終了時は最終スナップショットを返す
+- If even one Tier B or C appears, return a handoff **at the end of that event** (foreground steward)
+- Even while subscribe continues, **return a handoff each time an escalation is added**, so the parent can read it
+- At the end of the session, return a final snapshot
 
-## 親が再開するとき
+## When the parent resumes
 
-再開プロンプトに含める:
+Include in the resume prompt:
 
-- 前回 handoff の `escalations[].id` のうち処理したもの
-- 更新された意図メモ（あれば）
+- Which `escalations[].id` values from the previous handoff were handled
+- An updated intent note, if there is one
 
-steward は処理済み ID をスキップする。
+The steward skips IDs that were already handled.

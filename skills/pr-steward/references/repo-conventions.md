@@ -1,18 +1,18 @@
-# リポジトリ規約（コンテキストを食わない）
+# Repository conventions (without eating context)
 
-steward に長いスタイルガイドをプロンプトへ貼らない。規約は **リポジトリの正本** と **機械的ゲート** に寄せ、エージェントには **どこを見るか・何を実行するか** だけ渡す。
+Do not paste a long style guide into the steward's prompt. Push conventions onto **the repository's source of truth** and **mechanical gates**, and give the agent only **where to look and what to run**.
 
-## レイヤー（上ほどトークン不要）
+## Layers (higher means fewer tokens)
 
-| レイヤー | 例 | steward の使い方 |
+| Layer | Example | How the steward uses it |
 | --- | --- | --- |
-| 自動整形・lint | `eslint --fix`, `prettier`, `ruff format`, `gofmt` | Tier A の前後に **同じコマンドを実行**。ルール本文は読まない |
-| コミット時フック | `husky`, `pre-commit`, `commitlint` | `git commit` 時に失敗すれば修正。メッセージ規約もここで検証 |
-| CI | GitHub Actions の lint / test | 緑にするまで push；CI ログは要約だけ handoff に |
-| 静的設定 | `commitlint.config.*`, `.editorconfig`, `biome.json` | 失敗したときだけ該当ファイルを **必要行だけ** 読む |
-| 人向けドキュメント | `AGENTS.md`, `CONTRIBUTING.md` | **パスだけ**渡す。「コミット前に `AGENTS.md` の Commits 節に従う」 |
+| Auto-format and lint | `eslint --fix`, `prettier`, `ruff format`, `gofmt` | **Run the same command** before and after Tier A. Do not read the rule text |
+| Commit hooks | `husky`, `pre-commit`, `commitlint` | If `git commit` fails, fix it. Message rules are checked here too |
+| CI | GitHub Actions lint / test | Push until green; put only a summary of the CI log in the handoff |
+| Static config | `commitlint.config.*`, `.editorconfig`, `biome.json` | Read the relevant file, **only the lines you need**, and only when something failed |
+| Docs for people | `AGENTS.md`, `CONTRIBUTING.md` | Pass **the path only**. "Before committing, follow the Commits section of `AGENTS.md`" |
 
-親の意図メモに **規約ポインタ** を足す（全文は載せない）:
+Add a **convention pointer** to the parent's intent note (do not include the full text):
 
 ```yaml
 conventions:
@@ -21,29 +21,29 @@ conventions:
   verify: npm run lint && npm test -- --related
 ```
 
-## Cursor / エージェント側（短く保つ）
+## Cursor / agent side (keep it short)
 
-- **Project Rules**（`.cursor/rules`）や **`AGENTS.md`** にコミット形式・禁止事項を書く。Always Apply はトークンが重いので、**globs**（例: `**/*.{ts,tsx}`）や `apply when committing` 相当のスコープに絞る。
-- **`.cursor/agents/pr-steward.md`**（任意）に 5〜10 行: 「`AGENTS.md` と `commitlint` に従う。検証は `npm run lint`」程度。スキル本文の複製はしない。
-- **steward 用スキル**（`pr-steward`）は手順とルーブリックだけ。リポジトリ固有の型名や例外は **リポジトリの AGENTS.md** が正本。
+- Write commit format and prohibitions in **Project Rules** (`.cursor/rules`) or **`AGENTS.md`**. Always Apply is token-heavy, so narrow the scope with **globs** (for example `**/*.{ts,tsx}`) or the equivalent of `apply when committing`.
+- Optionally put 5–10 lines in **`.cursor/agents/pr-steward.md`**: about the level of "follow `AGENTS.md` and `commitlint`. Verify with `npm run lint`." Do not duplicate the skill body.
+- The **steward skill** (`pr-steward`) is only the procedure and the rubric. Repository-specific type names and exceptions have their source of truth in **the repository's `AGENTS.md`**.
 
-## コミットメッセージ
+## Commit messages
 
-1. 親が `conventions.commits` に一行（例: `type(scope): imperative subject`）。
-2. steward は `git commit` を実行し、**commitlint / hook が落ちたら** エラーメッセージだけで直す（ルール全文を再掲しない）。
-3. Tier A のまとめ push が複数コミットになる場合、**1 論点 1 コミット**はチームが要求するときだけ。さもなくば `fix: address lint on PR` のような単一コミットでもよい（commitlint が許す範囲）。
+1. The parent puts one line in `conventions.commits` (for example `type(scope): imperative subject`).
+2. The steward runs `git commit` and, **if commitlint or a hook fails**, fixes it from the error message alone (do not restate the full rules).
+3. When a Tier A summary push would be several commits, use **one issue per commit** only when the team requires it. Otherwise a single commit such as `fix: address lint on PR` is fine, within what commitlint allows.
 
-## コーディングスタイル
+## Coding style
 
-- **formatter / linter が正本**。steward は「スタイル判断」せずツールを回す。
-- ツールが直せない指摘だけ triage-rubric で Tier B/C に回す。
-- 巨大な `STYLE.md` を毎回読ませない。Explore サブエージェントに「`eslint` 設定の overrides を要約」と頼むのは **エスカレ後**でよい。
+- **The formatter or linter is the source of truth.** The steward does not make style judgments; it runs the tool.
+- Send only comments the tool cannot fix to Tier B or C via the triage rubric.
+- Do not make the steward read a huge `STYLE.md` every time. Asking an Explore subagent to "summarize the overrides in the `eslint` config" is fine **after an escalation**.
 
-## handoff に載せるもの
+## What to put in the handoff
 
-`notes_for_parent` に、規約違反で止まったときだけ:
+In `notes_for_parent`, only when you stopped on a convention violation:
 
-- どのゲートが落ちたか（`commitlint`, `eslint`, CI 名）
-- ログの **最後の 20 行以内** または 1 行エラー
+- Which gate failed (`commitlint`, `eslint`, the CI name)
+- **The last 20 lines or fewer** of the log, or a one-line error
 
-規約全文や長い diff は載せない。
+Do not include the full conventions or a long diff.

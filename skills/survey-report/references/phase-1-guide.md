@@ -1,48 +1,48 @@
-# Phase 1: 探索型レポート
+# Phase 1: exploratory report
 
-Phase 1 は、問いや論点がまだ定まっていない調査で、読者に分野の地図を渡し、次に解く問いを明らかにする型である。単なる用語集や素材集にはしない。
+Phase 1 is the type for a survey whose question or issues are not yet fixed. It hands the reader a map of the field and makes the next questions clear. It is not a glossary or a pile of raw material.
 
-## 目的と必須成果物
+## Purpose and required artifacts
 
-読者が分野の全体像を理解し、次に調べる問いを選べる状態を作る。次の二つを必ず含める。
+Leave the reader able to understand the landscape of the field and to choose the next question to investigate. Always include both of the following.
 
-1. **全体像** — 主要な要素、対立軸、プレイヤー、関係性を構造化した地図。
-2. **次に解くべき3つの問い** — 各問いに重要な理由を添え、後続の調査で検証できる具体性を持たせる。
+1. **Landscape** — a map that structures the main elements, axes of conflict, players, and relationships.
+2. **Three questions to solve next** — each with a reason it matters, and specific enough that a later survey can check it.
 
-## 構造モデル
+## Structure model
 
-| 層 | 役割 | Phase 1 で示すもの |
+| Layer | Role | What Phase 1 shows |
 |---|---|---|
-| **L1** | 要約と調査の入口 | テーマの背景・現状、調査範囲、次に解くべき3つの問い |
-| **L2** | 全体像と論点の展開 | 要素・対立軸・プレイヤーの関係、分類、3つの問いの深掘り |
-| **L3** | 根拠と再調査のための記録 | `[n]` に対応する出典、本文から外した重要な調査の枝や補足 |
+| **L1** | Summary and the entry to the survey | Background and current state of the theme, survey scope, three questions to solve next |
+| **L2** | Landscape and the issues unfolded | Relationships among elements, axes of conflict, and players; classification; a deeper pass on the three questions |
+| **L3** | Record for evidence and a later survey | Sources that match `[n]`, and important survey branches or supplements cut from the body |
 
-タイトル直後には共通ルールに従って `## TL;DR` を置く。これは L1 の概要より短い入口である。共通の見せ方は [`report-conventions.md`](report-conventions.md) を参照。
+Place `## TL;DR` immediately after the title, following the shared rules. It is a shorter entry than the L1 overview. For the shared presentation, see [`report-conventions.md`](report-conventions.md).
 
-## 各層に含める内容
+## What each layer includes
 
-### L1: 概要
+### L1: overview
 
-- テーマの背景と現在の状況を短く示す。
-- 主要な対立軸や構造的課題を示す。
-- 調査範囲・対象資料を明記する。
-- **次に解くべき3つの問い**を提示し、それぞれの重要性を一文で添える。
+- Briefly show the background and current state of the theme.
+- Show the main axes of conflict or structural problems.
+- State the survey scope and the sources in scope.
+- Present **three questions to solve next**, each with one sentence on why it matters.
 
-### L2: 全体像と論点
+### L2: landscape and issues
 
-- **全体像**として、主要な要素、技術、プレイヤー、対立軸の関係を構造化する。図は関係を明確にできる場合だけ使う。
-- 用語を並べるのではなく、アプローチの違い、トレードオフ、ボトルネックなどで分類する。
-- L1 で提示した3つの問いを深掘りし、想定される仮説、調査を阻む要因、未解決点を説明する。
+- As the **landscape**, structure the relationships among the main elements, technologies, players, and axes of conflict. Use a figure only when it makes a relationship clearer.
+- Do not line up terms. Classify by differences of approach, tradeoffs, bottlenecks, and the like.
+- Go deeper on the three questions from L1, and explain likely hypotheses, what blocks the survey, and open points.
 
-### L3: 付録
+### L3: appendix
 
-- 本文の `[n]` に対応する出典を記録する。
-- 調べたが採用しなかった重要な枝と理由、本文から外した再調査に役立つ材料を残す。
+- Record the sources that match `[n]` in the body.
+- Keep important branches you investigated and did not adopt, with the reason, and material cut from the body that would help a later survey.
 
-## 任意の内容
+## Optional material
 
-- **背景・歴史** — 全体像や比較軸を理解するために必要な場合に置く。
-- **問いの優先順位** — 次に着手する問いの順序を示す。推奨するのは、依頼が求め、調査結果が支える場合に限る。
-- **まとめ** — 地図から得られる要点を短く整理する。
+- **Background and history** — include it when the reader needs it to understand the landscape or a comparison axis.
+- **Priority among the questions** — show the order in which to take up the next questions. Recommend an order only when the request asks for it and the survey supports it.
+- **Summary** — briefly organize the points the map yields. Use the heading `## Summary` when you include one.
 
-これらは固定セクションではない。主題と読者の目的に必要な内容だけを選び、順序は重心に合わせて調整する。重心の選び方は [`gravity.md`](gravity.md) を参照。
+These are not fixed sections. Choose only what the subject and the reader's purpose need, and adjust the order to the weighting. For how to choose weighting, see [`gravity.md`](gravity.md).

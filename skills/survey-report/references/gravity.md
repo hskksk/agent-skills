@@ -1,85 +1,85 @@
-# レポートの重心を決める
+# Choose the report's weighting
 
-Phase は問いの確定度を表す。一方、重心は読者が時間を使う価値の中心と、情報を見せる順序を決める。両者は独立している。読者レベルも別の軸であり、[`reader-level.md`](reader-level.md) で決める。
+Phase says how fixed the question is. Weighting decides where the reader's time is best spent, and the order in which information appears. The two are independent. Reader level is another axis, chosen in [`reader-level.md`](reader-level.md).
 
-## 書く前に答える三つの質問
+## Three questions to answer before writing
 
-1. **読者は読後に何をできればよいか。** 判断する、選択肢を探す・比べる、妥当性を評価する、など。
-2. **このレポートで代替しにくいものは何か。** 結論と含意、分類・比較の地図、証拠と解釈、など。
-3. **読者はどこを最も長く使うか。** 冒頭、必要な項目への再訪、根拠を追う通読、など。
+1. **What should the reader be able to do after reading?** Judge, find or compare options, evaluate validity, and so on.
+2. **What in this report is hard to replace?** A conclusion and its implications, a map of categories or comparisons, evidence and interpretation, and so on.
+3. **Where will the reader spend the most time?** The opening, returning to the items they need, or reading through the evidence.
 
-三つの答えが同じ位置を指せば、それを主重心にする。割れる場合は「代替しにくいもの」を優先し、ほかの読み方は副導線として用意する。
+If the three answers point at the same place, that is the primary weighting. If they split, prefer "what is hard to replace," and prepare the other ways of reading as secondary paths.
 
-## 三つのモデル
+## Three models
 
-| 重心 | 向く主題・読者 | 価値の中心 | 典型的な順序 |
+| Weighting | Fits this subject or reader | Center of value | Typical order |
 |---|---|---|---|
-| **前重心** | 概念の要点、現状認識、意思決定の材料 | 答え、判断材料、重要な留保 | 要点 → 根拠 → 詳細 → 付録 |
-| **中重心** | 業界調査、比較、ベンチマーク、事例群 | 分類、比較表、カテゴリ別の事実 | 入口 → 分類軸 → 比較・各論 → 総括 → 付録 |
-| **後重心** | 検証、技術論証、成立史、原因の切り分け | 方法・証拠・結果を経た解釈 | 問い・前提 → 方法・資料 → 結果 → 考察 → 結論 → 付録 |
+| **Front weighting** | The point of a concept, a reading of the current state, material for a decision | The answer, material for judgment, important reservations | Point → evidence → detail → appendix |
+| **Middle weighting** | An industry survey, a comparison, a benchmark, a set of cases | Classification, comparison tables, facts by category | Entry → axes of classification → comparison and cases → wrap-up → appendix |
+| **Rear weighting** | Verification, a technical argument, a history of how something came to be, isolating a cause | An interpretation reached through method, evidence, and results | Question and premises → method and sources → results → discussion → conclusion → appendix |
 
-これは排他的なテンプレートではない。どの重心でも短い入口は用意し、副重心は導線として使う。紙幅と最も良い図表は主重心に配る。
+These are not exclusive templates. Every weighting still has a short entry, and a secondary weighting is a path into the report. Give page space and the best figures to the primary weighting.
 
-## Phase との組み合わせ
+## How this combines with phase
 
-Phase と重心は独立だが、次は選択の目安になる。
+Phase and weighting are independent, but the following are guides for the choice.
 
-- **Phase 1** は地形の比較・分類が中心なので中重心が自然。全体像を素早く伝えるなら前重心、既存の言説を検証して問いを立て直すなら後重心も選べる。Phase 1 の成果物は重心によらず [`phase-1-guide.md`](phase-1-guide.md) に従う。
-- **Phase 2** は依頼の目的で選ぶ。判断を急ぐなら前重心、選択肢比較なら中重心、根拠の検証・追試なら後重心が向く。答えと根拠の対応は重心によらず [`phase-2-guide.md`](phase-2-guide.md) に従う。
+- **Phase 1** is naturally middle weighting, because comparing and classifying the terrain is the center. Front weighting also fits when you need to convey the landscape quickly. Rear weighting also fits when you are checking existing claims and resetting the questions. Phase 1 artifacts follow [`phase-1-guide.md`](phase-1-guide.md) regardless of weighting.
+- **Phase 2** follows the purpose of the request. Front weighting fits a judgment needed soon. Middle weighting fits comparing options. Rear weighting fits checking evidence or reproducing a result. The tie between answer and evidence follows [`phase-2-guide.md`](phase-2-guide.md) regardless of weighting.
 
-## 重心によって変える要素
+## What changes with weighting
 
-| 要素 | 前重心 | 中重心 | 後重心 |
+| Element | Front weighting | Middle weighting | Rear weighting |
 |---|---|---|---|
-| 冒頭 | 答え・理由・条件 | 目的・範囲・分類軸・主要発見 | 問い・意義・範囲・評価方法 |
-| 厚くする部分 | 要点と根拠 | 比較、分類、事例、データ | 方法、結果、考察 |
-| 見出しの役割 | 説明の種類と発見 | 分類軸と対象 | 論証の段階と発見 |
-| 図表 | 結論の関係図 | 比較表、分類図 | 手順、証拠の流れ、結果図 |
-| 歴史 | 答えに必要な分だけ | 比較軸の説明に必要な場合 | 成立過程が証拠なら本文の中核 |
-| 終わり | 短い再確認や含意 | 短い総括 | 考察、結論、限界 |
+| Opening | Answer, reasons, conditions | Purpose, scope, axes of classification, main findings | Question, why it matters, scope, how it will be evaluated |
+| Where to add depth | The point and the evidence | Comparison, classification, cases, data | Method, results, discussion |
+| Role of headings | Kind of explanation and findings | Axes of classification and the subjects | Stages of the argument and findings |
+| Figures | A diagram of how the conclusion relates | Comparison tables, classification diagrams | Procedure, flow of evidence, result diagrams |
+| History | Only as much as the answer needs | When it is needed to explain a comparison axis | The core of the body when the process of becoming is itself evidence |
+| Ending | A short restatement or implication | A short wrap-up | Discussion, conclusion, limits |
 
-図表や節末の要約などを固定枠にしない。主重心を支える場合にだけ使う。
+Do not make figures or end-of-section summaries a fixed frame. Use them only when they support the primary weighting.
 
-### 前重心を選ぶ目安
+### When to choose front weighting
 
-次のうち二つ以上に当てはまる場合に選ぶ。
+Choose it when two or more of the following hold.
 
-- 読者の第一の問いが「結局どう理解すべきか」である。
-- 証拠の詳細より、統合された説明のほうが代替しにくい。
-- 冒頭だけ読まれても重大な誤解を生まない答えを出せる。
+- The reader's first question is "so how should I understand this?"
+- An integrated explanation is harder to replace than the detail of the evidence.
+- You can give an answer that the opening alone will not seriously misread.
 
-冒頭で答え・理由・条件・範囲を伝え、本文では根拠、反例、適用限界を深める。提言は、依頼が求め、証拠が支える場合だけ書く。
+The opening carries the answer, reasons, conditions, and scope. The body deepens evidence, counterexamples, and limits of application. Write a recommendation only when the request asks for one and the evidence supports its strength.
 
-### 中重心を選ぶ目安
+### When to choose middle weighting
 
-次のうち二つ以上に当てはまる場合に選ぶ。
+Choose it when two or more of the following hold.
 
-- 読者の第一の問いが「何があり、どう違うか」である。
-- 単一の結論より、分類軸や比較可能な資料の集合に価値がある。
-- 読者が通読より検索・再訪・横断比較をする。
+- The reader's first question is "what is there, and how does it differ?"
+- The value is in the axes of classification or a comparable set of sources, more than in a single conclusion.
+- The reader searches, returns, and compares across the text more than they read it straight through.
 
-比較軸を先に定義し、同じ軸で比較する。重要な発見や例外、証拠の偏りも分かるようにする。
+Define the comparison axes first, and compare on the same axes. Make important findings, exceptions, and bias in the evidence visible.
 
-### 後重心を選ぶ目安
+### When to choose rear weighting
 
-次のうち二つ以上に当てはまる場合に選ぶ。
+Choose it when two or more of the following hold.
 
-- 読者の第一の問いが「なぜそう言えるか」である。
-- 資料の選び方、測定、反証、時間順の変化が結論を左右する。
-- 新しい価値が、既知の事実をつないだ考察にある。
+- The reader's first question is "why can you say that?"
+- How sources were chosen, measurement, counterevidence, or change over time decides the conclusion.
+- The new value is a discussion that connects known facts.
 
-冒頭で問い・意義・範囲・評価方法を示す。資料と結果を解釈から分け、考察で意味、一般化の範囲、未解決点を統合する。
+The opening states the question, why it matters, the scope, and how it will be evaluated. Keep sources and results separate from interpretation. In the discussion, integrate meaning, how far the claim generalizes, and what is still open.
 
-## 混合型
+## Mixed weighting
 
-主重心を一つ、副重心は一つまでにする。
+One primary weighting, and at most one secondary weighting.
 
-- **前＋中**: 冒頭に判断材料、本文に比較表。製品・手法の比較向け。
-- **中＋後**: 本文に資料地図、後半に資料間の不一致から得た考察。業界史・文献調査向け。
-- **前＋後**: 冒頭に暫定結論、後半に検証過程。技術調査報告向け。
+- **Front + middle:** judgment material in the opening, comparison tables in the body. Fits comparing products or methods.
+- **Middle + rear:** a map of sources in the body, and a discussion later of disagreements among those sources. Fits industry history and literature surveys.
+- **Front + rear:** a provisional conclusion in the opening, and the verification later. Fits a technical investigation report.
 
-執筆前に、次の文を作業メモに残す。
+Before writing, leave this sentence in the working note.
 
-> このレポートは **〈主重心〉**。読者は **〈目的〉** のために読み、価値の中心は **〈成果物〉** にある。**〈副重心またはなし〉** は導線として置く。
+> This report is **<primary weighting>**. The reader reads it in order to **<purpose>**, and the center of value is **<artifact>**. **<secondary weighting, or none>** is a path into the report.
 
-作業メモは完成原稿には載せない。混合型でも、本文の共通ルールと入口は [`report-conventions.md`](report-conventions.md) に従う。
+Do not include the working note in the finished manuscript. Even a mixed report follows the shared body rules and the entry in [`report-conventions.md`](report-conventions.md).

@@ -1,31 +1,31 @@
-# 検索計画
+# Search plan
 
-テーマを分解し、調査するサブトピックを **8〜12 項目** 列挙する。問いに答えるための観点をひと通り含め、各項目の優先順位を付ける。
+Break the topic down and list **8–12 subtopics** to investigate. Include a full set of angles needed to answer the question, and rank the items.
 
-## 列挙のたたき台
+## A starting list
 
-各項目に、想定する検索語（日本語・英語）を一行メモしてよい。
+You may add a one-line note of likely search terms (Japanese and English) to each item.
 
-- 概要・定義・歴史的背景
-- 核となる概念・理論・仕組み
-- 具体例・応用事例
-- 重要人物・論文・文献
-- 最新の動向・未解決問題
-- 隣接分野との接続
+- Overview, definition, and historical background
+- Core concepts, theory, and mechanism
+- Concrete examples and applications
+- Key people, papers, and literature
+- Recent developments and open problems
+- Connections to adjacent fields
 
-テーマに不要な行は省き、代わりに依頼に直結する軸（比較対象、規制、コスト、運用など）を足す。
+Drop rows the topic does not need. Add axes that the request actually depends on (comparison targets, regulation, cost, operations, and so on).
 
-## 検索語の設計
+## Designing search terms
 
-- **同義語と隣接語** — 業界用語、略語、旧名称、英語の正式名と通称
-- **一次資料寄り** — `site:arxiv.org`、`site:github.com`、公式ドキュメント、規格番号、論文題の一部
-- **反証・限界** — 失敗事例、criticism、limitation、benchmark 比較
-- **時系列** — 最新動向用に年を入れる（例: `2025`, `2026`）
+- **Synonyms and neighbors** — industry terms, abbreviations, old names, the English formal name and the common name
+- **Closer to primary sources** — `site:arxiv.org`, `site:github.com`, official docs, standard numbers, a fragment of a paper title
+- **Counterevidence and limits** — failure cases, criticism, limitation, benchmark comparisons
+- **Time** — include a year for recent developments (for example `2025`, `2026`)
 
-1 サブトピックあたり、最初は広く、次に狭く。同じクエリの繰り返しはカウントを増やすだけなので、角度を変える。
+For each subtopic, start wide, then narrow. Repeating the same query only inflates the count, so change the angle.
 
-## 計画の見直し
+## Revising the plan
 
-- サブトピックごとに調べた内容と残る疑問を記録し、未確認の観点がわかるようにする
-- 新しい情報から重要な論点が見つかったら、問いや計画を見直して必要な観点を追加する
-- 情報が見つからない項目は、検索した語句や確認した情報源を記録し、未確認として残す
+- Record what you found and what question remains for each subtopic, so the unchecked angles stay visible
+- When new information reveals an important issue, revise the question or the plan and add the angle you need
+- For an item where you find nothing, record the terms you searched and the sources you checked, and leave it as unchecked

@@ -1,6 +1,6 @@
 ---
 name: survey-report
-description: 調査依頼を Phase 1（探索型）または Phase 2（検証・構造化型）に振り分け、前・中・後重心と読者レベルを選んでレポートを構成・出力する。地図と3つの問い、または結論と根拠の対応。Use when routing research requests and writing landscape or decision-oriented survey reports.
+description: Route a research request to Phase 1 (exploratory) or Phase 2 (verification and structuring), choose front, middle, or rear weighting and a reader level, and write the report. Deliver a map plus three questions, or a conclusion tied to its evidence. Use when routing research requests and writing landscape or decision-oriented survey reports.
 license: MIT
 metadata:
   author: hskksk
@@ -8,39 +8,39 @@ metadata:
 ---
 
 
-# 調査レポート（Phase × 重心 × 読者レベル）
+# Survey report (phase × weighting × reader level)
 
-依頼に応じて Phase 1（探索型）または Phase 2（検証・構造化型）を選び、重心（前・中・後）と読者レベル（入門・実務・専門）を別々に決めてレポートを書く。三つは独立した軸である。詳細なルールの正本は `references/` に置き、このファイルでは作業順と参照先だけを案内する。
+Choose Phase 1 (exploratory) or Phase 2 (verification and structuring) for the request, decide weighting (front, middle, or rear) and reader level (introductory, practitioner, or specialist) separately, and write the report. The three axes are independent. The detailed rules live in `references/`. This file only guides the order of work and where to read.
 
-## いつ使うか
+## When to use
 
-- リサーチ・調査の依頼を受け、レポート形式でまとめる
-- テーマの全体像・論点整理（探索）か、比較・仮説検証・意思決定向けの結論提示（検証）かを決める
+- You receive a research or survey request and will summarize it as a report
+- You need to decide whether the job is a landscape and issue map (exploration) or a comparison, hypothesis check, or conclusion for a decision (verification)
 
-単なるリンク集・用語辞典だけの出力には使わない。
+Do not use this for a bare link list or a glossary alone.
 
-## 手順
+## Procedure
 
-1. **Phase を選ぶ。** `references/phase-routing.md` の判定フローに従う。
-2. **重心と読者レベルを決める。** `references/gravity.md` と `references/reader-level.md` を読み、各軸を独立に選ぶ。選択理由の作業メモは本文に出さない。
-3. **該当する Phase ガイドと共通ルールを読む。** Phase 1 は `references/phase-1-guide.md`、Phase 2 は `references/phase-2-guide.md` を使い、どちらも `references/report-conventions.md` に従う。
-4. **提出前に確認する。** `references/checklists.md` の共通テストと該当する Phase・重心のテストを行う。必要に応じて `references/measure.py` で計測する。
+1. **Choose the phase.** Follow the decision flow in `references/phase-routing.md`.
+2. **Decide weighting and reader level.** Read `references/gravity.md` and `references/reader-level.md`, and choose each axis independently. Do not put the working note of why you chose them into the body.
+3. **Read the matching phase guide and the shared rules.** For Phase 1 use `references/phase-1-guide.md`. For Phase 2 use `references/phase-2-guide.md`. Both follow `references/report-conventions.md`.
+4. **Check before submission.** Run the common tests in `references/checklists.md` and the tests for the phase and weighting you chose. Optionally measure with `references/measure.py`.
 
-## 参照ファイル
+## Reference files
 
-| ファイル | 内容 | いつ読むか |
+| File | Contents | When to read |
 | --- | --- | --- |
-| `references/phase-routing.md` | Phase 1/2 の選び方 | 最初 |
-| `references/gravity.md` | 前・中・後の重心の選び方と情報配置 | 執筆前 |
-| `references/reader-level.md` | 入門・実務・専門の前提と説明の始め方 | 執筆前 |
-| `references/phase-1-guide.md` | Phase 1 の成果物と構成案 | Phase 1 のとき |
-| `references/phase-2-guide.md` | Phase 2 の答えと根拠の対応 | Phase 2 のとき |
-| `references/report-conventions.md` | 全 Phase 共通の出力ルール | 構成・執筆時 |
-| `references/checklists.md` | 共通・Phase 別・重心別の提出前テスト | 提出前 |
-| `references/measure.py` | 数えられる共通指標の計測（TL;DR、`[n]`、出典、字数） | 提出前（任意） |
+| `references/phase-routing.md` | How to choose Phase 1 or 2 | First |
+| `references/gravity.md` | How to choose front, middle, or rear weighting, and where information goes | Before writing |
+| `references/reader-level.md` | What introductory, practitioner, and specialist readers already know, and where the explanation starts | Before writing |
+| `references/phase-1-guide.md` | Phase 1 artifacts and a structure sketch | When the phase is 1 |
+| `references/phase-2-guide.md` | How Phase 2 ties the answer to its evidence | When the phase is 2 |
+| `references/report-conventions.md` | Output rules shared by every phase | While structuring and writing |
+| `references/checklists.md` | Pre-submission tests: common, by phase, and by weighting | Before submission |
+| `references/measure.py` | Counts the shared metrics that can be counted (TL;DR, `[n]`, sources, length) | Before submission (optional) |
 
-日本語で書くときは、リポジトリに `japanese-writing` スキルがあれば執筆前と推敲前に読み込み、その手順に従う。
+When the report is in Japanese, and the `japanese-writing` skill is available, read it before drafting and before revision, and follow its procedure.
 
-## このスキルが扱わないこと
+## What this skill does not cover
 
-一次調査の実行手順（検索クエリ設計、API 呼び出し、インタビュー設計）や、特定組織の社内テンプレート・保存先・TTS/PR 手順は含めない。出力は Markdown レポートの構造と論旨の型に限定する。
+It does not include how to run primary research (search-query design, API calls, interview design), or a particular organization's internal templates, save locations, or TTS/PR steps. The output is limited to the structure of a Markdown report and the shape of the argument.

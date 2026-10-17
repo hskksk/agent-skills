@@ -1,47 +1,47 @@
-# 呼び出し側
+# Caller
 
-`SKILL.md` の表で、呼び出し側を書くときに読む。呼ばれる側の入口は `references/callable-skill.md`。理由は `references/practices.md`。
+Read this when the table in `SKILL.md` says you are writing a caller. The callable entry point is in `references/callable-skill.md`. The reasons are in `references/practices.md`.
 
-## インターフェース
+## Interface
 
-他スキルについて書いてよいのは、`SKILL.md` の境界に書いた四つだけである。
+The only things you may write about another skill are the four items in the boundary section of `SKILL.md`.
 
-他スキルの `references/`、`scripts/`、`assets/`、計測スクリプト、チェックリストのファイル名、節番号、内部のテンプレート名は書かない。`allowed-tools` にも他スキルのファイルパスを書かない。
+Do not name another skill's `references/`, `scripts/`, `assets/`, measurement scripts, checklist file names, section numbers, or internal template names. Do not put another skill's file paths in `allowed-tools` either.
 
-補助ファイルをいつ開くかは、相手の `SKILL.md` が決める。呼び出し側はそこへ降りない。自分の `references/` を自分の `SKILL.md` から指すのは、この禁止に入らない。
+When to open a supporting file is decided by the other skill's `SKILL.md`. The caller does not descend into it. Pointing at your own `references/` from your own `SKILL.md` is not part of this prohibition.
 
-## 手順
+## Procedure
 
-1. 仕事を一つに切る。呼び出し側は順序、受け渡し、呼び出し側のリポジトリにしかない制約を持つ。相手の手順は持たない。
-2. 既存スキルの `description` で足りるか見る。足りるなら名前で呼ぶ。足りないならスキルを足す。相手の文章をこちらへ写して埋めない。
-3. ルーティング表を書く。列は「いつ」と「読むスキル」だけにする。今の仕事に要らないスキルは読まないと書く。
-4. 同じ判断が二つのスキルにあるときは、どちらが正本かを役割で一文にする。どちらのファイルが詳しいかでは決めない。
-5. 呼び出し側のリポジトリにしかない制約（保存先、公開手順、出力形式）は呼び出し側に書く。インポートしたスキルのファイルは編集しない。
-6. 計測やチェックは、それを持つスキルの手順に従う。未達なら先へ進まない、というゲートだけ呼び出し側が足してよい。コマンド文字列は写さない。実行を許可するときは `python3` のように能力で許可し、相手のパスでは許可しない。
-7. スキルが無い環境では、その場で規則を再実装しない。あるときだけ読む、と書く。
-8. 循環を確認する。A が B を呼び、B が A を呼ぶ形にしない。
-9. 書き終わったら、他スキル名のあとにパスが続いていないか検索する。`references/` への参照は、自分のディレクトリの中だけにする。
+1. Cut the job into one piece. The caller owns order, handoff, and constraints that exist only in the caller's repository. It does not own the other skill's procedure.
+2. Check whether an existing skill's `description` is enough. If it is, call it by name. If it is not, add a skill. Do not copy the other skill's prose in to fill the gap.
+3. Write a routing table. The columns are only "when" and "skill to read." Say which skills not to read when the current job does not need them.
+4. When the same judgment lives in two skills, write one sentence that names which role is the source of truth. Do not decide by which file is longer.
+5. Write constraints that exist only in the caller's repository (save location, publish steps, output format) in the caller. Do not edit files of an imported skill.
+6. For measurement and checks, follow the procedure of the skill that owns them. The caller may add only a gate: do not continue while the check is unmet. Do not copy the command string. When you need to allow execution, allow a capability such as `python3`, not the other skill's path.
+7. When a skill is not installed, do not reimplement its rules on the spot. Write that it is read only when present.
+8. Check for cycles. Do not let A call B and B call A.
+9. After writing, search for a path that follows another skill's name. References to `references/` stay inside your own directory.
 
-## ルーティング表
+## Routing table
 
 ```markdown
-| いつ | 読むスキル |
+| When | Skill to read |
 |------|-----------|
-| 検索の前から調査の確認まで | `how-to-survey` |
-| 本文を書き始める前と提出前 | `survey-report` |
-| 出力が日本語のとき、執筆前と推敲前 | `japanese-writing` |
+| From before search through the survey check | `how-to-survey` |
+| Before drafting the body and before submission | `survey-report` |
+| When the output is Japanese, before drafting and before revision | `japanese-writing` |
 ```
 
-表のあとに、渡す成果物とローカル制約を散文で書く。表のセルに相手のファイル名は置かない。
+After the table, write the artifact you pass and the local constraints in prose. Do not put the other skill's file names in table cells.
 
-## 呼び出し側に残すもの
+## What stays in the caller
 
-- 保存先と frontmatter
-- 公開手順
-- その環境だけの出力形式（たとえば図の記法や、音声化するための字数上限）
+- Save location and frontmatter
+- Publish steps
+- Output format that exists only in this environment (for example diagram notation, or a length cap for speech)
 
-相手がすでに決めている見出し、引用、検索の回数は、こちらに再掲しない。
+Do not restate headings, citation style, or search counts that the other skill already decides.
 
-## インストール先
+## Install location
 
-インストール先の正本は、その環境のスキルディレクトリ（多くの場合 `.agents/skills/<name>/`）である。別ハーネス用のシンボリックリンクは、同じディレクトリを指すためだけに使う。他スキルの中身を見せるためではない。外部スキルはインストールして名前で読む。相手の `references/` を同梱もリンクもしない。
+The source of truth for the install location is that environment's skills directory (often `.agents/skills/<name>/`). A symlink for another harness is only for pointing at the same directory. It is not for exposing another skill's contents. Install an external skill and read it by name. Do not bundle or link the other skill's `references/`.

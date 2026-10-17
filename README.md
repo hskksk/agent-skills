@@ -18,14 +18,16 @@ npx skills add hskksk/agent-skills --skill japanese-writing
 
 ## 入っているスキル
 
+`japanese-writing` 以外のスキル本文は英語である。`description` は各 `SKILL.md` のまま載せる。
+
 | スキル | 説明（`SKILL.md` の `description`） |
 | --- | --- |
-| `how-to-survey` | テーマを分解して検索計画を立て、WebSearch と WebFetch で広く一次情報を集め、出典対応表を残す。調査の薄さの判定まで。Use when planning and executing web-based landscape or decision-support research before writing a report. |
+| `how-to-survey` | Define the survey question and scope, build a search plan, and systematically collect evidence and sources while judging sources on the web. Use when conducting a systematic web-based survey of a topic. |
 | `japanese-writing` | 日本語の技術文・レポート・ドキュメントを書く、英訳する、推敲する。直訳調・官公庁調・AI構文（〜と考えられます、見ていきましょう）を直す。Use when writing or revising Japanese technical prose. |
-| `survey-report` | 調査依頼を Phase 1（探索型）または Phase 2（検証・構造化型）に振り分け、前・中・後重心と読者レベルを選んでレポートを構成・出力する。Use when routing research requests and writing landscape or decision-oriented survey reports. |
-| `narrative-report` | ビジネスナラティブの考え方を使い、分野を問わず、事実や変化を背景・意味・目指す未来・関係者の役割が伝わるレポートに構成する。Use when a report in any field needs to explain why a change matters, what it means, and what future or choices it points toward—not merely prose or fictional storytelling. |
-| `skill-orchestration` | 複数のスキルを一つの仕事に組み合わせるとき、呼び出し側と、他から呼ばれる側の書き方を決める。境界はスキル名と相手の手順だけにし、他スキルのファイルは指さない。Use when writing or reviewing a skill that calls other skills, or a skill that other skills should be able to call. |
-| `pr-steward` | PR 作成後の監視と軽微な修正を安価なサブエージェントに任せ、lint・format・明確な CI 修正だけを自律処理し、設計判断やスコープ拡大が要る指摘は親エージェントへ構造化してエスカレする。Use when a parent agent has opened a PR and should delegate babysitting without burning the main context on trivial follow-ups. |
+| `survey-report` | Route a research request to Phase 1 (exploratory) or Phase 2 (verification and structuring), choose front, middle, or rear weighting and a reader level, and write the report. Deliver a map plus three questions, or a conclusion tied to its evidence. Use when routing research requests and writing landscape or decision-oriented survey reports. |
+| `narrative-report` | Use a business-narrative frame to shape a report in any field so that facts and changes carry context, meaning, a future to aim for, and the roles of the people involved. Use when a report in any field needs to explain why a change matters, what it means, and what future or choices it points toward—not merely prose or fictional storytelling. |
+| `skill-orchestration` | Decide how a caller and a callable skill are written when several skills are combined into one job. The boundary is the skill name and the other skill's procedure only; do not point at another skill's files. Use when writing or reviewing a skill that calls other skills, or a skill that other skills should be able to call. |
+| `pr-steward` | After a PR is opened, delegate watching and small fixes to a cheaper subagent. Autonomously handle lint, format, and clear CI fixes, and escalate design judgment or scope-expanding comments to the parent as a structured handoff. Use when a parent agent has opened a PR and should delegate babysitting without burning the main context on trivial follow-ups. |
 
 ## スキルの置き方
 

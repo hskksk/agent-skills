@@ -2,7 +2,7 @@
 
 Catalog of [Agent Skills](https://agentskills.io/specification) under `skills/`, installable via [skills.sh](https://skills.sh). Discovery artifacts are built in CI; releases are automated on `main` (see [README.md](README.md)).
 
-Skill prose and references may be Japanese. **Commit messages, PR titles, PR bodies, CI workflow text, and other repo automation must use English** and [Conventional Commits](https://www.conventionalcommits.org/) so [semantic-release](https://semantic-release.gitbook.io/) can semver the catalog.
+Skill prose and references are English, except skills about Japanese (`japanese-writing`). **Commit messages, PR titles, PR bodies, CI workflow text, and other repo automation must use English** and [Conventional Commits](https://www.conventionalcommits.org/) so [semantic-release](https://semantic-release.gitbook.io/) can semver the catalog.
 
 ## Development
 

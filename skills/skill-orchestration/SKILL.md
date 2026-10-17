@@ -1,6 +1,6 @@
 ---
 name: skill-orchestration
-description: 複数のスキルを一つの仕事に組み合わせるとき、呼び出し側と、他から呼ばれる側の書き方を決める。境界はスキル名と相手の手順だけにし、他スキルのファイルは指さない。Use when writing or reviewing a skill that calls other skills, or a skill that other skills should be able to call.
+description: Decide how a caller and a callable skill are written when several skills are combined into one job. The boundary is the skill name and the other skill's procedure only; do not point at another skill's files. Use when writing or reviewing a skill that calls other skills, or a skill that other skills should be able to call.
 license: MIT
 metadata:
   author: hskksk
@@ -8,27 +8,27 @@ metadata:
 ---
 
 
-# スキルを組み合わせる
+# Combining skills
 
-スキルを名前でつなぐときの境界を決める。呼び出し側を書くときと、他から呼ばれるスキルを書くときの両方で使う。両側は同じ境界の読み方なので、このスキルが正本である。別スキルには分けない。
+Set the boundary for connecting skills by name. Use this both when writing a caller and when writing a skill that others call. Both sides are the same reading of the boundary, so this skill is the source of truth. Do not split it into another skill.
 
-他スキルを呼ばず、他からも呼ばれない文章だけを直すときは使わない。
+Do not use this when the only task is to revise prose that neither calls other skills nor is called by them.
 
-今の作業がどちらかを決めてから、対応するファイルだけを読む。両方を一度に全部読まない。
+Decide which side the current task is, then read only the matching file. Do not read both sides in full at once.
 
-| いつ | 読む |
+| When | Read |
 | --- | --- |
-| 呼び出し側を書く、直す、レビューする | `references/caller.md`。理由が要るときは `references/practices.md` |
-| 他から呼ばれるスキルを書く、直す、レビューする | `references/callable-skill.md`。理由が要るときは `references/practices.md` |
-| 呼び出し側と呼ばれる側の対応を見る | `references/caller.md` と `references/callable-skill.md` |
+| Writing, revising, or reviewing a caller | `references/caller.md`. Read `references/practices.md` when you need the reasons |
+| Writing, revising, or reviewing a skill that others call | `references/callable-skill.md`. Read `references/practices.md` when you need the reasons |
+| Checking that the caller and the callable side match | `references/caller.md` and `references/callable-skill.md` |
 
-## 境界
+## Boundary
 
-他スキルとの間で書いてよいのは、次だけである。
+The only things you may write across skills are these:
 
-- スキル名
-- いつそのスキルを読むか
-- 渡す成果物と、戻ったら次へ進む条件
-- そのスキルの `SKILL.md` を読み、手順に従う、という一文
+- The skill name
+- When to read that skill
+- The artifact you pass, and the condition for moving on after it returns
+- One sentence that says to read that skill's `SKILL.md` and follow its procedure
 
-呼ばれる側は、この四つで仕事が終わる入口を `description` と `SKILL.md` に置く。呼び出し側は、この四つ以外を書かない。補助ファイル、スクリプト、節番号、テンプレート名は、そのスキルの外へ出さない。
+The callable side puts an entry point that finishes the job with these four items in `description` and `SKILL.md`. The caller writes nothing beyond these four. Supporting files, scripts, section numbers, and template names do not leave that skill.
