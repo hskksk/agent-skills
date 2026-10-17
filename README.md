@@ -28,6 +28,8 @@ npx skills add hskksk/agent-skills --skill japanese-writing
 | `narrative-report` | Use a business-narrative frame to shape a report in any field so that facts and changes carry context, meaning, a future to aim for, and the roles of the people involved. Use when a report in any field needs to explain why a change matters, what it means, and what future or choices it points toward—not merely prose or fictional storytelling. |
 | `skill-orchestration` | Decide how a caller and a callable skill are written when several skills are combined into one job. The boundary is the skill name and the other skill's procedure only; do not point at another skill's files. Use when writing or reviewing a skill that calls other skills, or a skill that other skills should be able to call. |
 | `pr-steward` | After a PR is opened, delegate watching and small fixes to a cheaper subagent. Autonomously handle lint, format, and clear CI fixes, and escalate design judgment or scope-expanding comments to the parent as a structured handoff. Use when a parent agent has opened a PR and should delegate babysitting without burning the main context on trivial follow-ups. |
+| `duckdb-sql` | Write analytical DuckDB SQL. Choose Friendly SQL, nested types, direct file queries, PIVOT, and macros. Use when writing or reviewing analytical DuckDB SQL. |
+| `d2-diagram` | Write a D2 diagram with elk, a d2-legend, fully qualified keys, a markdown title, and ${} substitution. Use when writing or fixing a D2 diagram. |
 
 ## スキルの置き方
 
