@@ -4,8 +4,9 @@ description: Write analytical DuckDB SQL. Choose Friendly SQL, nested types, dir
 license: MIT
 metadata:
   author: hskksk
-  version: 1.0.0
+  version: 1.8.0
 ---
+
 
 # Write DuckDB SQL
 

@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/hskksk/agent-skills/compare/v1.7.0...v1.8.0) (2026-10-17)
+
+
+### Features
+
+* add duckdb-sql and d2-diagram skills ([873b7ce](https://github.com/hskksk/agent-skills/commit/873b7cec360ff06242f9d5a057dccbae452f38e7))
+
 # [1.7.0](https://github.com/hskksk/agent-skills/compare/v1.6.0...v1.7.0) (2026-10-17)
 
 

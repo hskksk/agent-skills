@@ -4,8 +4,9 @@ description: Write a D2 diagram with elk, a d2-legend, fully qualified keys, a m
 license: MIT
 metadata:
   author: hskksk
-  version: 1.0.0
+  version: 1.8.0
 ---
+
 
 # Write a D2 diagram
 
