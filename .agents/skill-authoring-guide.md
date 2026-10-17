@@ -1,141 +1,143 @@
-# スキル作成ガイド
+# Skill authoring guide
 
-このガイドは、再利用しやすく、後から分解・統合・昇格しやすいスキルを設計するための手引きである。スキルの内容を一つの長い指示文へ詰め込むのではなく、**利用者の依頼を受けて必要な要素を選び、適切な手順と参照資料へ案内する構成**を目指す。
+This guide is for designing skills that are easy to reuse and, later, to split, merge, or promote. Do not pack a skill's content into one long instruction. Aim for a shape that, given the user's request, selects the pieces it needs and points at the right procedure and references.
 
-## 設計の基本
+Skill prose in this catalog is English, except skills about Japanese such as `japanese-writing`.
 
-### 1. スキルは「入口と進行役」、reference は「独立したルールの正本」
+## Design basics
 
-- frontmatter の `description` には、スキルができることと使う場面を書く。詳しい手順を詰め込まず、呼び出すべき依頼を見分けられる説明にする。
-- `SKILL.md` には、いつ使うか、作業の進め方、どの資料をいつ読むかを書く。
-- 独立して説明できる判断軸、作業フェーズ、出力仕様、詳細なルールは `references/` に分ける。
-- 同じルールを複数ファイルで定義しない。本文の正本を一箇所に置き、ほかのファイルは参照または確認項目にする。
-- reference は必要なときだけ読めるよう、`SKILL.md` から読むタイミングを案内する。
+### 1. The skill is the entry and the guide; a reference is the source of truth for an independent rule
 
-### 2. 分割は見出しの数ではなく、責務の独立性で決める
+- In the frontmatter `description`, write what the skill can do and when to use it. Do not pack the detailed procedure in. Make the description enough to recognize the request that should trigger it.
+- In `SKILL.md`, write when to use it, how the work proceeds, and which material to read when.
+- Put an axis of judgment, a phase of work, an output specification, or a detailed rule that can be explained on its own into `references/`.
+- Do not define the same rule in several files. Put the source of truth for the body in one place. Other files refer to it or turn it into a check.
+- So a reference can be read only when needed, `SKILL.md` says when to read it.
 
-独立したファイルにする候補は、たとえば次のような要素である。
+### 2. Split by independence of responsibility, not by heading count
 
-- 独立した判断軸（読者、目的、重心、リスクなど）
-- 選択できる作業フェーズや方式
-- 別々に使える出力仕様、テンプレート、品質基準
-- 繰り返し使う手順や、機械的に実行できる処理
+Candidates for their own file include elements such as these.
 
-ファイルを分ける前に、次を確認する。
+- An independent axis of judgment (reader, purpose, weighting, risk, and so on)
+- A phase or method the user can choose
+- An output specification, template, or quality bar that can be used on its own
+- A procedure used repeatedly, or a process that can be run mechanically
 
-1. そのファイルだけ読んでも、目的と用語が分かるか。
-2. その要素だけを変更・移動・再利用しても、ほかの内容を書き換えずに済むか。
-3. 「いつ読むか」を明確にできるか。
-4. 同じルールの正本が別ファイルに残らないか。
+Before you split a file, check the following.
 
-複数の問いに「いいえ」となるなら、まだ一つの責務としてまとまっている可能性がある。逆に、節を機械的に細切れにして、相互参照なしでは理解できなくなる分割も避ける。**独立性と読みやすさの釣り合い**を優先する。
+1. Can that file alone make its purpose and terms clear?
+2. Can you change, move, or reuse that element without rewriting the rest?
+3. Can you state when to read it?
+4. Does a second source of truth for the same rule not remain in another file?
 
-### 3. MECE は目標であり、機械的な分割規則ではない
+If several answers are no, the material may still be one responsibility. The reverse is also a miss: slicing sections mechanically until the pieces cannot be understood without cross-references. Prefer the balance of independence and readability.
 
-要素の重複や抜けを減らすために MECE を使う。ただし、すべてを無理に一つずつのファイルへ分ける必要はない。複数の要素が常に一緒に使われ、変更理由も同じなら、ひとまとまりの reference の方が扱いやすい。
+### 3. MECE is a goal, not a mechanical split rule
 
-各ルールには「どのファイルが正本か」を割り当てる。例外や共通ルールを複数箇所へ複製せず、必要な場所から正本へリンクする。
+Use MECE to reduce overlap and gaps. You do not have to force every element into its own file. When several elements are always used together and change for the same reason, one reference is easier to handle.
 
-## スキル・reference・script の境界
+Assign each rule a file that is its source of truth. Do not copy exceptions or shared rules into several places. Link to the source of truth from where it is needed.
 
-| 置き場所 | 置く内容 | 判断の目安 |
+## Boundaries among skill, reference, and script
+
+| Location | What goes there | How to judge |
 |---|---|---|
-| `SKILL.md` | 起動条件、全体の流れ、選択と参照の案内 | スキルを使うたびに必要な短い指示か |
-| `references/` | 判断基準、詳細な手順、領域別ガイド、規約 | 人が文脈を読んで判断する知識か |
-| `scripts/` | 計測、変換、検証など再現可能な処理 | 入力と出力が定まり、機械実行の方が安定するか |
-| `assets/` | 雛形、図、固定素材 | 成果物に使うファイルそのものか |
-| `checklists` | 提出前・実行後の確認 | 既定ルールを実際に満たしたかを確かめるものか |
+| `SKILL.md` | Trigger conditions, the overall flow, guidance for choices and references | Is it a short instruction needed every time the skill is used? |
+| `references/` | Criteria, detailed procedure, a guide for a domain, conventions | Is it knowledge a person judges by reading the context? |
+| `scripts/` | Measurement, conversion, verification, and other reproducible processing | Are the input and output fixed, and is machine execution more stable? |
+| `assets/` | Templates, figures, fixed material | Is it a file used in the artifact itself? |
+| `checklists` | Checks before submission or after a run | Does it test whether an established rule was actually met? |
 
-チェックリストはルールの第二の正本にしない。判定可能な問いに直し、詳細な規則は該当する reference に置く。script の結果も、文脈判断が必要な語や品質を機械的に断定しない。確実に測れる必須条件と、目視で確認する参考情報を分ける。
+Do not make a checklist a second source of truth for the rules. Turn items into questions that can be judged, and put the detailed rule in the matching reference. A script's result also does not mechanically decide words or quality that need a judgment in context. Separate required conditions that can be measured for certain from reference information that is checked by eye.
 
-## ひとつのスキルにまとめるか、別スキルにするか
+## One skill, or a separate skill
 
-元のスキルが複数ある場合も、ファイルを一つに貼り合わせるのではなく、まず共通の利用目的と違いを整理する。
+When the source material is several skills, do not paste the files into one. First sort out the shared purpose and the differences.
 
-### 一つのスキルにまとめる
+### Keep them in one skill
 
-- 利用者の依頼や作業領域が近く、共通の入口から適切な方式を選べる。
-- 各方式の間で、用語、共通ルール、品質基準を共有できる。
-- 選んだ方式を、ユーザーの依頼なしに順番にすべて実行する必要はない。
+- The user's request and the area of work are close, and the right method can be chosen from a shared entry.
+- The methods can share terms, shared rules, and quality bars.
+- The chosen method does not have to be run, in order, for every method, without the user asking.
 
-この場合、`SKILL.md` をルーターにし、方式ごとの guide を別 reference にする。各 guide の章立ては揃え、必須成果物など方式固有の内容だけを変える。共通部分は独立した reference に置く。**方式が選択肢であるなら、順番に進む工程へ勝手に変えない。**
+In that case, make `SKILL.md` a router and put each method's guide in its own reference. Align the chapter outline of each guide, and change only what is specific to the method, such as required artifacts. Put the shared part in its own reference. **If the methods are choices, do not quietly turn them into steps that always run in order.**
 
-### 別スキルにする
+### Make them separate skills
 
-- 独立した依頼で起動でき、別の利用者意図・成果物・実行手順がある。
-- 既存スキルのルーターや共通ルールに依存せず、単体で説明できる。
-- 起動条件や指示の衝突を避けるため、別々に選択・保守した方がよい。
+- It can be triggered by an independent request, and it has a different user intent, artifact, or procedure.
+- It can be explained on its own, without depending on another skill's router or shared rules.
+- Separate selection and maintenance is better, to avoid colliding trigger conditions or instructions.
 
-reference を別スキルへ昇格するときは、切り出すだけで終わらせず、その要素に独自の `name`、`description`、起動条件、手順、品質基準を与える。元スキル側には移動先への不要な依存を残さない。
+When you promote a reference into its own skill, do not stop at cutting it out. Give that element its own `name`, `description`, trigger conditions, procedure, and quality bar. Do not leave an unnecessary dependency on the destination in the original skill.
 
-スキル同士は別々に配布・利用されることがある。別スキルの内部ファイルを直接参照しない。共有が必要なら、両方へ必要な内容を同梱するか、独立配布できる構成を別途設計する。名前でつなぐときの入口と、呼び出し側が書いてよい範囲は `skill-orchestration` が正本である。このガイドへ写さない。
+Skills are sometimes distributed and used separately. Do not refer directly to another skill's internal files. If sharing is required, bundle what both need, or design a layout that can be distributed on its own. The entry point for connecting by name, and what a caller may write, has its source of truth in `skill-orchestration`. Do not copy that into this guide.
 
-## 作成・再編の進め方
+## How to create or reorganize
 
-### 1. 依頼と素材を棚卸しする
+### 1. Inventory the request and the material
 
-次を短く書き出す。
+Write the following down briefly.
 
-- 何をできるようにするスキルか
-- どんな依頼で起動するか、起動しないのはどんな場合か
-- 成果物と成功条件は何か
-- 作業の分岐、共通ルール、制約は何か
-- 既存ファイルや利用者の変更のうち、残すべきものは何か
+- What the skill should make possible
+- Which requests trigger it, and which do not
+- What the artifact and the success condition are
+- What the branches of the work, the shared rules, and the constraints are
+- What to keep from existing files or from the user's changes
 
-複数スキルを統合する場合は、元の各スキルが解いていた問題を保ったまま、共通部分と分岐点を見つける。ファイル名だけで役割を推測せず、内容を読んでから移動・統合する。
+When merging several skills, find the shared part and the branch points while keeping the problem each original skill solved. Do not guess a role from the file name. Read the content before you move or merge it.
 
-### 2. 責務と正本を決める
+### 2. Decide responsibilities and the source of truth
 
-内容を次の観点に分け、各項目の所有ファイルを決める。
+Split the content along the following views, and decide which file owns each item.
 
-| 観点 | 決めること |
+| View | What to decide |
 |---|---|
-| ルーティング | どの依頼でどの方式・フェーズを選ぶか |
-| 共通原則 | すべての方式に適用するルールは何か |
-| 方式別ガイド | 選ばれた方式の成果物と手順は何か |
-| 情報設計 | 読者、優先順位、形式など何を別軸で選ぶか |
-| 検証 | 何を人が確認し、何を script で測るか |
+| Routing | Which request chooses which method or phase |
+| Shared principles | Which rules apply to every method |
+| Guides by method | What the chosen method's artifacts and procedure are |
+| Information design | What is chosen on a separate axis, such as reader, priority, or form |
+| Verification | What a person checks, and what a script measures |
 
-各項目について「正本」「読むタイミング」「利用する他ファイル」を記録すると、重複と参照漏れを見つけやすい。
+For each item, recording "source of truth," "when to read," and "other files it uses" makes overlap and missing references easier to find.
 
-#### survey-report の再編例
+#### Example: reorganizing survey-report
 
-一つのガイドに混在していた内容を、共通の入口から選べる方式と、独立した判断軸に分けた例である。
+An example of splitting material that had been mixed in one guide into methods chosen from a shared entry, and into independent axes of judgment.
 
-| 責務 | ファイル | 読むタイミング |
+| Responsibility | File | When to read |
 |---|---|---|
-| Phase の選択 | `references/phase-routing.md` | 最初 |
-| Phase 1/2 の固有成果物 | `references/phase-1-guide.md` / `references/phase-2-guide.md` | 選んだ方式に応じて |
-| 重心・読者レベル | `references/gravity.md` / `references/reader-level.md` | 構成を決めるとき |
-| 共通の書き方 | `references/report-conventions.md` | 構成・執筆時 |
-| 品質確認・計測 | `references/checklists.md` / `references/measure.py` | 提出前 |
+| Choosing the phase | `references/phase-routing.md` | First |
+| Artifacts specific to Phase 1 and 2 | `references/phase-1-guide.md` / `references/phase-2-guide.md` | According to the method chosen |
+| Weighting and reader level | `references/gravity.md` / `references/reader-level.md` | When deciding the structure |
+| Shared writing rules | `references/report-conventions.md` | While structuring and writing |
+| Quality checks and measurement | `references/checklists.md` / `references/measure.py` | Before submission |
 
-Phase 1 と Phase 2 は同じ領域の選択肢として一つのスキルに残し、各ガイドの章立てを揃えた。一方、重心と読者レベルは別々に決める軸として分離した。これは構成例であり、別のスキルへそのまま当てはめるテンプレートではない。
+Phase 1 and Phase 2 stayed in one skill as choices in the same area, and the chapter outline of each guide was aligned. Weighting and reader level were separated as axes decided independently. This is an example of a structure, not a template to drop onto another skill as-is.
 
-### 3. 読み込み順を設計する
+### 3. Design the read order
 
-典型的な順序は、**起動条件の確認 → 必要な方式の選択 → 共通ルールと該当する詳細だけを読む → 作業 → 品質確認**である。すべての reference を毎回読む設計にしない。各ファイルは `SKILL.md` から相対パスで参照し、読む条件も書く。
+A typical order is **confirm the trigger → choose the method you need → read the shared rules and only the relevant detail → do the work → check quality**. Do not design it so every reference is read every time. Refer to each file by a relative path from `SKILL.md`, and write the condition for reading it.
 
-### 4. ファイルを移動・統合する
+### 4. Move and merge files
 
-- ルールの正本を一つに定め、重複箇所は同じ表現を複製せず参照へ置き換える。
-- 類似する方式別ガイドは、目的、構造、詳細、任意要素などの章立てを揃える。
-- 旧ファイルを削除する前に、その参照元と必要な内容の移動先を確認する。
-- reference はスキルのディレクトリ内で完結させ、別スキルへの配布時にも欠落しないようにする。
+- Set one source of truth for a rule. Replace duplicates with a reference instead of copying the same wording.
+- Align the chapter outline of similar guides by method: purpose, structure, detail, optional elements, and so on.
+- Before deleting an old file, check what refers to it and where the content that is still needed moved.
+- Keep a reference complete inside the skill's directory, so it is not missing when the skill is distributed on its own.
 
-### 5. 初見レビューと検証を行う
+### 5. Do a first-look review and verify
 
-会話の背景を知らないレビュアーに、`SKILL.md` と全 reference を読んでもらう。少なくとも次を確認する。
+Have a reviewer who does not know the conversation's background read `SKILL.md` and every reference. Check at least the following.
 
-- 起動条件と、使わない条件が分かるか。
-- どの順で何を読めばよいか分かるか。
-- 必須成果物と任意要素を区別できるか。
-- 同じルールに複数の正本がないか。ガイドとチェックリストに矛盾がないか。
-- 相対参照が存在し、配布対象のスキル内で必要ファイルが揃っているか。
-- script が文脈判断まで機械的に断定していないか。
+- Are the trigger conditions, and the conditions for not using it, clear?
+- Is it clear what to read, in what order?
+- Can required artifacts be told from optional elements?
+- Is there more than one source of truth for the same rule? Do the guide and the checklist contradict each other?
+- Do relative references exist, and are the files the distributed skill needs present inside it?
+- Does a script mechanically decide judgments that depend on context?
 
-スキルの性質に合う現実的な依頼例で動作を確認する。出力が客観的に検証できる場合はテストを用意し、文章品質など主観的な場合は初見レビューを重視する。検証コマンドを実行する前に、その副作用と生成物を確認する。
+Check behavior with a realistic example request that fits the skill. When the output can be verified objectively, add a test. When it is subjective, such as prose quality, weight the first-look review. Before you run a verify command, check its side effects and the artifacts it produces.
 
-## リポジトリ固有の約束
+## Promises specific to this repository
 
-このリポジトリのカタログ規約は [`../AGENTS.md`](../AGENTS.md) を正本とする。新しいスキルを追加したら、[`../skills.sh.json`](../skills.sh.json) の `groupings` にも追加する。新しいスキルや変更を作るときは、配置、メタデータ、リリース、コミット規約も確認し、このガイドへ複製しない。
+The catalog rules for this repository have their source of truth in [`../AGENTS.md`](../AGENTS.md). When you add a skill, also add it to `groupings` in [`../skills.sh.json`](../skills.sh.json). When you create a new skill or a change, also check layout, metadata, release, and commit conventions, and do not copy them into this guide.

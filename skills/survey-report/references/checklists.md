@@ -1,178 +1,179 @@
-# 提出前のチェック
+# Checks before submission
 
-レポートを出力・保存する直前に使う。先に共通テストを行い、その後で選んだ主重心のテストを行う。数えられる指標は目視で見積もらず、補助スクリプト `measure.py` を実行する（任意。無くても以下の目視テストは行う）。
+Use this immediately before you output or save the report. Run the common tests first, then the tests for the primary weighting you chose. Do not estimate countable metrics by eye. Run the helper script `measure.py` (optional; still do the visual tests below if it is missing).
 
 ```bash
-python3 <survey-report へのパス>/references/measure.py \
+python3 <path-to-survey-report>/references/measure.py \
   --model <front|middle|rear> \
-  <レポートファイル>
+  <report-file>
 ```
 
-スクリプトの出力はそのまま報告する。構成の適否は数だけでは決まらないため、重心別テストは人が原稿の該当箇所を示して判定する。**数字を手で書き換えない。**
+Report the script's output as it is. Whether the structure fits is not decided by numbers alone, so judge the weighting tests by pointing at the relevant places in the manuscript. **Do not rewrite the numbers by hand.**
 
-## 共通テスト
+## Common tests
 
-### 1. 問いと読者
+### 1. Question and reader
 
-- レポートが答える問いを一文で言えるか
-- 主な読者が、読後に何をできるようになるかを言えるか
-- 読者の前提レベルを入門・実務・専門から一つ選んでいるか
-- 説明せず使える既知の語と、本文で導入する未知の語を分けているか
-- テーマの面白さではなく、読者が時間を使う理由があるか
+- Can you state the question the report answers in one sentence?
+- Can you state what the main reader will be able to do after reading?
+- Have you chosen one assumed level: introductory, practitioner, or specialist?
+- Have you separated terms the reader may use without explanation from terms the body introduces?
+- Is there a reason for the reader to spend time, beyond the theme being interesting?
 
-問いが複数あるなら主従を決める。読者の指定がなければ入門を選ぶ。主題を狭めずに目次だけ整理しても直らない。
+If there are several questions, decide which is primary. If the reader is unspecified, choose introductory. Organizing the table of contents without narrowing the subject does not fix it.
 
-### 2. 軸の分離
+### 2. Separating the axes
 
-- Phase 1/2 の判定理由を一文で言えるか
-- 主重心を前・中・後から一つ選んでいるか
-- 価値の中心となる成果物を一つ指せるか
-- 副重心は多くても一つか
-- 紙幅、一次資料、最も良い図表が主重心へ集まっているか
-- 別モデルの固定枠が惰性で残っていないか
+- Can you state in one sentence why you chose Phase 1 or 2?
+- Have you chosen one primary weighting: front, middle, or rear?
+- Can you point at one artifact that is the center of value?
+- Is there at most one secondary weighting?
+- Do page space, primary sources, and the best figures gather on the primary weighting?
+- Has a fixed frame from another model lingered out of habit?
+- Do the working terms "front weighting", "middle weighting", "rear weighting", and "center of value" stay out of the body?
 
-「全部が重要」は未選択である。最も削れない部分を主重心にする。
+"Everything is important" means you have not chosen. Make the part you can least cut the primary weighting.
 
-### 3. 冒頭
+### 3. Opening
 
-タイトル直後に `## TL;DR` があり、主要な結論を3〜5項目でつかめるか。各項目は一文か。方法や章構成ではなく内容を書き、条件や重大な留保を落としていないか。
+Is there `## TL;DR` immediately after the title, so the main conclusions can be grasped in 3–5 items? Is each item one sentence? Does it state content rather than method or chapter structure, and does it keep conditions and serious reservations?
 
-続く冒頭部分だけで、問い・範囲・読む価値が分かるか。前重心なら答えと条件、中重心なら分類軸、後重心なら評価方法も確認する。
+Can the question, scope, and why it is worth reading be understood from the opening that follows? For front weighting, also check the answer and conditions. For middle weighting, the axes of classification. For rear weighting, how the work will be evaluated.
 
-概要の見出しや文数は固定しない。各節の予告、調査したという報告、スキルの構成説明だけになっていたら書き直す。
+Do not fix the overview's heading count or sentence count. Rewrite an opening that is only a preview of each section, a report that you surveyed, or an explanation of this skill's structure.
 
-入門では、TL;DRの次を次の順で確認する。
+For an introductory reader, check the material after the TL;DR in this order.
 
-1. 読者が経験しうる状況を具体的に示したか
-2. 従来は何と何が衝突し、何に困ったかを説明したか
-3. 新しい仕組みが何を変えたかを、専門語なしでも分かるようにしたか
-4. その後で専門語と内部機構を導入したか
+1. Did you show a concrete situation the reader could be in?
+2. Did you explain what used to collide, and what was difficult?
+3. Did you make what the new mechanism changed understandable without technical terms?
+4. Did you introduce technical terms and the internal mechanism after that?
 
-TL;DRに出した術語も、本文では初出として説明し直す。未知の術語を、別の未知の術語だけで定義していたら落ちる。
+A term that appeared in the TL;DR is explained again at its first use in the body. The check fails if an unknown term is defined only by another unknown term.
 
-### 4. 目次
+### 4. Table of contents
 
-目次が主な読み方を支えているか。
+Does the table of contents support the main way of reading?
 
-- `##` だけを読むと、背景・仕組み・制約・運用などレポートの道筋が分かるか
-- `###` まで読むと、具体的な発見・問い・比較対象を追えるか
-- 説明上の役割が変わる箇所を、字数に関係なく `###` で分けているか
-- 長い `##` 節が、小見出しのない一枚の説明文になっていないか
-- 前重心なら要点から根拠へ、中重心なら比較軸から対象へ、後重心なら問いから証拠・考察へ進めるか
+- Reading only `##`, can you see the path of the report, such as background, mechanism, constraints, and operations?
+- Reading through `###`, can you follow concrete findings, questions, and comparison targets?
+- Have you split with `###` wherever the explanatory role changes, regardless of length?
+- Has a long `##` section become one block of explanation with no subheadings?
+- Does front weighting move from the point to the evidence, middle weighting from comparison axes to the subjects, and rear weighting from the question to the evidence and the discussion?
 
-すべての見出しを結論文にする必要はない。`## 詳細` のように隣の節と区別できない見出しも、本文を詰め込んだ長い見出しも直す。
+Not every heading has to be a conclusion sentence. Also fix a heading that cannot be told apart from its neighbor, such as `## Details`, and a long heading that stuffs the body into the heading.
 
-### 5. 証拠と解釈
+### 5. Evidence and interpretation
 
-- `[n]` と `## 付録: 出典一覧` が対応しているか
-- 出典の記述と、このレポートの解釈を区別しているか
-- 未確認のことが未確認と分かるか
-- 一次資料を読んでいない箇所が、それと分かるか
-- 反例、適用限界、資料の偏りが、判断に間に合う位置にあるか
+- Do `[n]` and `## Appendix: Sources` correspond?
+- Have you distinguished what a source says from this report's interpretation?
+- Is it clear what is still unchecked?
+- Is it clear where you have not read the primary source?
+- Are counterexamples, limits of application, and bias in the sources placed where they arrive in time for the judgment?
 
-### 6. 証拠の生存
+### 6. Evidence survives
 
-付録に次を残しているか。
+Does the appendix keep the following?
 
-- 各節の中核となる出典
-- **調べたが採用しなかった重要な枝と、その理由**
-- 本文から外した年表、人物、隣接分野のうち再調査に役立つもの
-- URL を確認できない資料の識別情報
+- The core sources for each section
+- **Important branches you investigated and did not adopt, and why**
+- Timelines, people, and adjacent fields cut from the body that would help a later survey
+- Identifying information for sources whose URL cannot be checked
 
-短くするとは下の層へ移すことであって、証拠を消すことではない。
+Shortening means moving material down a layer. It does not mean deleting evidence.
 
-### 7. 形の選択
+### 7. Choice of form
 
-- 推論は散文になっているか
-- 読む順番が意味を変えない要素・観点・条件は箇条書きになっているか
-- 箇条書きの文法と抽象度がそろい、一項目へ複数の論点を詰めていないか
-- 同じ列を持つ対象が四つ以上なら、表を検討したか
-- 因果、依存、順序などの関係を見せるときだけ図を使っているか
-- 図にしかない事実がないか
+- Is reasoning written as prose?
+- Are elements, angles, and conditions whose reading order does not change the meaning in a list?
+- Do list items share grammar and level of abstraction, without packing several points into one item?
+- If four or more subjects share the same columns, did you consider a table?
+- Do you use a figure only to show a relationship such as cause, dependency, or order?
+- Is there no fact that exists only in a figure?
 
-全体像の図は必須ではない。図にすると関係が明確になる場合だけ置く。
+A landscape figure is not required. Place one only when a figure makes the relationship clearer.
 
-### 8. 日本語
+### 8. When the report is in Japanese
 
-- 出典名が文の主語に偏っていないか
-- 「〜は述べる」「〜は書く」で文を終えていないか
-- `japanese-writing` の直訳語・造語が残っていないか
-- 作業語の「前重心」「中重心」「後重心」「価値の中心」が本文に出ていないか
-- 改訂履歴、旧版との比較、執筆セッションなど、読者に不要な制作過程が本文に出ていないか
-- `japanese-writing` の推敲手順で、重複・名詞化・空の前置きを直したか
-- 見出し、段落の空白、表、図、太字が斜め読みの手がかりになっているか
+- Are source names not biased toward being the grammatical subject?
+- Do sentences not end with "X states" or "X writes" (「〜は述べる」「〜は書く」)?
+- Are calques and coined words that `japanese-writing` rejects still present?
+- Do the working terms 「前重心」「中重心」「後重心」「価値の中心」 stay out of the body?
+- Does the body expose production process the reader does not need, such as revision history, comparison with an old draft, or the writing session?
+- Did you fix repetition, nominalization, and empty prefaces with the `japanese-writing` revision procedure?
+- Do headings, paragraph breaks, tables, figures, and bold give a reader scanning on a diagonal something to hold onto?
 
-### 9. 計測
+### 9. Measurement
 
-`measure.py` の共通指標を確認する。必須指標の未達は原稿を見て直し、数字を手で上書きしない。候補語の検出は参考表示なので、文脈を見て判断する。
+Check the common metrics from `measure.py`. When a required metric is missed, look at the manuscript and fix it. Do not overwrite the numbers by hand. Candidate-word hits are a reference display, so judge them in context.
 
-本文字数は参考値であり、下限を置かない。調査の薄さは字数ではなく、互いに異なる資料、一次資料の比率、反対資料の有無で判断する。
+For a Japanese body the script reports characters. For other bodies it reports words. Body length is a reference value and has no minimum. Judge a thin survey by distinct sources, the share of primary sources, and whether opposing sources are present, not by length.
 
-## Phase 別テスト
+## Tests by phase
 
-### Phase 1（探索型）
+### Phase 1 (exploratory)
 
-1. L1 概要または冒頭に、全体像の要約があるか。
-2. **「次に解くべき問い」を3つ提示しているか。** 各問いに、なぜ重要かの一文があるか。
-3. 全体像が、要素・対立軸・プレイヤーの関係として構造化されているか（図は必須ではない）。
-4. 単なる用語集・リンク集になっていないか。
-5. Phase 2 に進むなら、どの問いから着手すべきかが示されているか。
+1. Does the L1 overview or the opening contain a summary of the landscape?
+2. **Have you presented three "questions to solve next"?** Does each question have one sentence on why it matters?
+3. Is the landscape structured as relationships among elements, axes of conflict, and players? A figure is not required.
+4. Has it not become a mere glossary or link list?
+5. If the work will continue to Phase 2, is it shown which question to start from?
 
-### Phase 2（検証・構造化型）
+### Phase 2 (verification and structuring)
 
-1. `## 概要` に、答え（一文）・判断の軸・調査範囲があるか。
-2. 答えを支える主張が、本文の章と対応しているか（数は固定しない）。
-3. 各主張に、根拠・具体例・限界への言及があるか。
-4. 見出しだけを読んで結論が追えるか。
-5. `## まとめ` を設けた場合、`## 概要` の答えと矛盾していないか。
+1. Does `## Overview` contain the answer (one sentence), the axes of judgment, and the survey scope?
+2. Do the claims that support the answer correspond to chapters in the body? The count is not fixed.
+3. Does each claim mention evidence, a concrete example, and a limit?
+4. Can the conclusion be followed by reading the headings alone?
+5. If you include `## Summary`, does it not contradict the answer in `## Overview`?
 
-## 重心別テスト
+## Tests by weighting
 
-### 前重心
+### Front weighting
 
-1. 冒頭で、答え・主要な理由・条件・範囲を得られるか。
-2. 冒頭だけを読んでも、留保が落ちて誤解を生まないか。
-3. 入門では、結論の直後から内部機構へ飛ばず、理解の足場を置いたか。
-4. 本文が冒頭の言い換えではなく、根拠・反例・適用限界を増やしているか。
-5. 提言がある場合、ユーザーが求めており、証拠がその強さを支えているか。
-6. 末尾が冒頭の長い再掲になっていないか。
+1. Can the opening yield the answer, the main reasons, the conditions, and the scope?
+2. If the reader stops after the opening, do dropped reservations not create a misunderstanding?
+3. For an introductory reader, did you place a foothold for understanding instead of jumping from the conclusion straight into the internal mechanism?
+4. Does the body add evidence, counterexamples, and limits of application, rather than paraphrasing the opening?
+5. If there is a recommendation, did the user ask for it, and does the evidence support its strength?
+6. Is the ending not a long restatement of the opening?
 
-### 中重心
+### Middle weighting
 
-1. 冒頭で、対象範囲と比較・分類の軸が分かるか。
-2. 本文から、選択肢の全体、差、例外、証拠の偏りを探せるか。
-3. 表の列が比較軸と一致し、対象ごとに都合よく変わっていないか。
-4. 単一の結論に合わない事例を落としていないか。
-5. 総括が本文の表を読み上げ直すだけになっていないか。
+1. Does the opening make the scope and the axes of comparison or classification clear?
+2. Can the reader find, from the body, the set of options, the differences, the exceptions, and bias in the evidence?
+3. Do the table columns match the comparison axes, without changing conveniently per subject?
+4. Have you not dropped cases that do not fit a single conclusion?
+5. Is the wrap-up not merely reading the body's tables aloud again?
 
-### 後重心
+### Rear weighting
 
-1. 冒頭で、問い・意義・範囲・評価方法が分かるか。
-2. 資料の選択、方法、結果、解釈を区別して追えるか。
-3. 最終的な考察が、本文で示した証拠だけから導かれているか。
-4. 反証、代替説明、一般化の限界を扱っているか。
-5. 冒頭の暫定答えが、論証前の断定になっていないか。
+1. Does the opening make the question, why it matters, the scope, and the method of evaluation clear?
+2. Can source selection, method, results, and interpretation be followed as distinct?
+3. Is the final discussion derived only from evidence shown in the body?
+4. Have you treated counterevidence, alternative explanations, and the limits of generalization?
+5. Is the provisional answer in the opening not an assertion made before the argument?
 
-## 混合型テスト
+## Mixed-weighting test
 
-副重心を置いた場合だけ行う。
+Run this only when you set a secondary weighting.
 
-1. 主重心と副重心の役割を別々に一文で言えるか。
-2. 副重心が、主重心へ入る導線または再利用の導線になっているか。
-3. 紙幅と図表が半々になり、主重心が消えていないか。
-4. 第三の重心を足していないか。
+1. Can you state the role of the primary weighting and the secondary weighting in separate sentences?
+2. Is the secondary weighting a path into the primary weighting, or a path for reuse?
+3. Have page space and figures not split in half, erasing the primary weighting?
+4. Have you not added a third weighting?
 
-## 長すぎる原稿の直し順
+## Order for repairing a manuscript that is too long
 
-1. 読者の目的と価値の中心を一文ずつ書く。
-2. 主重心を支えない節に印を付ける。
-3. 重要な証拠は付録へ移し、重複だけを消す。
-4. 主重心の順序で目次を作り直す。
-5. TL;DR を3〜5項目で書く。主要な結論だけを一項目一文にする。
-6. 冒頭をモデルに合わせて書き直す。
-7. 独立した列挙は箇条書き、同じ列を持つ比較は表へ移す。
-8. 長い節は、字数ではなく問い・仕組み・条件・例外など説明上の役割が変わる箇所で分ける。
-9. 出典名を `[n]` に置き換え、文の主語を主題側へ戻す。
-10. `japanese-writing` の推敲手順で重複・名詞化・空の前置きを直す。
-11. `measure.py` を実行する。
-12. 共通テストと、選んだ重心のテストをもう一度行う。
+1. Write the reader's purpose and the center of value, one sentence each.
+2. Mark sections that do not support the primary weighting.
+3. Move important evidence to the appendix, and delete only duplication.
+4. Rebuild the table of contents in the order of the primary weighting.
+5. Write the TL;DR in 3–5 items. One sentence per item, and only the main conclusions.
+6. Rewrite the opening to match the model.
+7. Move independent enumerations to lists, and comparisons that share columns to tables.
+8. Split long sections where the explanatory role changes — question, mechanism, condition, exception — not by length.
+9. Replace source names with `[n]`, and put the subject back on the topic.
+10. When the report is in Japanese, fix repetition, nominalization, and empty prefaces with the `japanese-writing` revision procedure.
+11. Run `measure.py`.
+12. Run the common tests and the tests for the weighting you chose once more.

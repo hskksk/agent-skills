@@ -1,27 +1,27 @@
-# ビジネスナラティブの考え方をレポートに応用する
+# Applying the business-narrative idea to a report
 
-ビジネス領域でいうナラティブの考え方は、事実を特定の視点から結び、**現状をどう解釈し、なぜ変化が重要で、どんな未来に向かうのか**を共有する枠組みである。このスキルではその考え方を、技術・研究・政策など、題材を問わないレポートに応用する。文章を段落で書くことや、主張に根拠を添えることだけではナラティブにならない。
+What business calls a narrative is a frame that ties facts together from a particular point of view and shares **how to interpret the current state, why a change matters, and which future it heads toward**. This skill applies that idea to reports whose subject is not limited to business: technology, research, policy, and others. Writing in paragraphs, or attaching evidence to a claim, is not yet a narrative.
 
-## 混同しやすい概念
+## Concepts that are easy to mix up
 
-| 概念 | 主に決めること |
+| Concept | What it mainly decides |
 |---|---|
-| **散文** | 箇条書きや詩ではなく、文や段落で書く形式 |
-| **論証** | 主張をどの根拠・推論で支えるか |
-| **物語・ストーリーテリング** | 出来事や登場人物をどの順に語るか。創作的な筋書きとは限らない |
-| **ナラティブ（本スキルで扱う意味）** | 事実や変化をどう意味づけ、どの未来や関係者の選択へ結びつけるか |
+| **Prose** | The form of writing in sentences and paragraphs, rather than a list or a poem |
+| **Argument** | Which evidence and inference support a claim |
+| **Story and storytelling** | The order in which events or characters are told. Not necessarily a fictional plot |
+| **Narrative (the sense this skill uses)** | How facts and changes are given meaning, and which future or whose choices they are tied to |
 
-ナラティブは散文で表現でき、論証を含み、物語のような流れを持つこともある。しかし、どれか一つと同義ではない。特に、**物語調の文体にすること**や**主張を順番につなぐこと**だけをナラティブと呼ばない。
+A narrative can be expressed in prose, can contain an argument, and can have a story-like flow. It is not synonymous with any one of those. In particular, do not call it a narrative merely to **write in a story-like style** or to **connect claims in order**.
 
-## ナラティブを構成する問い
+## Questions that make up a narrative
 
-必要なものだけを選ぶ。すべてのレポートに同じ要素を詰め込む必要はない。
+Choose only what you need. Do not pack the same elements into every report.
 
-1. **状況** — いま何が起きているか。どの視点から見るか。
-2. **変化や緊張** — 何が変わったか、何と何が両立しにくいか。なぜ今、注目するのか。
-3. **意味** — その変化が対象や関係者に何を意味するか。
-4. **向かう先** — どんな未来を目指すか。目標なのか、予測なのか。
-5. **関係者の役割** — 誰が影響を受け、誰が選択や行動に関われるか。
-6. **道筋と留保** — 何をすれば前に進めるか。前提、代償、未解決の点は何か。
+1. **Situation** — what is happening now. From which point of view.
+2. **Change or tension** — what changed, or what is hard to hold together. Why it deserves attention now.
+3. **Meaning** — what that change means for the subject or the people involved.
+4. **Where it is heading** — which future to aim for. Whether that is a goal or a prediction.
+5. **Roles of the people involved** — who is affected, and who can take part in a choice or an action.
+6. **Path and reservations** — what would move things forward. The premises, the costs, and what is still unresolved.
 
-ナラティブの価値は、読者が「何が起きたか」だけでなく、「それをどう受け止め、何を選べるか」を理解できる点にある。
+The value of a narrative is that the reader understands not only "what happened," but "how to take it, and what they can choose."

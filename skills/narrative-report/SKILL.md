@@ -1,6 +1,6 @@
 ---
 name: narrative-report
-description: ビジネスナラティブの考え方を使い、分野を問わず、事実や変化を背景・意味・目指す未来・関係者の役割が伝わるレポートに構成する。Use when a report in any field needs to explain why a change matters, what it means, and what future or choices it points toward—not merely prose or fictional storytelling.
+description: Use a business-narrative frame to shape a report in any field so that facts and changes carry context, meaning, a future to aim for, and the roles of the people involved. Use when a report in any field needs to explain why a change matters, what it means, and what future or choices it points toward—not merely prose or fictional storytelling.
 license: MIT
 metadata:
   author: hskksk
@@ -8,24 +8,24 @@ metadata:
 ---
 
 
-# ナラティブ型レポート
+# Narrative report
 
-ビジネス領域で使われるナラティブの考え方を、**題材や分野を問わず**レポートへ応用する。事実を並べたり、段落を滑らかにつないだりするだけでなく、**現状をどう捉え、変化にどんな意味があり、誰がどの未来へ向かうのか**を読者が理解できる形にする。ナラティブは物語調の文体ではなく、事実を結び、意味と方向を共有するための設計である。
+Apply the idea of narrative used in business to a report **in any subject or field**. Do more than line up facts or smooth the joins between paragraphs. Put the material in a form where the reader can understand **how to read the current state, what a change means, and who is heading toward which future**. Narrative here is not a story-like style. It is a design for tying facts together and sharing meaning and direction.
 
-## 適用範囲
+## Scope
 
-対象は、技術・研究・政策・組織・市場など、題材を問わず、背景・意味・目指す未来まで伝えるレポートである。読みやすい散文だけで十分な依頼、創作物・フィクション、中立的な一覧や単純な事実報告には、ナラティブを無理に当てはめない。
+The subject is a report, in any field — technology, research, policy, organizations, markets, and others — that carries background, meaning, and a future to aim for. Do not force a narrative onto a request that only needs readable prose, onto creative work or fiction, or onto a neutral list or a plain factual report.
 
-## 手順
+## Procedure
 
-1. **読者と目的を定める。** 読者に何を理解・判断・共有してほしいかを確認する。結論や提言を求められていない場合は、勝手に追加しない。
-2. **`references/narrative-model.md` を読む。** ナラティブが担う意味づけと、散文・論証・物語との違いを確認する。
-3. **`references/narrative-design.md` を読む。** 根拠となる事実から、中心となる変化・意味・未来・関係者の役割を設計する。
-4. **レポートを書く。** ユーザーの指定形式を優先し、指定がなければ Markdown を使う。固定の章立てや時系列を強制せず、ナラティブが最も伝わる順序を選ぶ。
-5. **`references/narrative-review.md` で見直す。** 事実と解釈、予測と目標を分け、反対の見方や不確実性を落としていないか確認する。
+1. **Set the reader and the purpose.** Confirm what you want the reader to understand, judge, or share. If they did not ask for a conclusion or a recommendation, do not add one on your own.
+2. **Read `references/narrative-model.md`.** Confirm the meaning-making that narrative carries, and how it differs from prose, argument, and story.
+3. **Read `references/narrative-design.md`.** From the facts that are the evidence, design the central change, the meaning, the future, and the roles of the people involved.
+4. **Write the report.** Prefer the format the user specified. If none is specified, use Markdown. Do not force a fixed chapter outline or a timeline. Choose the order in which the narrative is clearest.
+5. **Review with `references/narrative-review.md`.** Separate fact from interpretation, and prediction from goal. Check that you have not dropped opposing views or uncertainty.
 
-調査や出典が必要な場合は、事実を確認してから書く。ナラティブは根拠を置き換えない。調査レポートの構成や引用形式が別途指定されている場合は、それを保ったまま意味づけの層を加える。
+When the report needs research or sources, confirm the facts before writing. Narrative does not replace evidence. When a survey-report structure or a citation format is specified separately, keep it and add the layer of meaning on top.
 
-## 扱わないこと
+## What this skill does not cover
 
-一次調査の手順、分野固有の専門的な証拠評価、特定組織の広報テンプレート、ブランドボイスの設定、フィクションの執筆は扱わない。ビジネスナラティブの考え方を、さまざまな分野のレポートへ適用する。
+It does not cover primary-research procedure, field-specific evaluation of expert evidence, a particular organization's publicity template, brand-voice settings, or fiction writing. It applies the idea of business narrative to reports in many fields.

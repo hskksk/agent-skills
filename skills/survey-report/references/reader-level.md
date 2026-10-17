@@ -1,30 +1,30 @@
-# 読者レベルを決める
+# Choose the reader level
 
-読者レベルは「どこから説明を始めるか」を決める。レポートの価値をどこに置くかを決める重心とは独立している。前重心だから専門家向け、後重心だから入門向け、という対応はない。重心は [`gravity.md`](gravity.md) を参照。
+Reader level decides where the explanation starts. It is independent of weighting, which decides where the report's value sits. Front weighting does not mean a specialist reader, and rear weighting does not mean an introductory reader. For weighting, see [`gravity.md`](gravity.md).
 
-## 前提レベル
+## Assumed level
 
-| レベル | 仮定してよいこと | 本文で必要な足場 |
+| Level | You may assume | Scaffolding the body still needs |
 |---|---|---|
-| **入門** | 主題の名前、身近な用途、隣接する一般概念 | 何が起きるか、従来は何に困ったか、専門語がどの問題を指すか |
-| **実務** | 基本操作、主要な設定、よく出る用語 | 操作の背後にある仕組み、失敗条件、例外 |
-| **専門** | 内部機構、標準用語、代表的な先行議論 | 今回の差分、証拠、反論、未解決点 |
+| **Introductory** | The name of the subject, a familiar use, neighboring everyday concepts | What happens, what used to go wrong, and which problem a technical term names |
+| **Practitioner** | Basic operations, the main settings, terms that come up often | The mechanism behind an operation, failure conditions, exceptions |
+| **Specialist** | Internal mechanisms, standard terminology, the representative prior debate | What is different this time, the evidence, objections, open points |
 
-ユーザーが指定しなければ**入門**を選ぶ。ただし「何も知らない読者」を意味しない。たとえば SQLite がアプリのデータを保存するデータベースであることは仮定できるが、rollback journal、WAL frame、end mark、checkpoint mode は説明なしに使わない。
+If the user does not specify, choose **introductory**. That does not mean "a reader who knows nothing." For example, you may assume that SQLite is a database that stores an application's data. You may not use rollback journal, WAL frame, end mark, or checkpoint mode without explaining them.
 
-## 入門者向けの導入
+## Opening for an introductory reader
 
-タイトル直後の `TL;DR` の後、本文では次の順を基本にする。
+After the `TL;DR` that follows the title, the body uses this order as the default.
 
-1. **身近な状況** — 読者が経験しうる状況を示す。
-2. **従来の問題** — 何が衝突し、どんな不便があったかを説明する。
-3. **変化** — 新しい仕組みが問題をどう変えるかを説明する。
-4. **名称と内部機構** — ここで専門語を定義し、詳細に入る。
+1. **A familiar situation** — show a situation the reader could be in.
+2. **The old problem** — explain what collided, and what was inconvenient.
+3. **The change** — explain how the new mechanism changes the problem.
+4. **Names and internal mechanism** — define technical terms here, then go into detail.
 
-`TL;DR` に出した専門語も、本文では初出として説明する。導入に背景史を詰め込まず、次の説明に必要な因果だけを置く。
+A technical term that appeared in the `TL;DR` is still explained at its first use in the body. Do not pack background history into the opening. Put only the cause and effect the next explanation needs.
 
-執筆前に、次の一文を作業メモに残す。
+Before writing, leave this sentence in the working note.
 
-> 読者の前提は **〈入門・実務・専門〉**。**〈既知の概念〉** は説明せず、**〈未知の概念〉** は **〈状況・従来の問題〉** から導入する。
+> The reader's assumed level is **<introductory, practitioner, or specialist>**. **<known concepts>** are not explained. **<unknown concepts>** are introduced from **<a situation and the old problem>**.
 
-このメモは完成原稿には載せない。
+Do not include this note in the finished manuscript.

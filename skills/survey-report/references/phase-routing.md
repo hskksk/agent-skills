@@ -1,40 +1,40 @@
-# レポート型の選択（Phase ルーティング）
+# Choosing the report type (phase routing)
 
-このガイドは、依頼の問いがどこまで定まっているかを見て、調査レポートを Phase 1（探索型）か Phase 2（検証・構造化型）に振り分ける。重心と読者レベルは別の判断軸であり、選び方はそれぞれ [`gravity.md`](gravity.md) と [`reader-level.md`](reader-level.md) を参照する。
+This guide routes a survey report to Phase 1 (exploratory) or Phase 2 (verification and structuring) by how far the request's question is already fixed. Weighting and reader level are separate axes. Choose them in [`gravity.md`](gravity.md) and [`reader-level.md`](reader-level.md).
 
-## 判定フロー
+## Decision flow
 
 ```
-[ユーザーからの依頼]
+[Request from the user]
           │
           ▼
-   具体的な論点・仮説があるか？
-    ├── YES ──> Phase 2: 検証・構造化型
-    └── NO  ──> 全体像や最新動向の把握が目的か？
-                  ├── YES ──> Phase 1: 探索型
-                  └── 不明 ─> Phase 1: 探索型
+   Is there a concrete issue or hypothesis?
+    ├── YES ──> Phase 2: verification and structuring
+    └── NO  ──> Is the goal a landscape or the latest developments?
+                  ├── YES ──> Phase 1: exploratory
+                  └── unclear ─> Phase 1: exploratory
 ```
 
-曖昧な依頼では Phase 1 を選び、末尾に Phase 2 で検証できる具体的な問いを提示する。必要ならユーザーと問いを確認するが、Phase 1 の後に Phase 2 を続けること自体を前提にはしない。
+For an ambiguous request, choose Phase 1 and end with concrete questions that Phase 2 could verify. Confirm the question with the user when you need to. Do not assume that Phase 2 will follow Phase 1.
 
-## 判定の目安
+## How to judge
 
-| | Phase 1: 探索型 | Phase 2: 検証・構造化型 |
+| | Phase 1: exploratory | Phase 2: verification and structuring |
 |---|---|---|
-| 依頼の特徴 | 広いテーマ、全体像、トレンド、未知分野の把握 | 選択肢の比較、要因分析、仮説検証、意思決定の材料 |
-| 問い | 「何が問題か」「今どうなっているか」が未特定 | 「A と B のどちらか」「なぜ起きたか」など具体的 |
-| 成果物 | 分野の地図と、次に解くべき3つの問い | 問いへの答えと、それを支える根拠 |
+| The request | A broad theme, a landscape, trends, or an unfamiliar field | Comparing options, analyzing causes, checking a hypothesis, or material for a decision |
+| The question | "What is the problem?" or "What is the state now?" is still unspecified | Concrete, such as "A or B?" or "Why did this happen?" |
+| The artifact | A map of the field, and three questions to solve next | An answer to the question, and the evidence that supports it |
 
-### Phase 1 を選ぶ依頼の例
+### Example requests that choose Phase 1
 
-- 「この分野の全体像を調べてほしい」
-- 「最新動向や主要論点を知りたい」
-- 「基本から概観したい」
+- "Survey the landscape of this field"
+- "I want the latest developments and the main issues"
+- "Give me an overview from the basics"
 
-### Phase 2 を選ぶ依頼の例
+### Example requests that choose Phase 2
 
-- 「A と B のトレードオフを比較検証してほしい」
-- 「ボトルネックと原因を特定してほしい」
-- 「導入すべきか、根拠をまとめてほしい」
+- "Compare the tradeoffs of A and B"
+- "Identify the bottleneck and its cause"
+- "Summarize the evidence for whether we should adopt this"
 
-各 Phase の成果物と構成は [`phase-1-guide.md`](phase-1-guide.md) または [`phase-2-guide.md`](phase-2-guide.md) を参照する。
+For each phase's artifacts and structure, see [`phase-1-guide.md`](phase-1-guide.md) or [`phase-2-guide.md`](phase-2-guide.md).

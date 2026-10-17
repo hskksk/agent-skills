@@ -1,53 +1,53 @@
-# Phase 2: 検証・構造化型レポート
+# Phase 2: verification and structuring report
 
-Phase 2 は、問いや仮説が定まった後に、答えと根拠の対応を示す型である。固定するのは対応関係であり、主張数、節数、図表の有無や並び順ではない。
+Phase 2 is the type used after the question or hypothesis is fixed. It shows how the answer corresponds to its evidence. What is fixed is that correspondence, not the number of claims, the number of sections, or whether and in what order figures appear.
 
-## 目的と必須成果物
+## Purpose and required artifacts
 
-読者が問いへの答えを把握し、その答えを支える論拠を追える状態を作る。次の二つを必ず満たす。
+Leave the reader able to grasp the answer to the question and to follow the argument that supports it. Always meet both of the following.
 
-1. **答え** — 依頼の問いに対する結論を明示する。
-2. **答えと根拠の対応** — 答えを支える主張と、その根拠を本文で追跡できるようにする。
+1. **Answer** — state the conclusion to the request's question.
+2. **Correspondence of answer and evidence** — make the claims that support the answer, and their evidence, traceable in the body.
 
-## 構造モデル
+## Structure model
 
-| 層 | 役割 | Phase 2 で示すもの |
+| Layer | Role | What Phase 2 shows |
 |---|---|---|
-| **L1** | 答えと調査の入口 | 問いへの答え、判断軸、位置づけ、調査範囲、答えを支える主張 |
-| **L2** | 主張と論拠の展開 | 各主張の根拠、具体例、データ、限界や反論 |
-| **L3** | 根拠と再調査のための記録 | `[n]` に対応する出典、本文から外した重要な調査の枝や補足 |
+| **L1** | The answer and the entry to the survey | The answer to the question, axes of judgment, where the answer sits, survey scope, claims that support the answer |
+| **L2** | Claims and the argument unfolded | Evidence, examples, data, and limits or objections for each claim |
+| **L3** | Record for evidence and a later survey | Sources that match `[n]`, and important survey branches or supplements cut from the body |
 
-タイトル直後には共通ルールに従って `## TL;DR` を置く。これは L1 の概要より短い入口である。共通の見せ方は [`report-conventions.md`](report-conventions.md) を参照。
+Place `## TL;DR` immediately after the title, following the shared rules. It is a shorter entry than the L1 overview. For the shared presentation, see [`report-conventions.md`](report-conventions.md).
 
-## 各層に含める内容
+## What each layer includes
 
-### L1: 概要
+### L1: overview
 
-見出しは `## 概要` とし、依頼と重心に合わせて次の情報を必要な範囲で含める。
+Use the heading `## Overview`. Include the following as far as the request and the weighting need them.
 
-- 問いへの答え（一文）
-- 比較・判断に使った軸
-- 答えの位置づけや適用条件
-- 答えを支える主張
-- 調査範囲（期間、地域、対象、資料の種類など）
+- The answer to the question (one sentence)
+- The axes used for comparison or judgment
+- Where the answer sits, and the conditions under which it applies
+- The claims that support the answer
+- Survey scope (period, region, subjects, kinds of sources, and so on)
 
-### L2: 主張と根拠
+### L2: claims and evidence
 
-- 各章を L1 の主張と追跡可能な形で対応させる。1 対 1 の番号付けは既定案として使えるが、主張数や番号は固定しない。
-- 見出しは対象と主張が分かる形にし、見出しだけでも論点の道筋を追えるようにする。例: `## 消費層は必須 — Raw VaultをBIに直結しない`。
-- 各節では主張、根拠、具体例・データ、限界や反論を必要に応じて扱う。
-- 本文の根拠は `[n]` で L3 の出典に接続する。
-- 情報の順序は重心に合わせる。前重心なら答えから根拠へ、中重心なら比較軸から対象へ、後重心なら問いから証拠・考察へ進める。
+- Make each chapter traceable to a claim in L1. One-to-one numbering is a usable default, but the number of claims and the numbers themselves are not fixed.
+- Write headings so the subject and the claim are visible, and so the headings alone follow the path of the issues. Example: `## The consumption layer is required — do not connect Raw Vault straight to BI`.
+- In each section, cover the claim, the evidence, examples or data, and limits or objections as needed.
+- Connect evidence in the body to L3 sources with `[n]`.
+- Match the order of information to the weighting. Front weighting moves from the answer to the evidence. Middle weighting moves from comparison axes to the subjects. Rear weighting moves from the question to the evidence and the discussion.
 
-### L3: 付録
+### L3: appendix
 
-- 本文中の `[n]` ごとに出典名、URL または文献情報、該当する根拠の要約を記録する。
-- 調べたが採用しなかった重要な枝と理由、本文から外した補足解析を残す。
+- For each `[n]` in the body, record the source name, the URL or bibliographic information, and a summary of the evidence it supports.
+- Keep important branches you investigated and did not adopt, with the reason, and supplemental analysis cut from the body.
 
-## 任意の内容
+## Optional material
 
-- **全体像** — 問い、判断軸、主要な発見、答えの関係を図にすると理解しやすい場合に置く。
-- **背景・歴史** — 答えの妥当性を理解するために必要な文脈がある場合に置く。後重心では成立過程が本文の中心になることもある。
-- **まとめ** — 読者の持ち帰りを整理する必要がある場合に置く。概要の言い換えにせず、本文の結論と矛盾させない。
+- **Landscape** — include a figure when it makes the relationship among the question, the axes of judgment, the main findings, and the answer easier to understand.
+- **Background and history** — include it when context is needed to understand why the answer holds. Under rear weighting, the process of becoming can be the center of the body.
+- **Summary** — include it when the reader needs the takeaways organized. Use the heading `## Summary`. Do not make it a paraphrase of the overview, and do not contradict the body's conclusion.
 
-これらは固定セクションではない。問いと読者の目的に必要な内容だけを選び、順序は重心に合わせて調整する。重心の選び方は [`gravity.md`](gravity.md) を参照。
+These are not fixed sections. Choose only what the question and the reader's purpose need, and adjust the order to the weighting. For how to choose weighting, see [`gravity.md`](gravity.md).

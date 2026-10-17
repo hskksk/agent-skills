@@ -1,54 +1,54 @@
-# steward の実行環境と待機
+# Steward runtime and waiting
 
-steward は **イベント駆動**で動く。ポーリングだけに頼るのは最後の手段。
+The steward runs **on events**. Relying only on polling is the last resort.
 
-## 1. Cloud Agent（ユーザー所有 run）
+## 1. Cloud Agent (a run the user owns)
 
-利用可能なら、PR 作成後（または起動直後）に **PR 活動への subscribe** を張る。
+When it is available, **subscribe to PR activity** after the PR is created (or immediately after launch).
 
-- プロンプトで「この PR を subscribe し、CI・レビュー・push イベントで再開」と書く
-- 組み込みの `/subscribe` スキルで同じルーティングをしてよい
-- subscribe した **のは steward の run／サブエージェント**である。親は待機しない
+- In the prompt, write "subscribe to this PR, and resume on CI, review, and push events"
+- The built-in `/subscribe` skill may do the same routing
+- **The steward's run or subagent** is what subscribed. The parent does not wait
 
-自動 subscribe（自分が作った PR に CI autofix が付く環境）がある場合でも、**設計エスカレのルーブリック**はこのスキルに従う。CI だけ直してスコープ拡大の指摘を黙って直さない。
+Even when automatic subscribe exists (an environment that attaches CI autofix to a PR you created), **the rubric for design escalations** still follows this skill. Do not quietly fix a scope-expanding comment just because you fixed CI.
 
-## 2. サブエージェント（エディタ / CLI / Cloud 内）
+## 2. Subagent (editor / CLI / inside Cloud)
 
-親から隔離されたコンテキストで動く。
+It runs in a context isolated from the parent.
 
-- 履歴は無い。親が渡した PR・意図メモ・ブランチ名が全部
-- 長い CI ログは steward 内に閉じ、親には handoff の要約だけ返す
-- **background** は `worktree` / `sub-branch` 隔離があるときだけ推奨。共有 checkout では foreground か直列（`workspace-isolation.md`）
+- There is no history. The PR, intent note, and branch name the parent passed are the whole input
+- Long CI logs stay inside the steward. Return only the handoff summary to the parent
+- **Background** is recommended only when `worktree` or `sub-branch` isolation is in place. On a shared checkout, use foreground or serial work (`workspace-isolation.md`)
 
-モデルは軽量を推奨。探索が要るエスカレは Tier C として親へ返し、steward で深掘りしない。
+Prefer a light model. An escalation that needs exploration goes back to the parent as Tier C. The steward does not dig in.
 
-## 3. subscribe が使えない環境
+## 3. Environments where subscribe is unavailable
 
-次のいずれか。いずれも **ルーブリックと handoff 形式は同じ**。
+Use one of the following. In every case **the rubric and the handoff format stay the same**.
 
-| 状況 | フォールバック |
+| Situation | Fallback |
 | --- | --- |
-| Automation が service account 実行 | イベントごとに Automation が新規 run になる設計にし、各 run で「未処理の CI／コメントだけ」を 1 パス処理して handoff を PR コメント（下書き）や親への返信に残す |
-| ローカルで subscribe ツールなし | `gh pr view` / `gh run list` で状態を取り、ユーザーまたは親が「もう一度 steward を起動」と依頼するまで待つ。自動ループでポーリングする場合は指数バックオフし、レート制限を守る |
-| GitHub MCP の `subscribe_pr_activity` がある | そのツールで PR を購読し、イベントで同じ steward 手順を実行 |
+| An Automation runs as a service account | Design it so each event starts a new Automation run. Each run handles one pass of "only unhandled CI or comments" and leaves the handoff as a PR comment (draft) or a reply to the parent |
+| Local, with no subscribe tool | Read state with `gh pr view` / `gh run list`, and wait until the user or the parent asks to "start the steward again." If you poll in an automatic loop, use exponential backoff and respect rate limits |
+| GitHub MCP has `subscribe_pr_activity` | Subscribe to the PR with that tool, and run the same steward procedure on events |
 
-フォールバック時も **Tier A だけ直す**。曖昧ならエスカレを溜めて親起動時にまとめて返す。
+On a fallback, **fix only Tier A**. If it is ambiguous, accumulate escalations and return them together when the parent starts.
 
-## 4. 作業ループ（1 イベントあたり）
+## 4. Work loop (per event)
 
-1. PR の mergeable 状態、チェック一覧、未解決のレビュー指摘を取得する（`gh` またはホストの PR API）。
-2. 前回処理済みの finding ID をメモし、重複対応しない。
-3. `triage-rubric.md` で各 finding を分類。
-4. Tier A: 修正 → ローカルで関連コマンド（lint / test のスコープ内）→ commit → push。
-5. Tier B/C: `handoff-format.md` に追記。push はしない（調査コミットが必要なら Tier B の条件を満たす場合のみ）。
-6. 人間レビュアーのコメントには **返信しない**。`escalations` に要約する。
+1. Fetch the PR's mergeable state, the check list, and unresolved review comments (`gh` or the host's PR API).
+2. Note finding IDs already handled, and do not handle them again.
+3. Classify each finding with `triage-rubric.md`.
+4. Tier A: fix → run the related commands locally (within the lint / test scope) → commit → push.
+5. Tier B or C: append to `handoff-format.md`. Do not push (only if an investigation commit is required and it meets the Tier B conditions).
+6. **Do not reply** to a human reviewer's comment. Summarize it in `escalations`.
 
-## 5. 終了
+## 5. Stopping
 
-次のいずれかで steward を終える:
+End the steward on any of the following:
 
-- `state` が `merged` または `closed`
-- 親またはユーザーが停止指示
-- すべてのチェックが成功し、未処理の Tier B/C が無く、親が「引き上げ不要」と指示
+- `state` is `merged` or `closed`
+- The parent or the user says to stop
+- Every check has succeeded, there is no unhandled Tier B or C, and the parent has said no pull-up is needed
 
-終了時は **最終 handoff**（空の `escalations` でも可）を親に返す。
+On exit, return a **final handoff** to the parent (an empty `escalations` is fine).

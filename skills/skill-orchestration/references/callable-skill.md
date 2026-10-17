@@ -1,38 +1,38 @@
-# 呼ばれる側
+# Callable side
 
-`SKILL.md` の表で、他から呼ばれるスキルを書くときに読む。呼び出し側の禁止は `references/caller.md`。こちらは、相手が中身を見なくても仕事が終わる入口を書く。
+Read this when the table in `SKILL.md` says you are writing a skill that others call. The caller's prohibitions are in `references/caller.md`. Here, write an entry point that finishes the job without the caller looking inside.
 
-## 公開するもの
+## What to publish
 
-入口は `description` と `SKILL.md` だけである。
+The entry point is only `description` and `SKILL.md`.
 
-- `description` には、いつ使うか、使わないか、戻す成果物を書く。補助ファイルの名前は書かない。
-- `SKILL.md` には、受け取る成果物、手順、自分の補助ファイルをいつ読むか、戻す成果物を書く。
-- 計測コマンド、チェックの通し方、失敗したら直してから終えることは、自分の `SKILL.md` に書く。呼び出し側がコマンドを写さなくて済むようにする。
-- 自分の `references/`、`scripts/`、`assets/` は、自分の `SKILL.md` から相対パスで指す。これは公開する入口ではない。
+- In `description`, write when to use the skill, when not to, and the artifact it returns. Do not name supporting files.
+- In `SKILL.md`, write the artifact you receive, the procedure, when to read your own supporting files, and the artifact you return.
+- Put measurement commands, how to run checks, and the rule that you fix failures before finishing in your own `SKILL.md`. The caller should not have to copy the commands.
+- Point at your own `references/`, `scripts/`, and `assets/` with relative paths from your own `SKILL.md`. Those paths are not a published entry point.
 
-## 前提にしないこと
+## What not to assume
 
-- 特定の呼び出し側が先に読まれていること
-- 呼び出し側の保存先、字数、公開手順、図の記法
-- 他スキルの補助ファイルやスクリプトのパス
-- 自分の節番号やファイル名を、相手が固定していること
+- That a particular caller has already been read
+- The caller's save location, length limits, publish steps, or diagram notation
+- Paths to another skill's supporting files or scripts
+- That the other side has pinned your section numbers or file names
 
-他スキルが要るときは、名前と、あるときだけ読む、と書く。無いときに、その場で相手の規則を再実装しない。
+When another skill is needed, name it and say to read it only when it is present. When it is absent, do not reimplement its rules on the spot.
 
-## 一つの仕事
+## One job
 
-呼ばれるスキルは、呼び出し側が表の一行で指せる成果物を一つ返す。調査なら調査メモと出典、文章の型ならその文章、のように切る。保存や公開は呼び出し側の制約であり、呼ばれる側の必須手順にしない。
+A callable skill returns one artifact that a caller can point at from a single row of a table. A survey returns survey notes and sources. A prose pattern returns that prose. Cut the job that way. Saving and publishing are the caller's constraints. Do not make them required steps of the callable skill.
 
-戻すものはファイル名ではなく、成果物の名前で書く。相手が「どのファイルのどの表を埋めよ」と書かなくて済むようにする。
+Name the returned thing as an artifact, not as a file name. The caller should not have to write "fill this table in that file."
 
-## スクリプトの出力
+## Script output
 
-スクリプトが相対パスを出すときは、自分のディレクトリから見たパスだと `SKILL.md` に書く。呼び出し側がその文を自分の手順へ写さなくてよい。
+When a script prints a relative path, say in `SKILL.md` that the path is from this skill's directory. The caller does not copy that sentence into its own procedure.
 
-## 書き終わったら
+## After writing
 
-- `description` だけ読んで、いつ使い、何が戻るか分かるか
-- `SKILL.md` だけ読んで、自分の補助ファイル以外のパスが無いか
-- 他スキル名の直後にパスが無いか
-- 特定のリポジトリの保存先や製品名が、手順の必須条件になっていないか
+- Can you tell, from `description` alone, when to use the skill and what comes back?
+- Does `SKILL.md` alone contain no paths other than this skill's supporting files?
+- Does a path sit immediately after another skill's name?
+- Has a save location or product name from a particular repository become a required condition of the procedure?

@@ -4,12 +4,12 @@
   "groupings": [
     {
       "title": "Development",
-      "description": "PR やエージェント運用まわりのスキル。",
+      "description": "Skills for pull requests and agent operations.",
       "skills": ["pr-steward"]
     },
     {
       "title": "Writing",
-      "description": "文章を書く、訳す、直すためのスキル。",
+      "description": "Skills for writing, translating, and revising.",
       "skills": ["how-to-survey", "japanese-writing", "survey-report", "narrative-report", "skill-orchestration"]
     }
   ]

@@ -1,17 +1,17 @@
-# 問いと範囲
+# Question and scope
 
-検索を始める前に、作業メモへ次を書く。
+Before search starts, write the following into a working note.
 
-## 最低限
+## Minimum
 
-1. **問い** — この調査が答える一文（複数あるなら主従を決める）
-2. **範囲** — どこまでを確認するか（時期、地域、技術スタック、対象製品など）
-3. **除外** — 今回扱わないこと（隣接分野のうち触れないもの）
+1. **Question** — one sentence this survey answers (if there are several, decide which is primary)
+2. **Scope** — how far to check (period, region, technology stack, products in scope, and so on)
+3. **Exclusions** — what this pass will not cover (adjacent fields you will not touch)
 
-問いが曖昧なときは、検索語を増やす前に問いを明確にする。「何でも調べる」では範囲が広すぎるため、対象や観点を絞る。複数の問いがある場合は、優先順位を決める。
+When the question is vague, clarify it before adding search terms. "Look up everything" is too wide, so narrow the subject or the angles. When there are several questions, set a priority.
 
-## 作業メモの一文（任意だが推奨）
+## One sentence for the working note (optional, recommended)
 
-次のテンプレートを埋め、埋められないなら範囲か問いを直す。
+Fill this template. If you cannot fill it, fix the scope or the question.
 
-> この調査では **〈問い〉** を確認する。対象範囲は **〈範囲〉** とし、**〈対象外〉** は調べない。
+> This survey checks **<question>**. The scope is **<scope>**, and it does not investigate **<out of scope>**.

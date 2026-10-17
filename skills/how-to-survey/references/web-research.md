@@ -1,35 +1,35 @@
-# Web 調査の実行
+# Running the web survey
 
-各サブトピックについて **WebSearch** と **WebFetch** を繰り返す。ツール名は環境に合わせてよい（ブラウザ検索、検索 API、取得コマンドなど）。
+For each subtopic, repeat **WebSearch** and **WebFetch**. Tool names may match the environment (browser search, a search API, a fetch command, and so on).
 
-## 基本ルール
+## Basic rules
 
-- **検索は最低 15 回以上**。日本語と英語の両方で行う
-- 重要なページは **全文取得**（WebFetch 相当）し、主張・数式・定義をメモする
-- ソースを混ぜる: Wikipedia（入口）、arXiv / 学術、技術ブログ、公式ドキュメント、規格、一次発表（リリースノート、RFC、パッチ）
-- 数式・アルゴリズム・定理は、後で誤訳しないよう原文に近い形で記録する
-- **出典の主張**と**この調査メモでの整理**を混ぜない。要約には「出典が言う／メモの整理」とラベルを付ける
+- **Search at least 15 times.** Do it in both Japanese and English
+- **Fetch the full text** of important pages (the equivalent of WebFetch) and note claims, formulas, and definitions
+- Mix sources: Wikipedia (as an entry point), arXiv / academic work, technical blogs, official docs, standards, and primary announcements (release notes, RFCs, patches)
+- Record formulas, algorithms, and theorems close to the original wording so they are not mistranslated later
+- Do not mix **what the source claims** with **how this survey note organizes it**. Label summaries as "the source says" or "note's organization"
 
-## 出典一覧
+## Source list
 
-調査と並行して、出典とその内容を一覧に記録する。出典 ID を付けると、調査メモから参照しやすい。
+While surveying, record each source and what it contains. A source ID makes it easier to cite from the survey notes.
 
-| ID | URL | 著者・組織 | 題・ページ名 | 日付（公開・更新） | 関連する観点・根拠 |
+| ID | URL | Author or organization | Title or page name | Date (published or updated) | Related angle or evidence |
 | --- | --- | --- | --- | --- | --- |
 
-- ID は任意の一貫した形式で付ける
-- URL が不安定なときは、題・日付・アーカイブ URL を必ず残す
-- 二次記事だけで断言できない事実は、一次資料を追加するまで「未確認」とメモする
+- Assign IDs in any consistent format
+- When a URL is unstable, always keep the title, date, and an archive URL
+- A fact you cannot assert from secondary articles alone stays "unchecked" until you add a primary source
 
-## 進捗と信頼性
+## Progress and reliability
 
-- 長い調査では都度報告する（例: 「〇〇の定義と歴史について調査中」）
-- 信頼性が低い・偏りが強い・日付が古い情報は、メモに理由を付ける
-- 同じ主張が複数ソースで一致しても、独立した根拠か（転載か）を確認する
+- On a long survey, report as you go (for example, "surveying the definition and history of X")
+- When information is unreliable, strongly biased, or old, attach the reason in the note
+- When the same claim matches across sources, check whether the evidence is independent or a reprint
 
-## よくある落とし穴
+## Common traps
 
-- 検索結果のスニペットだけで判断する → 重要ページは全文取得して内容を確認する
-- 英語のみ / 日本語のみ → 両言語で主要概念を確認
-- 製品マーケティングのみ → 技術仕様・第三者評価を足す
-- 古いブログ記事のみ → 公式の現行ドキュメントで上書き確認
+- Judging from search snippets alone → fetch the full text of important pages and check the content
+- English only, or Japanese only → check the main concepts in both languages
+- Product marketing only → add technical specifications and third-party evaluation
+- Old blog posts only → recheck against the current official documentation

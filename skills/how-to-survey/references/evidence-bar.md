@@ -1,30 +1,30 @@
-# 調査の十分性
+# Whether the survey is enough
 
-調査を終える前に、問いに答えるための範囲と根拠が揃っているか確認する。**検索回数や出典数だけで調査の質を決めない。**
+Before you finish, check that the scope and evidence needed to answer the question are in place. **Do not judge survey quality by search count or source count alone.**
 
-## 下限
+## Floor
 
-| 指標 | 目安 |
+| Measure | Guide |
 | --- | --- |
-| Web 検索の実行回数 | **15 回以上**（意味のあるクエリの変更を伴う） |
-| 互いに異なる URL（出典一覧） | **8 本以上** |
-| 言語 | 日本語・英語の両方で主要概念を当たっている |
-| 一次寄りソース | 公式ドキュメント・論文・仕様のいずれかが複数本含まれる |
+| Web searches run | **15 or more** (with meaningful query changes) |
+| Distinct URLs (source list) | **8 or more** |
+| Language | The main concepts were checked in both Japanese and English |
+| Closer to primary sources | Several official docs, papers, or specifications are included |
 
-8 本未満のときは、テーマを増やして薄く広げるのではなく、**同じ問いに効くソースを足す**。
+When you have fewer than 8, **add sources that bear on the same question**. Do not widen the theme and thin it out.
 
-## 薄い調査の直し方
+## How to repair a thin survey
 
-- サブトピックを増やす → まず既存項目の深掘り（全文取得、一次資料、反証）
-- 同じドメインの転載ばかり → 独立した組織・著者のソースを足す
-- 定義だけ揃った → 具体例・数値・制約・失敗事例を足す
-- 比較を調べていて一方の情報しかない → 他方についても独立した情報源を確認する
+- Tempted to add subtopics → first go deeper on existing items (full-text fetch, primary sources, counterevidence)
+- Mostly reprints on the same domain → add sources from independent organizations or authors
+- Only definitions are in place → add concrete examples, numbers, constraints, and failure cases
+- A comparison has information on only one side → check independent sources for the other side as well
 
-## 調査メモの整理
+## Organizing the survey notes
 
-調査内容を後から確認できるよう、次をまとめる。
+Summarize the following so the survey can be checked later.
 
-1. 作業メモ（問い・範囲・対象外）
-2. サブトピックごとの調査メモ（情報源の主張と調査者の整理を区別）
-3. 出典一覧と、それぞれが裏付ける内容
-4. 未確認の事項、調べたが情報が薄い観点、その理由
+1. Working note (question, scope, exclusions)
+2. Survey notes per subtopic (keep a source's claim separate from the surveyor's organization)
+3. Source list, and what each source supports
+4. Unchecked items, angles you investigated but found thin, and why

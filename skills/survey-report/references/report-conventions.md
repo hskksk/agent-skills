@@ -1,29 +1,31 @@
-# レポート共通ルール
+# Shared report rules
 
-このファイルは Phase、重心、読者レベルにかかわらず共通する出力上の約束を定める。Phase 別の成果物は [`phase-1-guide.md`](phase-1-guide.md) / [`phase-2-guide.md`](phase-2-guide.md)、情報の順序は [`gravity.md`](gravity.md)、読者への説明の足場は [`reader-level.md`](reader-level.md) を参照する。
+This file sets the output promises that hold regardless of phase, weighting, and reader level. Phase-specific artifacts are in [`phase-1-guide.md`](phase-1-guide.md) and [`phase-2-guide.md`](phase-2-guide.md). The order of information is in [`gravity.md`](gravity.md). Scaffolding for the reader is in [`reader-level.md`](reader-level.md).
 
-## 冒頭と見出し
+Write the report in the language the user asked for. Keep the marker headings `## TL;DR`, `## Overview`, `## Summary`, and `## Appendix: Sources` in English so the checks can find them. Other headings may be in the report's language.
 
-- タイトル直後に `## TL;DR` を置き、主要な結論や発見を一項目一文で3〜5項目示す。後重心でも結果を隠さない。
-- 冒頭で文書の問い、範囲、読む価値が分かるようにする。詳しい冒頭の設計は重心と Phase に合わせる。
-- `##` は説明の種類や大きな論点を示す。Phase 2 では、主張ごとに章を分ける構成も使える。`###` は具体的な発見、問い、仕組み、条件、比較対象を示す。
-- `##` だけで文書の道筋が分かり、`###` まで読むと主要な発見を追えるようにする。
-- `## 詳細` のような区別のつかない見出しや、節全体の議論を詰め込んだ見出しは避ける。見出しだけで説明を完結させず、条件と証拠は本文に残す。
+## Opening and headings
 
-## 根拠と出典
+- Place `## TL;DR` immediately after the title, with 3–5 items, one sentence each, for the main conclusions or findings. Rear weighting does not hide the result.
+- The opening should make the document's question, scope, and why it is worth reading clear. Design the rest of the opening to match the weighting and the phase.
+- `##` marks the kind of explanation or a large issue. In Phase 2, a chapter per claim is also a valid shape. `###` marks a concrete finding, question, mechanism, condition, or comparison target.
+- `##` alone should show the path of the document. Reading through `###` should let the reader follow the main findings.
+- Avoid a heading that does not distinguish itself, such as `## Details`, and a heading that packs the whole section's argument into the heading. Do not finish the explanation in the heading. Leave conditions and evidence in the body.
 
-- 事実、出典の見解、レポート側の解釈を区別する。不確実性、反例、適用限界は判断に間に合う位置に置く。
-- 本文の番号引用 `[n]` と `## 付録: 出典一覧` を対応させる。出典名を文の主語にするのではなく、報告する事実・発見を主語にする。
-- 付録には出典の識別情報に加え、調べたが採用しなかった重要な枝とその理由、本文から外した再調査に役立つ素材を残す。
-- 本文を短くする場合も、重要な証拠は付録など適切な層へ移し、追跡可能性を失わせない。
+## Evidence and sources
 
-## 文章と表現形式
+- Distinguish facts, a source's view, and this report's interpretation. Put uncertainty, counterexamples, and limits of application where they arrive in time for the judgment.
+- Match numbered citations `[n]` in the body to `## Appendix: Sources`. Do not make the source's name the grammatical subject. Make the reported fact or finding the subject.
+- In the appendix, keep identifying information for each source, plus important branches you investigated and did not adopt and why, and material you cut from the body that would help a later survey.
+- When you shorten the body, move important evidence to the right layer, such as the appendix. Do not lose the ability to trace it.
 
-- 推論は散文で書く。読む順番が意味を変えない要素や条件は箇条書きにできる。
-- 同じ列を持つ複数対象の比較は表を検討する。因果、依存、順序などの関係が明確になる場合に図を使う。
-- 図にしかない事実を置かず、図表と本文で主要な情報を追えるようにする。
-- 主張数、節数、概要の長さ、図の有無、字数に一律の目安を課さない。調査の十分さは字数だけで判断しない。
+## Prose and form
 
-## 作業メモと本文の区別
+- Write reasoning as prose. Items or conditions whose reading order does not change the meaning may be a list.
+- For a comparison of several subjects that share the same columns, consider a table. Use a figure when it makes a relationship such as cause, dependency, or order clear.
+- Do not put a fact only in a figure. The reader should be able to follow the main information in the figures and in the body.
+- Do not impose a uniform target for the number of claims, the number of sections, the length of the overview, whether there is a figure, or the word count. Do not judge whether the survey is enough by length alone.
 
-重心や読者レベルを選ぶための作業メモ、改訂履歴、執筆セッションなど、読者に不要な制作過程を完成レポートに含めない。日本語の文章を作成・推敲するときは、利用可能なら `japanese-writing` スキルも参照する。
+## Working notes stay out of the body
+
+Do not include, in the finished report, working notes used to choose weighting or reader level, revision history, writing-session notes, or other production process the reader does not need. When you draft or revise Japanese prose, also follow the `japanese-writing` skill if it is available.

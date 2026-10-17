@@ -1,57 +1,57 @@
-# 分類ルーブリック（自律 vs エスカレ）
+# Classification rubric (autonomous vs escalate)
 
-各 finding（CI 失敗、ボット指摘、レビューコメント）を **Tier A / B / C** に分ける。迷ったら **上位 Tier** に倒す（安全側はエスカレ）。
+Split each finding (CI failure, bot comment, review comment) into **Tier A / B / C**. When unsure, move to the **higher tier** (escalation is the safe side).
 
-## Tier A — steward が自律修正して push してよい
+## Tier A — the steward may fix autonomously and push
 
-すべてを満たすときだけ Tier A:
+Tier A only when all of the following hold:
 
-1. **PR の意図メモと矛盾しない**（スコープ内のファイルだけ触る）
-2. 修正方針が **一意**（lint / formatter / 型エラーのメッセージが指す行、明らかな typo、テストが期待する文字列の修正など）
-3. **公開 API・スキーマ・マイグレーション・セキュリティ境界**を変えない
-4. チェックを弱めない（skip 追加、閾値緩和、`eslint-disable` の乱用は Tier B 以上）
-5. 人間レビュアーの **承認または「直して」系の明示**が付いていない（ボット・CI のみ）
+1. **It does not contradict the PR intent note** (touch only files inside the scope)
+2. The fix is **unique** (the line a lint, formatter, or type-error message points at, an obvious typo, a string the test expects, and the like)
+3. It does not change a **public API, schema, migration, or security boundary**
+4. It does not weaken a check (adding a skip, relaxing a threshold, or abusing `eslint-disable` is Tier B or higher)
+5. A human reviewer has not attached an **approval or an explicit "fix this"** (bots and CI only)
 
-例:
+Examples:
 
-- `eslint` / `ruff` / `prettier` / `gofmt` / `cargo fmt` 系
-- 単一ファイルの import 整理、未使用変数削除
-- ユニットテストが示す期待値の修正（本番ロジックの意図変更を伴わない）
-- マージコンフリクトが **機械的に解ける**（同一行の意味変更なし）
+- `eslint` / `ruff` / `prettier` / `gofmt` / `cargo fmt` and the like
+- Import cleanup or unused-variable removal in a single file
+- Fixing an expected value a unit test shows, without changing the intent of production logic
+- A merge conflict that **resolves mechanically** (no change of meaning on the same line)
 
-## Tier B — 親が判断してから直す（steward は調査・要約のみ）
+## Tier B — the parent decides, then someone fixes (the steward only investigates and summarizes)
 
-該当するもの:
+Applies when:
 
-- 複数の正当な修正方針がある（命名、抽象化レベル、エラーハンドリングの方針）
-- スコープが PR 意図を **広げる**（新規ファイル大量、依存追加、リファクタの提案）
-- テスト削除・スキップ・CI 設定変更で緑にしようとしている
-- ボット指摘が **誤検知かもしれない**が、ドメイン知識が要る
-- 同一 PR 内で **矛盾する指摘**（一方を直すと他方が悪化）
+- There are several legitimate fixes (naming, level of abstraction, error-handling policy)
+- The scope **widens** the PR intent (a large set of new files, a new dependency, a proposed refactor)
+- The path to green is deleting tests, skipping them, or changing CI configuration
+- A bot comment **might be a false positive**, but domain knowledge is required
+- **Contradictory comments** inside the same PR (fixing one makes the other worse)
 
-steward は: 該当 diff の候補を **箇条書き**にし、推奨は書いても **コミットしない**。
+The steward: put candidate diffs in a **list**. It may write a recommendation. It **does not commit**.
 
-## Tier C — 必ず親（またはユーザー）へ
+## Tier C — always to the parent (or the user)
 
-該当するもの:
+Applies when:
 
-- アーキテクチャ・ドメインモデル・互換性・パフォーマンストレードオフ
-- セキュリティ（認可、入力検証、秘密情報）
-- **人間レビュアー**の質問・設計コメント・「なぜこうしたか」
-- インフラ障害、権限エラー、繰り返し失敗する flaky（retry 上限超え）
-- マージブロック（required review、ポリシー失敗）
+- Architecture, domain model, compatibility, or a performance tradeoff
+- Security (authorization, input validation, secrets)
+- A **human reviewer's** question, design comment, or "why did you do it this way?"
+- Infrastructure failure, a permission error, or a flaky check that keeps failing (past the retry limit)
+- A merge block (required review, a policy failure)
 
-steward は: 原文リンク・引用・影響範囲を handoff に載せ、**一切 push しない**。
+The steward: put the original link, a quotation, and the blast radius in the handoff, and **does not push at all**.
 
-## CI 特則
+## CI special cases
 
-| 信号 | 扱い |
+| Signal | Treatment |
 | --- | --- |
-| lint / format / typecheck の単一原因 | Tier A（メッセージが複数ファイルの設計問題を示すなら B） |
-| 統合テスト・e2e の失敗 | デフォルト B。ログが一行の設定ミスなら A |
-| `main` との merge conflict | 機械的なら A、意味の解釈が要るなら B/C |
-| 外部サービス 5xx / rate limit | C（インフラ） |
+| A single cause in lint / format / typecheck | Tier A (B if the message shows a design problem across files) |
+| An integration or e2e failure | B by default. A if the log is a one-line configuration mistake |
+| A merge conflict with `main` | A if mechanical, B or C if the meaning has to be interpreted |
+| An external service 5xx or rate limit | C (infrastructure) |
 
-## 記録
+## Recording
 
-処理した finding には安定 ID を付ける（ツール名 + ファイル + 行 + 短いハッシュ、または review comment id）。次のイベントで同じ ID を再処理しない。
+Give each handled finding a stable ID (tool name + file + line + a short hash, or the review comment id). Do not handle the same ID again on the next event.

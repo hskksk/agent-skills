@@ -1,59 +1,59 @@
-# ワークスペース隔離（ブランチとディレクトリ）
+# Workspace isolation (branch and directory)
 
-PR 対応では **PR のヘッドブランチを編集する**のが正しい。禁止したいのは「同じブランチを触れない」ことではなく、**同じ checkout（作業ディレクトリ）を親と steward が同時に編集する**ことである。
+For PR follow-up, **editing the PR's head branch** is correct. What you want to forbid is not "do not touch the same branch." It is **the parent and the steward editing the same checkout (working directory) at the same time**.
 
-## 何が競合するか
+## What conflicts
 
-| 共有するもの | 同時編集 | 典型な結果 |
+| What is shared | Edited at the same time | Typical result |
 | --- | --- | --- |
-| 同じ working tree（未コミット含む） | 親と steward が並行 | 上書き、中途半端な merge、lint が別バージョンを見る |
-| 同じブランチ名・別 working tree | 通常は安全 | PR 向けの push は steward 側から行える |
-| 別ブランチ → 後で PR ブランチへ統合 | 親が feature 継続中でも可 | 統合ステップが 1 回増える |
+| The same working tree (including uncommitted work) | Parent and steward in parallel | Overwrites, a half-finished merge, lint seeing a different version |
+| The same branch name, different working trees | Usually safe | The push for the PR can come from the steward's side |
+| A different branch, integrated into the PR branch later | Fine even while the parent continues the feature | One extra integration step |
 
-Cursor のサブエージェントは **デフォルトで親と同じ checkout を共有**する。並列編集は上書きしうる（[Subagents — Isolated project copies](https://cursor.com/docs/subagents)）。
+Cursor subagents **share the parent's checkout by default**. Parallel edits can overwrite each other ([Subagents — Isolated project copies](https://cursor.com/docs/subagents)).
 
-## 推奨パターン
+## Recommended patterns
 
-### A. 直列（シンプル）
+### A. Serial (simple)
 
-- steward は **foreground**。
-- 親は steward 稼働中 **その PR ブランチのファイルを編集しない**（別タスク・別ブランチなら可）。
-- steward は **PR ヘッドブランチ**で commit & push。
+- The steward is **foreground**.
+- While the steward is running, the parent **does not edit files on that PR branch** (another task or another branch is fine).
+- The steward commits and pushes on the **PR head branch**.
 
-コンテキスト消費は少ない。親が同じ feature を触り続けたいときは B か C。
+This uses little context. When the parent wants to keep touching the same feature, use B or C.
 
-### B. 隔離 worktree（同じブランチ名）
+### B. Isolated worktree (same branch name)
 
-- steward 起動時に **own environment / isolated copy / git worktree** を明示する。
-- worktree でも **チェックアウトするのは PR のヘッドブランチ**（例: `feature/foo`）。ブランチ名は PR と同じでよい。
-- 親は元の working tree で別ブランチやドキュメントを触ってよい。steward は別ディレクトリで PR ブランチのみ編集。
+- When starting the steward, ask explicitly for **its own environment / an isolated copy / a git worktree**.
+- Even in a worktree, **check out the PR's head branch** (for example `feature/foo`). The branch name may be the same as the PR.
+- The parent may touch another branch or docs in the original working tree. The steward edits only the PR branch in another directory.
 
-プロンプト例:
+Example prompt:
 
 ```text
 Run the PR steward in its own isolated worktree on the PR head branch <branch>. Do not edit files in the parent's working tree.
 ```
 
-### C. サブブランチ（親が同じ feature を触り続ける）
+### C. Sub-branch (the parent keeps touching the same feature)
 
-親が **まだ同じ feature ブランチ**で未 push の作業をしているとき:
+When the parent still has unpushed work on **the same feature branch**:
 
-1. steward は `feature/foo--steward` など **子ブランチ**を worktree 上で切る（ベースは PR の最新コミット）。
-2. Tier A 修正を子ブランチに commit & push。
-3. **PR のヘッドを更新する**方法はリポジトリ流儀に合わせる:
-   - PR ブランチに **merge commit** または **rebase して fast-forward push**（force-push 禁止なら merge 推奨）
-   - または子ブランチを PR に **追加コミットとして push し PR base を変えない**（PR が子ブランチを向いている場合は不可 — 通常は PR ヘッド＝`feature/foo` に統合）
+1. The steward cuts a **child branch** such as `feature/foo--steward` on a worktree (based on the PR's latest commit).
+2. Commit and push Tier A fixes on the child branch.
+3. **Update the PR head** in the repository's style:
+   - A **merge commit** onto the PR branch, or **rebase and fast-forward push** (prefer merge when force-push is forbidden)
+   - Or push the child branch as **additional commits without changing the PR base** (not possible when the PR points at the child branch — usually you integrate onto the PR head, `feature/foo`)
 
-force-push が禁止なら、steward は **PR ヘッドへの通常 push（merge）** だけにする。rebase 必須のチームでは steward を **foreground + 親は触らない（A）** に寄せる。
+If force-push is forbidden, the steward does **only a normal push (merge) onto the PR head**. On a team that requires rebase, keep the steward at **foreground, and the parent does not touch the branch (A)**.
 
-## 親が書く一文
+## One line the parent writes
 
-意図メモに **隔離モード**を一行で書く:
+Write the **isolation mode** as one line in the intent note:
 
-- `isolation: serial` — 親は PR ブランチを触らない
-- `isolation: worktree, branch: <pr-head>` — 同ブランチ・別ディレクトリ
-- `isolation: sub-branch, integrate: merge-to-<pr-head>` — 子ブランチで直して PR ヘッドへ統合
+- `isolation: serial` — the parent does not touch the PR branch
+- `isolation: worktree, branch: <pr-head>` — same branch, different directory
+- `isolation: sub-branch, integrate: merge-to-<pr-head>` — fix on a child branch and integrate onto the PR head
 
 ## Cloud steward
 
-Cloud subagent / 別 Cloud run は **別 VM + clone** がデフォルト。PR ヘッドブランチを checkout して push すればよく、ローカル親とのファイル競合は起きない。
+A Cloud subagent or a separate Cloud run is **another VM plus a clone** by default. Check out the PR head branch and push. There is no file conflict with the local parent.

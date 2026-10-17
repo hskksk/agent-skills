@@ -1,28 +1,28 @@
-# ナラティブ型レポートの見直し
+# Reviewing a narrative report
 
-提出前に、ナラティブが事実の理解を助けているか確認する。語り口が印象的かどうかではなく、読者が状況・意味・選択肢を正確に捉えられるかを基準にする。
+Before submission, check that the narrative helps the reader understand the facts. The standard is whether the reader can accurately grasp the situation, the meaning, and the choices, not whether the telling is striking.
 
-## 中心と構成
+## Center and structure
 
-- このレポートが説明する「何が変わり、なぜ重要か」を一文で言えるか。
-- 読者、目的、視点が明確か。複数の目的を一つの筋書きに押し込んでいないか。
-- 現状・変化・意味・未来・関係者の役割が自然につながっているか。
-- 時系列や「主人公と敵」の型を、題材に合わないのに使っていないか。
-- ナラティブを取り除いても同じ情報しか残らないなら、意味づけの層を加える価値があるか再検討したか。
+- Can you state in one sentence the "what changed, and why it matters" that this report explains?
+- Are the reader, the purpose, and the point of view clear? Have you not forced several purposes into one plot?
+- Do the present, the change, the meaning, the future, and the roles of the people involved connect naturally?
+- Have you not used a timeline, or a "hero and enemy" frame, when it does not fit the subject?
+- If removing the narrative would leave the same information, have you reconsidered whether a layer of meaning is worth adding?
 
-## 事実と誠実さ
+## Facts and honesty
 
-- 事実、出典の見解、レポート側の解釈、予測、目標を区別できるか。
-- 因果や「今すぐ変わらなければならない」という主張は、証拠に支えられているか。
-- 反対の見方、代替説明、トレードオフ、未解決の前提を隠していないか。
-- 複雑な出来事を、必然だったかのように後付けで単純化していないか。
-- 不安や希望を煽る表現で、根拠の弱さを補っていないか。
+- Can you distinguish facts, a source's view, this report's interpretation, predictions, and goals?
+- Are claims of cause, and claims that "this must change now," supported by evidence?
+- Have you not hidden opposing views, alternative explanations, tradeoffs, or unresolved premises?
+- Have you not simplified a complex event after the fact, as if it had been inevitable?
+- Have you not used language that stirs anxiety or hope to cover weak evidence?
 
-## 読者と関係者
+## The reader and the people involved
 
-- 誰が影響を受け、誰が判断・行動できるかを具体的に示したか。
-- 関係者をひとまとめにし、異なる利害や経験を消していないか。
-- 依頼が求めていない提言や行動要請を、ナラティブを理由に付け足していないか。
-- 読者が自分の判断に使える情報と留保を、感情的な結論より先に確認できるか。
+- Have you shown concretely who is affected, and who can judge or act?
+- Have you not lumped the people involved together and erased different interests or experiences?
+- Have you not added a recommendation or a call to action that the request did not ask for, on the grounds that it is a narrative?
+- Can the reader check the information and the reservations they need for their own judgment before an emotional conclusion?
 
-ナラティブは読者の理解を助ける設計であり、都合のよい筋書きへ現実を合わせる手段ではない。
+A narrative is a design that helps the reader understand. It is not a way to fit reality to a convenient plot.

@@ -1,84 +1,84 @@
-# 組み合わせ方の根拠
+# Why the combination works this way
 
-`SKILL.md` の手順の理由をここに置く。他のスキルからは、このファイルを直接開かない。このスキルの `SKILL.md` が、理由が要るときに読むよう指定する。
+The reasons for the procedure in `SKILL.md` live here. Other skills do not open this file directly. This skill's `SKILL.md` says to read it when the reasons are needed.
 
-## 公開されているプラクティス
+## Published practice
 
-### 開示は三段階にする
+### Disclosure has three stages
 
-Agent Skills の仕様は、スキルを一度に全部読まない。起動時は `name` と `description` だけを見る。タスクが一致してから `SKILL.md` を読む。補助ファイルは、その `SKILL.md` が「いま開け」と書いたときだけ読む。
+The Agent Skills specification does not read a whole skill at once. At startup it sees only `name` and `description`. It reads `SKILL.md` after the task matches. It reads a supporting file only when that `SKILL.md` says to open it now.
 
-他スキルの `references/` を呼び出し側が直接開くと、真ん中の段階を飛ばす。いつ読むかの条件と、`SKILL.md` にしかない注意が落ちる。相手がファイルを移しても、呼び出し側のパスは残って壊れる。
+If the caller opens another skill's `references/` directly, it skips the middle stage. The condition for when to read, and the warnings that exist only in `SKILL.md`, drop out. If the other skill moves a file, the caller's path stays behind and breaks.
 
-### 一つのスキルは一つの仕事にする
+### One skill, one job
 
-スキル作成のガイドは、スキルを関数と同じ粒度で切るよう求めている。狭すぎると、一つの仕事で複数スキルが同時に載り、指示がぶつかる。広すぎると、必要なときに起動しない。
+Skill-authoring guidance asks you to cut a skill at the same granularity as a function. Too narrow, and several skills load at once for one job and their instructions collide. Too broad, and the skill does not trigger when it is needed.
 
-呼び出し側が足してよいのは、順序と、呼び出し側にしかない制約である。相手の手順を要約して取り込むと、そのスキルは両方の仕事を持ち、更新のたびにずれる。
+What the caller may add is order, and constraints that exist only on the caller. If the caller summarizes the other skill's procedure and absorbs it, that skill owns both jobs and drifts on every update.
 
-### 必要なスキルだけ読む
+### Read only the skills you need
 
-複合スキルの実装例（APM の composite skills）は、依存先を全部コンテキストへ載せない。本文をルーティング表にして、「いつ」「どれを読むか」を書く。別の仕事の手順が混ざるときは、読まないスキルも明示する。構成要素は呼び出し側のディレクトリへコピーせず、別のスキルとして並べる。
+Composite-skill examples (APM composite skills) do not load every dependency into context. The body is a routing table that says when and which skill to read. When another job's procedure would mix in, name the skills you will not read. Do not copy components into the caller's directory. Keep them as separate skills.
 
-Agent Skills の仕様は `kind` や `dependencies` を解決しない。未知のフロントマターは無視されるだけなので、依存関係は本文の表に書く。インストール時の依存解決は使わない。
+The Agent Skills specification does not resolve `kind` or `dependencies`. Unknown frontmatter is ignored, so write dependencies in a table in the body. Do not use install-time dependency resolution.
 
-循環は依存関係の欠陥である。A が B を呼び、B が A を呼ぶ形は作らない。各スキルは、他のスキルが先に読まれていることを前提に手順を書かない。順序を知っているのは呼び出し側だけである。
+A cycle is a defect in the dependency. Do not build a shape where A calls B and B calls A. A skill does not write its procedure on the assumption that another skill was read first. Only the caller knows the order.
 
-### 選択に使うのは description である
+### Selection uses description
 
-人が `description` を読んで正しいスキルを選べないなら、エージェントも選べない。これは大規模なスキル集合の検索でも、少数の手書きルーティングでも同じである。数百を超える技能を自動で割り当てる方式は、スキル数が少ないうちは重い。その間は表で足りる。
+If a person cannot pick the right skill by reading `description`, an agent cannot either. That is true both for search over a large skill set and for a small hand-written routing table. Automatic assignment of hundreds of skills is heavy while the skill count is still small. Until then, a table is enough.
 
-`description` に書いてよいのは、いつ使うかと、組み合わせるスキルの名前である。中のファイル名を足しても、起動時の選択は良くならない。起動時に読まれるのは `description` だけだからである。
+What `description` may contain is when to use the skill and the names of skills it combines. Adding internal file names does not improve startup selection. At startup, only `description` is read.
 
-### 検査は検査を持つスキルが持つ
+### The skill that owns the check owns the check
 
-スキル作成のガイドは、作業のあとに検証を置き、通るまで直す、というループを推奨している。検証の項目とコマンドを知っているのは、その検証を持つスキルである。呼び出し側が持ってよいのは、失敗したまま次へ進まない、というゲートだけである。項目を写すと、相手が項目を直したあとも古い一覧が残る。
+Skill-authoring guidance recommends a loop: verify after the work, and fix until it passes. The skill that owns the verification is the one that knows the items and the commands. What the caller may own is only the gate: do not continue while a failure remains. If you copy the items, an old list stays after the other skill changes them.
 
-## 採用する判断
+## Decisions adopted here
 
-### 境界の正本は一つ
+### One source of truth for the boundary
 
-呼び出し側の禁止と、呼ばれる側の入口は、同じ境界の読み方である。別スキルに分けると、「パスを書いてよいか」の判断が二箇所になり、どちらかだけが古くなる。呼ばれる側は `references/callable-skill.md`、呼び出し側は `references/caller.md` に置く。`description` は、どちらの作業でもこのスキルが起動するように書く。
+The caller's prohibitions and the callable entry point are the same reading of the boundary. If you split them into separate skills, the question "may I write a path?" has two homes, and only one of them goes stale. The callable side lives in `references/callable-skill.md`. The caller lives in `references/caller.md`. Write `description` so this skill triggers for either task.
 
-### パスを書くのは同梱と同じ結合である
+### Writing a path is the same coupling as bundling
 
-相手の `references/` をコピーしなくても、パスを書けば内部の配置に依存する。相手がファイルをリネームすると呼び出し側が壊れる。コピーが分岐するのと同じ種類の故障である。
+Even if you do not copy the other skill's `references/`, a path depends on its internal layout. When the other skill renames a file, the caller breaks. That is the same kind of failure as a copy that diverges.
 
-許す参照はスキル名と、相手の入口である `SKILL.md` までである。`SKILL.md` は公開された手順であり、補助ファイルは実装である。
+The references you allow are the skill name and, as the other skill's entry point, `SKILL.md`. `SKILL.md` is the published procedure. Supporting files are implementation.
 
-### 権限リストに相手のパスを置かない
+### Do not put the other skill's paths in the permission list
 
-`allowed-tools` に他スキルのスクリプトパスを書くと、許可の範囲が相手のディレクトリ構成になる。コマンドの文字列は、スクリプトを持つスキルの `SKILL.md` だけが持つ。呼び出し側は「そのスキルに書かれたコマンドを実行する」と書く。許可が要るときは `python3` のように能力で許可する。
+If `allowed-tools` names another skill's script path, the permission scope becomes that skill's directory layout. Only the `SKILL.md` of the skill that owns the script holds the command string. The caller writes "run the command written in that skill." When permission is required, allow a capability such as `python3`.
 
-相手のスクリプトが「`references/checklists.md` を見よ」と出しても、それは相手のディレクトリから見た相対パスである。その文を呼び出し側の手順へ写すと、どのスキルの `references/` か分からなくなる。
+If the other skill's script says "see `references/checklists.md`", that path is relative to the other skill's directory. Copying that sentence into the caller's procedure makes it unclear which skill's `references/` is meant.
 
-### 正本は役割で一つに決める
+### Pick one source of truth by role
 
-二つのスキルが同じ判断を持つとき、呼び出し側は両方のファイルを読ませて突合しない。役割で一文にする。調査の実行は `how-to-survey`、成果物の形は `survey-report`、のように書く。どちらの補助ファイルが長いかは、呼び出し側が選ぶ材料にしない。
+When two skills hold the same judgment, the caller does not have both files read and reconciled. It writes one sentence by role. Survey execution is `how-to-survey`. The shape of the deliverable is `survey-report`. Which supporting file is longer is not material the caller uses to choose.
 
-### インポートしたスキルにローカルの都合を書き足さない
+### Do not write local concerns into an imported skill
 
-保存先、公開手順、出力形式のように、呼び出し側のリポジトリにしかない制約は、呼び出し側に書く。インポートしたファイルへ書き足すと、次のインストールで消えるか、上流と分岐する。
+Constraints that exist only in the caller's repository, such as save location, publish steps, and output format, are written in the caller. Writing them into an imported file means the next install erases them, or the file diverges from upstream.
 
-### シンボリックリンクは同じスキルを別のハーネスへ見せる
+### A symlink shows the same skill to another harness
 
-別ハーネスから同じスキルを見せるリンクは、インストール先のディレクトリを指す。他スキルの `references/` を指すリンクは、パス参照と同じ結合になるので置かない。
+A link that shows the same skill from another harness points at the install directory. A link that points at another skill's `references/` is the same coupling as a path reference, so do not add it.
 
-### 受け渡しは成果物の名前で書く
+### Name the handoff by the artifact
 
-「調査メモと出典一覧ができてからレポートを書く」は呼び出し側の文である。「相手の検索計画ファイルの表を埋めてから、相手の構成ガイドの層を書け」は相手の内部構造である。節名、層の番号、スクリプトのフラグは書かない。
+"Write the report after the survey notes and source list exist" is a caller sentence. "Fill the table in the other skill's search-plan file, then write the layer in the other skill's structure guide" is the other skill's internal structure. Do not write section names, layer numbers, or script flags.
 
-### 無いスキルの規則をその場で作らない
+### Do not invent the rules of a missing skill
 
-必要なスキルがインストールされていないとき、呼び出し側がその規則を要約して代用しない。代用は、その場限りのコピーになる。「スキルがあれば、その `SKILL.md` に従う」と書く。無いときの振る舞いは、その仕事を省略するか、ユーザーに足りないスキル名を伝えるか、のどちらかにする。
+When a needed skill is not installed, the caller does not summarize its rules as a substitute. A substitute becomes a one-off copy. Write "when the skill is present, follow its `SKILL.md`." When it is absent, either skip that job or tell the user the missing skill name.
 
-### 例外で相手の内部規約を指さない
+### Do not point at another skill's internal rules as an exception
 
-「相手の特定テンプレート以外は、このスキルを使え」と書くと、相手の中の名前に依存する。そのテンプレートが無くなっても、例外の文だけが残る。適用範囲は自分の仕事だけで書く。相手の成果物に特例が要るなら、特例は相手の `SKILL.md` に書く。
+Writing "use this skill except for the other skill's particular template" depends on a name inside the other skill. After that template disappears, only the exception sentence remains. Write the scope of application as your own job. If the other skill's artifact needs a special case, the special case belongs in that skill's `SKILL.md`.
 
-## 出典
+## Sources
 
-- Agent Skills 仕様の progressive disclosure、および [Best practices for skill creators](https://agentskills.io/skill-creation/best-practices)（粒度、コンテキスト、補助ファイルをいつ開くか、検証ループ）
-- [APM Composite Skills](https://docs.apm.orthg.nl/docs/composite-skills)（ルーティング表、構成要素をコピーしない、循環を作らない、全部を一度に読まない）
-- [Progressive Disclosure for Layered Agent Definitions](https://agentpatterns.ai/patterns/agent-design/progressive-disclosure-agents/)（スキルは自己完結にし、暗黙の読み順を前提にしない）
-- [Compositional Skill Routing](https://agentpatterns.ai/context-engineering/compositional-skill-routing/)（`description` で人が選べないスキルはエージェントも選べない。スキル数が少ないうちは、大規模向けの自動割り当ては使わない）
+- Progressive disclosure in the Agent Skills specification, and [Best practices for skill creators](https://agentskills.io/skill-creation/best-practices) (granularity, context, when to open supporting files, the verification loop)
+- [APM Composite Skills](https://docs.apm.orthg.nl/docs/composite-skills) (routing tables, do not copy components, do not create cycles, do not read everything at once)
+- [Progressive Disclosure for Layered Agent Definitions](https://agentpatterns.ai/patterns/agent-design/progressive-disclosure-agents/) (skills are self-contained and do not assume a hidden read order)
+- [Compositional Skill Routing](https://agentpatterns.ai/context-engineering/compositional-skill-routing/) (a skill a person cannot choose from `description` is one an agent cannot choose either; while the skill count is small, do not use large-scale automatic assignment)
