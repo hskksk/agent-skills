@@ -4,8 +4,9 @@ description: Draw a report's reasoning as a tagged diagram between the opening a
 license: MIT
 metadata:
   author: hskksk
-  version: 1.0.0
+  version: 1.9.0
 ---
+
 
 
 # Argument skeleton

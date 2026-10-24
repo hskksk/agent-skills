@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/hskksk/agent-skills/compare/v1.8.0...v1.9.0) (2026-10-24)
+
+
+### Features
+
+* add argument-skeleton skill ([50fdcec](https://github.com/hskksk/agent-skills/commit/50fdcec291598840007c75f31faa10923b25862e))
+
 # [1.8.0](https://github.com/hskksk/agent-skills/compare/v1.7.0...v1.8.0) (2026-10-17)
 
 
