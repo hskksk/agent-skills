@@ -22,6 +22,7 @@ npx skills add hskksk/agent-skills --skill japanese-writing
 
 | スキル | 説明（`SKILL.md` の `description`） |
 | --- | --- |
+| `argument-skeleton` | Draw a report's reasoning as a tagged diagram between the opening and the first section, and return that diagram plus one caption naming a chain, parallel supports, or a contrast. Use when two or more claims must be related, including branches that were ruled out. Do not use it for a single claim, a comparison table, or a landscape that is not an argument. |
 | `how-to-survey` | Define the survey question and scope, build a search plan, and systematically collect evidence and sources while judging sources on the web. Use when conducting a systematic web-based survey of a topic. |
 | `japanese-writing` | 日本語の技術文・レポート・ドキュメントを書く、英訳する、推敲する。直訳調・官公庁調・AI構文（〜と考えられます、見ていきましょう）を直す。Use when writing or revising Japanese technical prose. |
 | `survey-report` | Route a research request to Phase 1 (exploratory) or Phase 2 (verification and structuring), choose front, middle, or rear weighting and a reader level, and write the report. Deliver a map plus three questions, or a conclusion tied to its evidence. Use when routing research requests and writing landscape or decision-oriented survey reports. |
