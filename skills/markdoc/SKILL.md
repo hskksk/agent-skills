@@ -4,8 +4,9 @@ description: Write Markdoc with its tags, attributes, annotations, variables, fu
 license: MIT
 metadata:
   author: hskksk
-  version: 1.0.0
+  version: 1.10.0
 ---
+
 
 
 # Write Markdoc

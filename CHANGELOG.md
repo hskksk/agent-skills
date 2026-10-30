@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/hskksk/agent-skills/compare/v1.9.0...v1.10.0) (2026-10-30)
+
+
+### Features
+
+* add markdoc skill ([89eb2c0](https://github.com/hskksk/agent-skills/commit/89eb2c08f5f9f6c20a78e93a84d2079ba32007ed))
+
 # [1.9.0](https://github.com/hskksk/agent-skills/compare/v1.8.0...v1.9.0) (2026-10-24)
 
 
