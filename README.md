@@ -31,6 +31,7 @@ npx skills add hskksk/agent-skills --skill japanese-writing
 | `pr-steward` | After a PR is opened, delegate watching and small fixes to a cheaper subagent. Autonomously handle lint, format, and clear CI fixes, and escalate design judgment or scope-expanding comments to the parent as a structured handoff. Use when a parent agent has opened a PR and should delegate babysitting without burning the main context on trivial follow-ups. |
 | `duckdb-sql` | Write analytical DuckDB SQL. Choose Friendly SQL, nested types, direct file queries, PIVOT, and macros. Use when writing or reviewing analytical DuckDB SQL. |
 | `d2-diagram` | Write a D2 diagram with elk, a d2-legend, fully qualified keys, a markdown title, and ${} substitution. Use when writing or fixing a D2 diagram. |
+| `markdoc` | Write Markdoc with its tags, attributes, annotations, variables, functions, conditionals, and partials, and return that source. Use when writing or revising a Markdoc document. Do not use it for a host's custom tag set, a validation command, or the output language. |
 
 ## スキルの置き方
 
