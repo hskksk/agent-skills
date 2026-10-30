@@ -14,8 +14,8 @@
     },
     {
       "title": "Query and diagram",
-      "description": "Skills for analytical SQL and diagram syntax.",
-      "skills": ["duckdb-sql", "d2-diagram"]
+      "description": "Skills for analytical SQL, diagrams, and Markdoc.",
+      "skills": ["duckdb-sql", "d2-diagram", "markdoc"]
     }
   ]
 }
