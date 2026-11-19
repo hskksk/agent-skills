@@ -7,7 +7,7 @@
     "release": "semantic-release"
   },
   "dependencies": {
-    "yaml": "2.9.0"
+    "yaml": "2.9.1"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
