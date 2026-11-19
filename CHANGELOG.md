@@ -1,3 +1,5 @@
+## [1.10.1](https://github.com/hskksk/agent-skills/compare/v1.10.0...v1.10.1) (2026-11-19)
+
 # [1.10.0](https://github.com/hskksk/agent-skills/compare/v1.9.0...v1.10.0) (2026-10-30)
 
 
